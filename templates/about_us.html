@@ -1,10 +1,207 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre nosotros - Come y Calla</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .welcome-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #d9230f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+        .content {
+            padding: 40px 0;
+        }
+        .btn-primary {
+            background-color: #d9230f;
+            border-color: #d9230f;
+            padding: 10px 30px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .btn-primary:hover {
+            background-color: #b51d0d;
+            border-color: #b51d0d;
+        }
+        .highlight {
+            color: #d9230f;
+            font-weight: bold;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .food-image {
+            width: 280px;
+            height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .text-content {
+            text-align: justify;
+            padding: 0 20px;
+        }
+        .smaller-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .btn-container {
+            text-align: center;
+        }
+        .full-width-section {
+            margin-top: 50px;
+            padding: 80px 0;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(210, 35, 15, 0.7);
+        }
+        .section-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            z-index: 1;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        @media (max-width: 1199px) {
+            .food-image {
+                width: 240px;
+                height: 180px;
+            }
+        }
+        @media (max-width: 991px) {
+            .food-image {
+                width: 200px;
+                height: 150px;
+            }
+            .text-content {
+                padding: 0 10px;
+            }
+            .full-width-section {
+                background-attachment: scroll;
+            }
+        }
+        @media (max-width: 767px) {
+            .food-image {
+                width: 100%;
+                max-width: 300px;
+                height: 200px;
+            }
+            .image-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .welcome-text, .subtitle {
+                text-align: center;
+            }
+            .full-width-section {
+                padding: 50px 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container content">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="welcome-text">BIENVENID@ A COME Y CALLA</div>
+                <h1 class="subtitle">Un Buffet Libre Español de Sabores Frescos y Variados.</h1>
+                
+                <div class="text-content">
+                    <p class="smaller-text">
+                        COME Y CALLA es un buffet libre español nacido de la pasión de Daniel, Javier y Pablo por la auténtica gastronomía de nuestra tierra. Con el deseo de compartir los sabores más emblemáticos de España, han creado un espacio donde la tradición y la calidad se encuentran en cada plato.
+                        Desde una suculenta paella valenciana hasta el inconfundible sabor del jamón ibérico, pasando por guisos caseros, tortillas doradas al punto perfecto y postres tradicionales como la crema catalana, cada bocado es un homenaje a la riqueza culinaria española.
+                    </p>
+                    
+                    <p class="smaller-text mt-4">
+                        ¡El paraíso para los amantes de la buena mesa! En COME Y CALLA, te invitamos a disfrutar de un festín de sabores donde la tradición, la frescura y la variedad se combinan para ofrecerte una experiencia gastronómica inolvidable.
+                    </p>
+                </div>
+                
+                <div class="btn-container mt-4">
+                    <a href="#" class="btn btn-primary">Saber más</a>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="image-container">
+                    <img src="{% static 'restaurante/images/paella.jpg' %}" alt="Paella valenciana" class="food-image">
+                    <img src="{% static 'restaurante/images/jamon.jpg' %}" alt="Jamón ibérico" class="food-image">
+                </div>
+                <div class="image-container">
+                    <img src="{% static 'restaurante/images/tapas.jpg' %}" alt="Tapas variadas" class="food-image">
+                    <img src="{% static 'restaurante/images/postres.jpg' %}" alt="Postres tradicionales" class="food-image">
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Nueva sección a todo ancho con imagen de fondo -->
+    <div class="full-width-section">
+        <div class="overlay"></div>
+        <div class="section-content">
+            <h2 class="section-title">Descubre la Magia Española en COME Y CALLA
+                <br></h2>
+            
+            <div class="text-content">
+                <p class="smaller-text">
+                    Nuestro buffet libre Español no solo ofrece una variedad incomparable de platos, sino que también destaca por su compromiso con la comida fresca y saludable. Utilizamos ingredientes de alta calidad y nos aseguramos de que cada plato se prepare con cuidado y atención a los detalles. Ya seas un amante de la comida vegana, vegetariana o carnívora, encontrarás opciones que satisfagan tus preferencias y necesidades dietéticas.
+                </p>
+                
+                <p class="smaller-text mt-4">
+                    ¡Te esperamos con los brazos abiertos para ofrecerte una experiencia que deleitará tus sentidos y te dejará con ganas de más!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
