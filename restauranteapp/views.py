@@ -7,3 +7,6 @@ def go_home(request):
 
 def go_navbar(request):
     return render(request, 'navbar.html')
+
+def go_about_us(request):
+    return render(request, 'about_us.html')

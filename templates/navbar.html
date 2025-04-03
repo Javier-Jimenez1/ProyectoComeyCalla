@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,22 +84,22 @@
 <body>
     <nav class="navbar navbar-expand-lg barra-navegacion">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'restauranteapp/static/logoComeyCalla' %}" alt="Buffet Libre Logo" class="logo">
-            </a>
+{#            <a class="navbar-brand" href="{% url 'index' %}">#}
+                <img src="{% static 'logoComeyCalla.png' %}" alt="Buffet Libre Logo" class="logo">
+{#            </a>#}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="menuPrincipal">
                 <ul class="navbar-nav mx-auto menu-central">
-                    <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'index' %}">INICIO</a></li>
+{#                    <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'index' %}">INICIO</a></li>#}
                     <li class="nav-item"><a class="nav-link enlace-menu" href="#">SOBRE NOSOTROS</a></li>
                     <li class="nav-item"><a class="nav-link enlace-menu" href="#">NUESTRA CARTA</a></li>
                     <li class="nav-item"><a class="nav-link enlace-menu" href="#">CONTACTO</a></li>
                 </ul>
                 <div class="d-flex">
-                    <a href="{% url 'login' %}" class="btn boton-login">Iniciar sesión</a>
-                    <a href="{% url 'register' %}" class="btn boton-registro">Registrarse</a>
+{#                    <a href="{% url 'login' %}" class="btn boton-login">Iniciar sesión</a>#}
+{#                    <a href="{% url 'register' %}" class="btn boton-registro">Registrarse</a>#}
                 </div>
             </div>
         </div>
