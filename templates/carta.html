@@ -1,10 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestra carta</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
+        font-family: sans-serif;
+      }
 
-</body>
+      .hero-container {
+        background-image: url("{% static 'images/fondo.png' %}");
+        background-size: cover;
+        background-position: center;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-attachment: fixed; /* Efecto parallax */
+        transition: background-position 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .hero-container:hover {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); /* Sombra más grande al pasar el ratón */
+      }
+
+      .hero-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4); /* Capa oscura sobre la imagen */
+        z-index: 1;
+      }
+
+      .content-box {
+        background-color: #ffd900; /* Fondo amarillo sólido */
+        padding: 2rem 2.5rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 90%;
+        max-width: 500px;
+        animation: fadeIn 1s ease-out; /* Animación de entrada */
+      }
+
+      .comeycalla {
+        font-size: 2.5rem; /* Aumentado el tamaño */
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.3rem;
+        animation: slideIn 1.2s ease-out; /* Animación del texto */
+      }
+
+      .españa {
+        font-size: 1.4rem;
+        color: #444;
+        margin-bottom: 0.5rem;
+        animation: slideIn 1.5s ease-out;
+      }
+
+      .buffet-text {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #d10000;
+        margin-bottom: 1rem;
+        animation: slideIn 1.8s ease-out;
+      }
+
+      .welcome-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.3rem;
+        animation: slideIn 2s ease-out;
+      }
+
+      .tagline {
+        font-style: italic;
+        font-size: 1.1rem;
+        color: #666;
+        animation: slideIn 2.3s ease-out;
+      }
+
+      /* Animación de entrada de los textos */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .menu-images {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 6rem 1rem 3rem;
+        background-color: #f8f9fa;
+      }
+
+      .menu-images img {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .menu-images img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      @media (min-width: 768px) {
+        .menu-images {
+          flex-wrap: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-container">
+      <div class="content-box">
+        <h1 class="comeycalla">Nuestra carta</h1>
+        <h2 class="españa">Buffet Libre de Comida Española</h2>
+        <p class="buffet-text">
+          Tapas, Paellas, Tortillas, Croquetas... ¡y mucho más!
+        </p>
+        <p class="welcome-text">
+          ¡Disfruta sin límites el auténtico sabor de España!
+        </p>
+        <p class="tagline">Tradición, sabor y variedad en cada bocado</p>
+      </div>
+    </div>
+
+    <div class="menu-images">
+      <img src="{% static 'images/1.jpg' %}" alt="Carta por delante" />
+      <img src="{% static 'images/2.jpg' %}" alt="Carta por detrás" />
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
