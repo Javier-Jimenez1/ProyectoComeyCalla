@@ -5,9 +5,6 @@ from django.shortcuts import render
 def go_home(request):
     return render(request, 'home.html')
 
-def go_navbar(request):
-    return render(request, 'navbar.html')
-
 def go_about_us(request):
     return render(request, 'about_us.html')
 

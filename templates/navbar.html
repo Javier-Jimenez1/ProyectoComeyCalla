@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Buffet Libre{% endblock %}</title>
+    <title>{% block title %}Come y Calla{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -98,8 +98,8 @@
                     <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'contacto_page' %}">CONTACTO</a></li>
                 </ul>
                 <div class="d-flex">
-                    <a href="{% url 'login_page' %}" class="btn boton-login">Iniciar sesión</a>
-                    <a href="{% url 'register_page' %}" class="btn boton-registro">Registrarse</a>
+                    <a href="{% url 'login_page' %}" class="btn btn-outline-dark me-2">Iniciar sesión</a>
+                    <a href="{% url 'register_page' %}" class="btn btn-danger">Registrarse</a>
                 </div>
             </div>
         </div>

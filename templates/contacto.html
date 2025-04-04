@@ -5,12 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - COME Y CALLA</title>
-    <!-- Bootstrap CSS -->
+    <title>Contacto - Come y Calla</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -19,12 +16,13 @@
         }
         
         .header {
-            background-color: rgba(255, 217, 0, 0.6);
+            background-color: rgba(255, 217, 0);
             color: rgb(0, 0, 0);
             padding: 40px 0;
             text-align: center;
             margin-bottom: 40px;
-        }
+            border: 5px solid #d10000;
+
         
         .title {
             font-size: 2rem;
@@ -58,7 +56,7 @@
         .info-card {
             height: 100%;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             color: white;
@@ -128,7 +126,9 @@
     </style>
 </head>
 <body>
-    <!-- Cabecera -->
+
+{% include "navbar.html" %}
+
     <div class="header">
         <div class="container">
             <h1 class="title">COME Y CALLA</h1>
@@ -136,10 +136,8 @@
         </div>
     </div>
 
-    <!-- Contenido principal -->
     <div class="contact-container">
         <div class="row">
-            <!-- Mapa (izquierda) -->
             <div class="col-lg-6">
                 <div class="map-wrapper">
                     <iframe class="map-frame" 
@@ -150,7 +148,6 @@
                 </div>
             </div>
             
-            <!-- Información (derecha) -->
             <div class="col-lg-6">
                 <div class="info-card">
                     <h2 class="info-title">Información de contacto</h2>
@@ -187,7 +184,8 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    {% include "footer.html" %}
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
