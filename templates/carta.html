@@ -10,6 +10,8 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
       body {
         margin: 0;
@@ -30,6 +32,7 @@
         position: relative;
         background-attachment: fixed;
         transition: background-position 0.3s ease, box-shadow 0.3s ease;
+        padding: 2rem 0;
       }
 
       .hero-container:hover {
@@ -48,10 +51,11 @@
       }
 
       .content-box {
-        background-color: #ffd900;
+        background: rgb(255, 217, 0);
+        border: 3px solid #d10000;
         padding: 2rem 2.5rem;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(255, 217, 0, 0.6);
         position: relative;
         z-index: 2;
         text-align: center;
@@ -96,6 +100,12 @@
         font-size: 1.1rem;
         color: #666;
         animation: slideIn 2.3s ease-out;
+      }
+
+      .content-divider {
+        border-top: 2px solid #d10000;
+        margin: 1.5rem auto;
+        width: 50%;
       }
 
       @keyframes fadeIn {
@@ -159,6 +169,7 @@
         <p class="buffet-text">
           Tapas, Paellas, Tortillas, Croquetas... ¡y mucho más!
         </p>
+        <div class="content-divider"></div>
         <p class="welcome-text">
           ¡Disfruta sin límites el auténtico sabor de España!
         </p>
