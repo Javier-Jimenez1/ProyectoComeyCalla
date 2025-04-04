@@ -10,3 +10,9 @@ def go_navbar(request):
 
 def go_about_us(request):
     return render(request, 'about_us.html')
+
+def go_carta(request):
+    return render(request, 'carta.html')
+
+def go_contacto(request):
+    return render(request, 'contacto.html')
