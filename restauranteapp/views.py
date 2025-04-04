@@ -16,3 +16,9 @@ def go_carta(request):
 
 def go_contacto(request):
     return render(request, 'contacto.html')
+
+def go_registro(request):
+    return render(request, 'registro.html')
+
+def go_login(request):
+    return render(request, 'login.html')
