@@ -1,0 +1,98 @@
+/* Estilos generales del footer */
+.ttlwok-footer {
+    position: relative;
+    background-image: url("../img/fondo_footer.jpg"); /* Ruta relativa desde CSS */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 0 3rem;
+    margin-top: 3rem;
+    border-top: 3px solid #fff;
+}
+
+.footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Caja de contenido del footer */
+.footer-content-box {
+    background: rgb(255, 217, 0);
+    border: 3px solid #d10000;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    top: -140px;
+    box-shadow: 0 0 30px rgba(255, 217, 0, 0.6);
+    border-radius: 10px;
+    z-index: 2;
+    color: black;
+}
+
+/* Logo */
+.ttlwok-logo {
+    max-width: 200px;
+    margin-bottom: 1rem;
+}
+
+/* Textos */
+.ttlwok-body {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: black;
+}
+
+.ttlwok-subheader {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: black;
+}
+
+.ttlwok-divider {
+    border-top: 2px solid #d10000;
+    margin: 1.5rem auto;
+    width: 50%;
+}
+
+.ttlwok-contact {
+    font-size: 1.2rem;
+    color: black;
+    font-weight: bold;
+}
+
+/* Iconos sociales */
+.social-icons {
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: black;
+    margin: 0 10px;
+    font-size: 2rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #d10000;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .footer-content-box {
+        padding: 1.5rem;
+        width: 90%;
+        top: -100px;
+    }
+    .ttlwok-footer {
+        padding: 3.5rem 0 2rem;
+        margin-top: 2rem;
+    }
+}

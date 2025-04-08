@@ -1,0 +1,158 @@
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.welcome-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #d9230f;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+.content {
+    padding: 40px 0;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #d9230f;
+    border-color: #d9230f;
+    padding: 10px 30px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #b51d0d;
+    border-color: #b51d0d;
+}
+
+.highlight {
+    color: #d9230f;
+    font-weight: bold;
+}
+
+/* Imágenes */
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.food-image {
+    width: 280px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Texto y secciones */
+.text-content {
+    text-align: justify;
+    padding: 0 20px;
+}
+
+.smaller-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.btn-container {
+    text-align: center;
+}
+
+/* Sección de fondo completo */
+.full-width-section {
+    margin-top: 50px;
+    padding: 80px 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(210, 35, 15, 0.7);
+}
+
+.section-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    z-index: 1;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+/* Media Queries */
+@media (max-width: 1199px) {
+    .food-image {
+        width: 240px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 991px) {
+    .food-image {
+        width: 200px;
+        height: 150px;
+    }
+    .text-content {
+        padding: 0 10px;
+    }
+    .full-width-section {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 767px) {
+    .food-image {
+        width: 100%;
+        max-width: 300px;
+        height: 200px;
+    }
+    .image-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .welcome-text, .subtitle {
+        text-align: center;
+    }
+    .full-width-section {
+        padding: 50px 0;
+    }
+}
