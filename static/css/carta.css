@@ -1,12 +1,10 @@
-{% load static %}
-
 /* Estilos generales */
 body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
     position: relative;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* Hero Section */

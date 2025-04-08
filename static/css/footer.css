@@ -1,7 +1,12 @@
+/* Estilos generales */
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 /* Estilos generales del footer */
 .ttlwok-footer {
     position: relative;
-    background-image: url("../img/fondo_footer.jpg"); /* Ruta relativa desde CSS */
+    background-image: url("../img/fondo_footer.jpg");
     background-size: cover;
     background-position: center;
     color: white;
@@ -43,10 +48,12 @@
 
 /* Textos */
 .ttlwok-body {
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.2rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     color: black;
+    font-weight: 500;
 }
 
 .ttlwok-subheader {
