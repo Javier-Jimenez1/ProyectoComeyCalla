@@ -8,7 +8,7 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     letter-spacing: 2px;
-    color: #d9230f;
+    color: rgb(214, 34, 33);
     margin-bottom: 20px;
     text-align: center;
 }
@@ -25,22 +25,26 @@ body {
     padding: 40px 0;
 }
 
-/* Botones */
-.btn-primary {
-    background-color: #d9230f;
-    border-color: #d9230f;
+/* Botón Saber más */
+.btn-container .btn-primary {
+    background-color: rgb(214, 34, 33) !important;
+    border-color: rgb(214, 34, 33) !important;
+    color: white !important;
     padding: 10px 30px;
     font-weight: bold;
     margin-top: 20px;
+    transition: all 0.3s ease;
+    text-align: left;
 }
 
-.btn-primary:hover {
-    background-color: #b51d0d;
-    border-color: #b51d0d;
+.btn-container .btn-primary:hover {
+    background-color: rgb(242, 204, 33) !important;
+    border-color: rgb(242, 204, 33) !important;
+    color: black !important;
 }
 
 .highlight {
-    color: #d9230f;
+    color: rgb(214, 34, 33);
     font-weight: bold;
 }
 
@@ -70,10 +74,6 @@ body {
 .smaller-text {
     font-size: 0.95rem;
     line-height: 1.5;
-}
-
-.btn-container {
-    text-align: center;
 }
 
 /* Sección de fondo completo */
@@ -117,6 +117,9 @@ body {
     text-align: center;
     font-size: 1.8rem;
 }
+
+/* Botón Saber más */
+
 
 /* Media Queries */
 @media (max-width: 1199px) {

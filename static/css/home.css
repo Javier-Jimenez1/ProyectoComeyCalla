@@ -1,9 +1,16 @@
 .bg-image {
-    background-image: url("../img/video_fondo.png");
+    background-image: url("../img/fondo_home.jpg");
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     height: 70vh;
     position: relative;
+    animation: fadeIn 1.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .overlay {
@@ -30,7 +37,7 @@
 .centered-text h1 {
     font-family: "Georgia", serif;
     font-size: 3.5rem;
-    color: #ffd700;
+    color: rgb(242, 204, 33);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -72,7 +79,7 @@
 
 .text h3 {
     font-size: 2rem;
-    color: #d9534f;
+    color: rgb(214, 34, 33);
     font-family: "Georgia", serif;
     text-align: center;
     margin-bottom: 15px;
@@ -84,7 +91,7 @@
 }
 
 .text:hover {
-    color: #d9534f;
+    color: rgb(214, 34, 33);
 }
 
 .img-fluid.rounded {

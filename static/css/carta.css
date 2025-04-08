@@ -38,11 +38,11 @@ body {
 }
 
 .content-box {
-    background: rgb(255, 217, 0);
-    border: 3px solid #d10000;
+    background: rgb(242, 204, 33);
+    border: 3px solid rgb(214, 34, 33);
     padding: 2rem 2.5rem;
     border-radius: 10px;
-    box-shadow: 0 0 30px rgba(255, 217, 0, 0.6);
+    box-shadow: 0 0 30px rgba(242, 204, 33, 0.6);
     position: relative;
     z-index: 2;
     text-align: center;
@@ -70,7 +70,7 @@ body {
 .buffet-text {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #d10000;
+    color: rgb(214, 34, 33);
     margin-bottom: 1rem;
     animation: slideIn 1.8s ease-out;
 }
@@ -91,7 +91,7 @@ body {
 }
 
 .content-divider {
-    border-top: 2px solid #d10000;
+    border-top: 2px solid rgb(214, 34, 33);
     margin: 1.5rem auto;
     width: 50%;
 }

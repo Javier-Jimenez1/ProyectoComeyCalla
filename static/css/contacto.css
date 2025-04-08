@@ -24,14 +24,14 @@ body {
 }
 
 .header-content-box {
-    background: rgb(255, 217, 0);
-    border: 3px solid #d10000;
+    background: rgb(242, 204, 33);
+    border: 3px solid rgb(214, 34, 33);
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
     position: relative;
-    box-shadow: 0 0 30px rgba(255, 217, 0, 0.6);
+    box-shadow: 0 0 30px rgba(242, 204, 33, 0.6);
     border-radius: 10px;
     z-index: 2;
     color: black;
@@ -50,7 +50,7 @@ body {
 }
 
 .header-divider {
-    border-top: 2px solid #d10000;
+    border-top: 2px solid rgb(214, 34, 33);
     margin: 1.5rem auto;
     width: 50%;
 }
@@ -96,7 +96,7 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 25px;
-    color: #d10000;
+    color: rgb(214, 34, 33);
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
@@ -107,7 +107,7 @@ body {
 }
 
 .info-icon {
-    color: #d10000;
+    color: rgb(214, 34, 33);
     font-size: 1.5rem;
     margin-right: 15px;
     margin-top: 3px;
@@ -116,7 +116,7 @@ body {
 .info-label {
     font-weight: bold;
     margin-bottom: 5px;
-    color: #d10000;
+    color: rgb(214, 34, 33);
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
@@ -126,8 +126,8 @@ body {
 
 /* Botón */
 .btn-contact {
-    background-color: #d10000;
-    border-color: #d10000;
+    background-color: rgb(214, 34, 33);
+    border-color: rgb(214, 34, 33);
     padding: 10px 25px;
     font-weight: bold;
     margin-top: 20px;

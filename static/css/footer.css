@@ -6,7 +6,7 @@ body {
 /* Estilos generales del footer */
 .ttlwok-footer {
     position: relative;
-    background-image: url("../img/fondo_footer.jpg");
+    background-image: url("../img/footer_img.jpg");
     background-size: cover;
     background-position: center;
     color: white;
@@ -21,23 +21,24 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Caja de contenido del footer */
 .footer-content-box {
-    background: rgb(255, 217, 0);
-    border: 3px solid #d10000;
-    padding: 2rem;
-    max-width: 800px;
+    background: rgb(242, 204, 33);
+    border: 1px solid rgb(220, 218, 221);
+    padding: 1.5rem;
+    max-width: 600px;
     margin: 0 auto;
     text-align: center;
     position: relative;
     top: -140px;
-    box-shadow: 0 0 30px rgba(255, 217, 0, 0.6);
-    border-radius: 10px;
+    border-radius: 0;
     z-index: 2;
     color: black;
+    outline: 1px solid rgb(220, 218, 221);
+    outline-offset: 10px;
 }
 
 /* Logo */
@@ -64,7 +65,7 @@ body {
 }
 
 .ttlwok-divider {
-    border-top: 2px solid #d10000;
+    border-top: 2px solid rgb(214, 34, 33);
     margin: 1.5rem auto;
     width: 50%;
 }
@@ -88,7 +89,7 @@ body {
 }
 
 .social-icons a:hover {
-    color: #d10000;
+    color: rgb(214, 34, 33);
 }
 
 /* Media Queries */
