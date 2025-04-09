@@ -1,5 +1,8 @@
 /* Estilos generales */
 body {
+    background:
+        url('../img/fondo_textura.jpeg') fixed;
+    background-size: cover;
     margin: 0;
     padding: 0;
     min-height: 100vh;
