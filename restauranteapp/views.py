@@ -19,3 +19,6 @@ def go_registro(request):
 
 def go_login(request):
     return render(request, 'login.html')
+
+def go_gestionar(request):
+    return render(request, 'gestionar.html')
