@@ -53,49 +53,25 @@ body {
 
 .comeycalla {
     font-size: 3.2rem;
-    font-weight: 700;
-    color: white;
+    color: black;
     margin-bottom: 0.2rem;
     line-height: 1.1;
     animation: slideIn 1.2s ease-out;
 }
 
-.españa {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 1.2rem;
-    line-height: 1.3;
-    animation: slideIn 1.5s ease-out;
-}
-
 .buffet-text {
     font-size: 1.4rem;
     font-weight: 500;
-    color: white;
+    color: black;
     margin-bottom: 1.5rem;
     line-height: 1.4;
     animation: slideIn 1.8s ease-out;
 }
 
-.content-divider {
-    border-top: 2px solid white;
-    margin: 1.8rem auto;
-    width: 40%;
-}
-
-.welcome-text {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: white;
-    margin-bottom: 0.5rem;
-    animation: slideIn 2s ease-out;
-}
-
 .tagline {
     font-style: italic;
     font-size: 1.1rem;
-    color: rgba(255,255,255,0.9);
+    color: black;
     animation: slideIn 2.3s ease-out;
 }
 

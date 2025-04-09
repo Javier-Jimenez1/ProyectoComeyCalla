@@ -7,7 +7,7 @@ body {
 /* Header con imagen de fondo */
 .header-container {
     position: relative;
-    background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-image: url('../img/container_bg.jpg');
     background-size: cover;
     background-position: center;
     padding: 6rem 0 4rem;
@@ -24,35 +24,40 @@ body {
 }
 
 .header-content-box {
-    background: rgb(242, 204, 33);
-    border: 3px solid rgb(214, 34, 33);
-    padding: 2rem;
-    max-width: 800px;
+    background: rgb(214, 34, 33); /* Rojo igual que la carta */
+    border: none;
+    padding: 2.5rem 3rem;
+    max-width: 650px;
     margin: 0 auto;
     text-align: center;
     position: relative;
-    box-shadow: 0 0 30px rgba(242, 204, 33, 0.6);
-    border-radius: 10px;
     z-index: 2;
-    color: black;
+    color: black; /* Texto negro como en la carta */
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+    animation: fadeIn 1s ease-out;
 }
 
 .title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+    font-size: 3.2rem;
+    color: black;
+    margin-bottom: 0.2rem;
+    line-height: 1.1;
+    animation: slideIn 1.2s ease-out;
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    opacity: 0.9;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: black;
     margin-bottom: 1.5rem;
+    line-height: 1.4;
+    animation: slideIn 1.8s ease-out;
 }
 
 .header-divider {
-    border-top: 2px solid rgb(214, 34, 33);
-    margin: 1.5rem auto;
-    width: 50%;
+    display: none; /* Ocultamos el divisor original */
 }
 
 /* Contenedor principal */
@@ -80,7 +85,7 @@ body {
 .info-card {
     height: 100%;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+                url('../img/card_bg.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -137,6 +142,22 @@ body {
 .btn-contact:hover {
     background-color: #bb6060;
     border-color: #bb6060;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(25px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Media Queries */
