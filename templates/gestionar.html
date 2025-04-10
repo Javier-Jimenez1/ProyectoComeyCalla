@@ -1,23 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Página de Roles</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Roles - Come y Calla</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/gestionar.css' %}">
-  </head>
-  <body style="background-image: url('{{ background_url }}');">
-    <h1 class="text-center fw-bold">¿Qué rol tienes?</h1>
+</head>
+<body>
 
-    <div class="btn-wrapper d-flex justify-content-center gap-5">
-      <a href="{#  #}" class="btn btn-primary btn-custom">Camarero</a>
-      <a href="{#  #}" class="btn btn-success btn-custom">Cocinero</a>
-      <a href="{#  #}" class="btn btn-danger btn-custom">Administrador</a>
-    </div>
-  </body>
+    {% include "navbar.html" %}
+
+    <main class="container-main">
+        <div class="role-selection">
+            <h1>¿Bienvenido, cuál es tu rol?</h1>
+
+            <div class="buttons-container">
+                <a href="#" class="role-btn camarero-btn">
+                    <i class="fas fa-utensils"></i>
+                    <span>Camarero</span>
+                </a>
+                <a href="#" class="role-btn cocinero-btn">
+                    <i class="fas fa-fire"></i>
+                    <span>Cocinero</span>
+                </a>
+                <a href="#" class="role-btn admin-btn">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Administrador</span>
+                </a>
+            </div>
+        </div>
+    </main>
+    <br>
+
+    {% include "footer.html" %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
 </html>

@@ -1,18 +1,15 @@
 /* Estilos generales */
 body {
-    background:
-        url('../img/fondo_textura.jpeg') fixed;
-    background-size: cover;
     margin: 0;
     padding: 0;
     min-height: 100vh;
     position: relative;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* Hero Section*/
 .hero-container {
-    background-image: url("../img/fondo_carta.webp");
+    background-image: url("../img/fondo_carta.jpg");
     background-size: cover;
     background-position: center;
     height: 60vh;

@@ -1,60 +1,154 @@
+/* Estilos generales */
 body {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-image: url("../img/fondo.jpg"); /* este lo puedes cambiar en la plantilla con un context variable si es remoto */
-  background-repeat: repeat;
-  background-position: center;
-  color: white;
-  font-family: "Arial", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/gestion_bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in-out forwards;
 }
 
-h1 {
-  margin-bottom: 40px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: rgb(242, 204, 33);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-.btn-wrapper {
-  width: 80vw;
+.container-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
-.btn-custom {
-  font-size: 1.8rem;
-  height: 150px;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  text-transform: uppercase;
-  font-weight: bold;
+/* Estilos para la selección de rol */
+.role-selection {
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.6s ease-out forwards;
 }
 
-.btn-custom:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.btn {
-  background-color: rgb(214, 34, 33);
-  border: none;
+.role-selection h1 {
+    margin-bottom: 2.5rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #F2CC21;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
 }
 
-.btn:hover {
-  background-color: rgba(50, 50, 50);
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
 }
 
-.d-flex {
-  display: flex;
+.role-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    height: 180px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid transparent;
 }
 
-.gap-5 {
-  gap: 25px;
+.role-btn i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.btn-wrapper button {
-  flex: 1;
+/* Botón Camarero */
+.camarero-btn {
+    background-color: #007BFF;
+}
+
+.camarero-btn:hover {
+    transform: translateY(-5px);
+    border-color: #0056b3;
+}
+
+/* Botón Cocinero */
+.cocinero-btn {
+    background-color: #28A745;
+}
+
+.cocinero-btn:hover {
+    transform: translateY(-5px);
+    border-color: #1e7e34;
+}
+
+/* Botón Administrador */
+.admin-btn {
+    background-color: #DC3545;
+}
+
+.admin-btn:hover {
+    transform: translateY(-5px);
+    border-color: #bd2130;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .role-selection h1 {
+        font-size: 2.2rem;
+    }
+
+    .role-btn {
+        width: 220px;
+        height: 160px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .role-selection {
+        padding: 1.5rem;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .role-btn {
+        width: 100%;
+        max-width: 300px;
+        height: 140px;
+    }
 }
