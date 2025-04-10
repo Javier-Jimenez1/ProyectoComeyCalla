@@ -1,0 +1,60 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../img/fondo.jpg"); /* este lo puedes cambiar en la plantilla con un context variable si es remoto */
+  background-repeat: repeat;
+  background-position: center;
+  color: white;
+  font-family: "Arial", sans-serif;
+}
+
+h1 {
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgb(242, 204, 33);
+}
+
+.btn-wrapper {
+  width: 80vw;
+}
+
+.btn-custom {
+  font-size: 1.8rem;
+  height: 150px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.btn-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  background-color: rgb(214, 34, 33);
+  border: none;
+}
+
+.btn:hover {
+  background-color: rgba(50, 50, 50);
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-5 {
+  gap: 25px;
+}
+
+.btn-wrapper button {
+  flex: 1;
+}
