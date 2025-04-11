@@ -129,21 +129,6 @@ body {
     margin: 0;
 }
 
-/* Botón */
-.btn-contact {
-    background-color: rgb(214, 34, 33);
-    border-color: rgb(214, 34, 33);
-    padding: 10px 25px;
-    font-weight: bold;
-    margin-top: 20px;
-    align-self: flex-start;
-}
-
-.btn-contact:hover {
-    background-color: #bb6060;
-    border-color: #bb6060;
-}
-
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
