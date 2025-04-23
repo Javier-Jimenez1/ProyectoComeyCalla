@@ -122,4 +122,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # USUARIOS DEL SISTEMA
-AUTH_USER_MODEL = 'restauranteapp.Usuario'
+# AUTH_USER_MODEL = 'restauranteapp.Usuario'
