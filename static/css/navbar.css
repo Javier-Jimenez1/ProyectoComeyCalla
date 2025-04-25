@@ -18,7 +18,7 @@ body {
     transform: scale(1.05);
 }
 
-.menu-central .enlace-menu {
+.menu-principal .enlace-menu {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 1.2rem;
@@ -31,12 +31,12 @@ body {
     margin: 0 10px;
 }
 
-.menu-central .enlace-menu:hover {
+.menu-principal .enlace-menu:hover {
     color: rgb(214, 34, 33);
     transform: translateY(-3px);
 }
 
-.menu-central .enlace-menu::after {
+.menu-principal .enlace-menu::after {
     content: "";
     position: absolute;
     width: 0;
@@ -47,7 +47,7 @@ body {
     transition: width 0.3s ease;
 }
 
-.menu-central .enlace-menu:hover::after {
+.menu-principal .enlace-menu:hover::after {
     width: 100%;
 }
 

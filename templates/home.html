@@ -14,17 +14,17 @@
 
     {% include "navbar.html" %}
 
-    <section class="hero-video">
-        <video autoplay muted loop id="bg-video">
+    <section class="seccion-video">
+        <video autoplay muted loop id="video-fondo">
             <source src="{% static 'vid/video_restaurante.mp4' %}" type="video/mp4">
         </video>
-        <div class="video-overlay"></div>
-        <div class="hero-content">
+        <div class="superposicion-video"></div>
+        <div class="contenido-principal">
             <h1>Come y Calla<br> Buffet</h1>
-            <p class="subtitle">Sabores tradicionales de España en cada bocado</p>
-            <div class="hero-buttons">
-                <a href="{% url 'contacto_page' %}" class="btn btn-primary btn-rojo">Llámanos</a>
-                <a href="{% url 'carta_page' %}" class="btn btn-outline btn-transparente">Ver Menú</a>
+            <p class="subtitulo">Sabores tradicionales de España en cada bocado</p>
+            <div class="botones-principales">
+                <a href="{% url 'contacto_page' %}" class="btn btn-primary boton-rojo">Llámanos</a>
+                <a href="{% url 'carta_page' %}" class="btn btn-outline boton-transparente">Ver Menú</a>
             </div>
         </div>
     </section>

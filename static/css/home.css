@@ -1,11 +1,11 @@
 /* ESTILOS GARANTIZADOS PARA LOS BOTONES */
-.hero-video {
+.seccion-video {
     position: relative;
     height: 100vh;
     overflow: hidden;
 }
 
-#bg-video {
+#video-fondo {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -15,7 +15,7 @@
     z-index: 0;
 }
 
-.video-overlay {
+.superposicion-video {
     position: absolute;
     top: 0;
     left: 0;
@@ -25,7 +25,7 @@
     z-index: 1;
 }
 
-.hero-content {
+.contenido-principal {
     position: relative;
     z-index: 2;
     display: flex;
@@ -38,7 +38,7 @@
     padding: 0 20px;
 }
 
-.hero-content h1 {
+.contenido-principal h1 {
     font-family: 'Poppins', sans-serif;
     font-size: 5rem;
     font-weight: 700;
@@ -46,21 +46,21 @@
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-.hero-content .subtitle {
+.contenido-principal .subtitulo {
     font-size: 1.8rem;
     margin-bottom: 3rem;
     font-weight: 400;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 
-.hero-buttons {
+.botones-principales {
     display: flex;
     gap: 20px;
     margin-top: 2rem;
 }
 
 /* BOTÓN ROJO (DEFINITIVO) */
-.btn-rojo {
+.boton-rojo {
     background-color: #D62221 !important;
     color: white !important;
     border: none !important;
@@ -80,14 +80,14 @@
     cursor: pointer !important;
 }
 
-.btn-rojo:hover {
+.boton-rojo:hover {
     background-color: #F2CC21 !important;
     color: black !important;
     transform: scale(1.05) !important;
 }
 
 /* BOTÓN TRANSPARENTE (DEFINITIVO) */
-.btn-transparente {
+.boton-transparente {
     background-color: transparent !important;
     color: white !important;
     border: 2px solid white !important;
@@ -107,7 +107,7 @@
     cursor: pointer !important;
 }
 
-.btn-transparente:hover {
+.boton-transparente:hover {
     background-color: rgba(50, 50, 50, 0.8) !important;
     color: white !important;
     border-color: transparent !important;
@@ -116,14 +116,14 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    .hero-buttons {
+    .botones-principales {
         flex-direction: column !important;
         gap: 15px !important;
         width: 100% !important;
         align-items: center !important;
     }
 
-    .btn-rojo, .btn-transparente {
+    .boton-rojo, .boton-transparente {
         width: 100% !important;
         max-width: 280px !important;
         padding: 16px 0 !important;

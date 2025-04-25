@@ -3,13 +3,13 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #000; /* Fondo temporal */
+    background-color: #000;
     color: white;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     opacity: 0;
-    animation: fadeIn 0.8s ease-in-out forwards;
+    animation: aparecer 0.8s ease-in-out forwards;
     position: relative;
 }
 
@@ -26,14 +26,14 @@ body::before {
     background-position: center;
     background-attachment: fixed;
     opacity: 0;
-    animation: bgFadeIn 1s ease-in-out forwards 0.15s;
+    animation: fondoAparecer 1s ease-in-out forwards 0.15s;
     z-index: -1;
 }
 
-@keyframes bgFadeIn {
+@keyframes fondoAparecer {
     from {
         opacity: 0;
-        transform: scale(1.05); /* Efecto zoom */
+        transform: scale(1.05);
     }
     to {
         opacity: 1;
@@ -41,7 +41,7 @@ body::before {
     }
 }
 
-@keyframes fadeIn {
+@keyframes aparecer {
     from {
         opacity: 0;
     }
@@ -50,7 +50,7 @@ body::before {
     }
 }
 
-.container-main {
+.contenedor-principal {
     flex: 1;
     display: flex;
     align-items: center;
@@ -59,7 +59,7 @@ body::before {
 }
 
 /* Estilos para la selección de rol */
-.role-selection {
+.seleccion-rol {
     text-align: center;
     width: 100%;
     max-width: 1200px;
@@ -67,10 +67,10 @@ body::before {
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    animation: slideUp 0.6s ease-out forwards;
+    animation: deslizarArriba 0.6s ease-out forwards;
 }
 
-@keyframes slideUp {
+@keyframes deslizarArriba {
     from {
         transform: translateY(30px);
         opacity: 0;
@@ -81,7 +81,7 @@ body::before {
     }
 }
 
-.role-selection h1 {
+.seleccion-rol h1 {
     margin-bottom: 2.5rem;
     font-size: 2.8rem;
     font-weight: 700;
@@ -90,14 +90,14 @@ body::before {
     letter-spacing: 1px;
 }
 
-.buttons-container {
+.contenedor-botones {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
 }
 
-.role-btn {
+.boton-rol {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,48 +114,48 @@ body::before {
     border: 3px solid transparent;
 }
 
-.role-btn i {
+.boton-rol i {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
 
 /* Botón Camarero */
-.camarero-btn {
+.boton-camarero {
     background-color: #007BFF;
 }
 
-.camarero-btn:hover {
+.boton-camarero:hover {
     transform: translateY(-5px);
     border-color: #0056b3;
 }
 
 /* Botón Cocinero */
-.cocinero-btn {
+.boton-cocinero {
     background-color: #28A745;
 }
 
-.cocinero-btn:hover {
+.boton-cocinero:hover {
     transform: translateY(-5px);
     border-color: #1e7e34;
 }
 
 /* Botón Administrador */
-.admin-btn {
+.boton-admin {
     background-color: #DC3545;
 }
 
-.admin-btn:hover {
+.boton-admin:hover {
     transform: translateY(-5px);
     border-color: #bd2130;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-    .role-selection h1 {
+    .seleccion-rol h1 {
         font-size: 2.2rem;
     }
 
-    .role-btn {
+    .boton-rol {
         width: 220px;
         height: 160px;
         font-size: 1.5rem;
@@ -163,16 +163,16 @@ body::before {
 }
 
 @media (max-width: 768px) {
-    .role-selection {
+    .seleccion-rol {
         padding: 1.5rem;
     }
 
-    .buttons-container {
+    .contenedor-botones {
         flex-direction: column;
         gap: 1.5rem;
     }
 
-    .role-btn {
+    .boton-rol {
         width: 100%;
         max-width: 300px;
         height: 140px;
