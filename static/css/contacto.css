@@ -4,8 +4,8 @@ body {
     background-color: #ffffff;
 }
 
-/* Header con imagen de fondo */
-.header-container {
+/* Cabecera con imagen de fondo */
+.contenedor-cabecera {
     position: relative;
     background-image: url('../img/container_bg.jpg');
     background-size: cover;
@@ -14,7 +14,7 @@ body {
     margin-bottom: 40px;
 }
 
-.header-overlay {
+.superposicion-cabecera {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,8 +23,8 @@ body {
     background: rgba(0, 0, 0, 0.6);
 }
 
-.header-content-box {
-    background: rgb(214, 34, 33); /* Rojo igual que la carta */
+.caja-contenido-cabecera {
+    background: rgb(214, 34, 33);
     border: none;
     padding: 2.5rem 3rem;
     max-width: 650px;
@@ -32,14 +32,14 @@ body {
     text-align: center;
     position: relative;
     z-index: 2;
-    color: black; /* Texto negro como en la carta */
+    color: black;
     outline: none;
     box-shadow: none;
     border-radius: 0;
     animation: fadeIn 1s ease-out;
 }
 
-.title {
+.titulo-principal {
     font-size: 3.2rem;
     color: black;
     margin-bottom: 0.2rem;
@@ -47,7 +47,7 @@ body {
     animation: slideIn 1.2s ease-out;
 }
 
-.subtitle {
+.subtitulo {
     font-size: 1.4rem;
     font-weight: 500;
     color: black;
@@ -56,33 +56,29 @@ body {
     animation: slideIn 1.8s ease-out;
 }
 
-.header-divider {
-    display: none; /* Ocultamos el divisor original */
-}
-
 /* Contenedor principal */
-.contact-container {
+.contenedor-contacto {
     max-width: 1200px;
     margin: 0 auto 40px;
     padding: 0 15px;
 }
 
 /* Mapa */
-.map-wrapper {
+.contenedor-mapa {
     height: 100%;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.map-frame {
+.mapa {
     width: 100%;
     height: 500px;
     border: 0;
 }
 
 /* Tarjeta de información */
-.info-card {
+.tarjeta-informacion {
     height: 100%;
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
                 url('../img/card_bg.jpg');
@@ -97,7 +93,7 @@ body {
     justify-content: center;
 }
 
-.info-title {
+.titulo-informacion {
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 25px;
@@ -105,27 +101,27 @@ body {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
-.info-item {
+.item-informacion {
     margin-bottom: 20px;
     display: flex;
     align-items: flex-start;
 }
 
-.info-icon {
+.icono-informacion {
     color: rgb(214, 34, 33);
     font-size: 1.5rem;
     margin-right: 15px;
     margin-top: 3px;
 }
 
-.info-label {
+.etiqueta-informacion {
     font-weight: bold;
     margin-bottom: 5px;
     color: rgb(214, 34, 33);
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 
-.info-text {
+.texto-informacion {
     margin: 0;
 }
 
@@ -147,15 +143,15 @@ body {
 
 /* Media Queries */
 @media (max-width: 991px) {
-    .map-frame, .info-card {
+    .mapa, .tarjeta-informacion {
         height: 400px;
     }
 
-    .info-card {
+    .tarjeta-informacion {
         margin-top: 30px;
     }
 
-    .header-content-box {
+    .caja-contenido-cabecera {
         padding: 1.5rem;
         width: 90%;
     }

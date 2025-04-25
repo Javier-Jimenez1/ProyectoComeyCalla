@@ -13,13 +13,13 @@
 
 {% include "navbar.html" %}
 
-<div class="main-container">
-    <div class="text-column">
-            <div class="welcome-title">BIENVENID@ A COME Y CALLA</div>
+<div class="contenedor-principal">
+    <div class="columna-texto">
+            <div class="titulo-bienvenida">BIENVENID@ A COME Y CALLA</div>
 
-        <h1 class="main-headline">Un Buffet Español de Sabores Frescos y Variados.</h1>
+        <h1 class="titulo-destacado">Un Buffet Español de Sabores Frescos y Variados.</h1>
 
-        <div class="content-paragraphs">
+        <div class="parrafos-contenido">
             <p>
                 Come y Calla es un buffet español que nace de la pasión por la auténtica gastronomía.
                 Nos enorgullecemos de resaltar los sabores tradicionales y nos hemos convertido en un referente
@@ -38,22 +38,21 @@
             </p>
         </div>
 
-        <a href="{% url 'carta_page' %}" class="cta-button">Saber más</a>
+        <a href="{% url 'carta_page' %}" class="boton-accion">Saber más</a>
     </div>
 
-    <div class="images-column">
-        <img src="{% static 'img/presentacion_1.jpg' %}" alt="Paella valenciana" class="food-image">
-        <img src="{% static 'img/presentacion_2.jpg' %}" alt="Jamón ibérico" class="food-image">
+    <div class="columna-imagenes">
+        <img src="{% static 'img/presentacion_1.jpg' %}" alt="Paella valenciana" class="imagen-comida">
+        <img src="{% static 'img/presentacion_2.jpg' %}" alt="Jamón ibérico" class="imagen-comida">
     </div>
 </div>
 
-<!-- Sección Inferior (tu diseño original) -->
-<section class="full-width-section">
-    <div class="overlay"></div>
-    <div class="section-content">
-        <h2 class="section-title">Descubre la Magia Española en Come y Calla</h2>
+<section class="seccion-completa">
+    <div class="superposicion"></div>
+    <div class="contenido-seccion">
+        <h2 class="titulo-seccion">Descubre la Magia Española en Come y Calla</h2>
 
-        <div class="section-text">
+        <div class="texto-seccion">
             <p>
                 Nuestro buffet no solo ofrece una variedad incomparable de platos, sino que también
                 destaca por su compromiso con la comida fresca y saludable. Utilizamos ingredientes de
@@ -68,6 +67,7 @@
         </div>
     </div>
 </section>
+<br>
 
 {% include "footer.html" %}
 

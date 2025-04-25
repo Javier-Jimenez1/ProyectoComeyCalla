@@ -1,7 +1,7 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db import models
-
-
+# from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+# from django.db import models
+#
+#
 # # --- LOGIN Y REGISTRO ---- #
 # class UsuarioManager(BaseUserManager):
 #     def create_user(self, email, nombre, rol, password=None):
@@ -43,3 +43,46 @@ from django.db import models
 #
 #
 # # --- BASE DE DATOS --- #
+# class Categoria(models.Model):
+#     nombre = models.CharField(max_length=50, unique=True)
+#     icono = models.CharField(max_length=30, blank=True)  # Ej: 'fa-utensils' para FontAwesome
+#
+#     def __str__(self):
+#         return self.nombre
+#
+#
+# class Plato(models.Model):
+#     nombre = models.CharField(max_length=100)
+#     descripcion = models.TextField()
+#     precio = models.DecimalField(max_digits=8, decimal_places=2)
+#     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
+#     imagen = models.ImageField(upload_to='platos/')
+#     disponible = models.BooleanField(default=True)
+#     es_destacado = models.BooleanField(default=False)
+#
+#     def __str__(self):
+#         return f"{self.nombre} - {self.precio}€"
+#
+# class Mesa(models.Model):
+#     numero = models.PositiveIntegerField(unique=True)
+#     capacidad = models.PositiveIntegerField()
+#
+#     def __str__(self):
+#         return f"Mesa {self.numero} ({self.capacidad} personas)"
+#
+# class Reserva(models.Model):
+#     ESTADOS = (
+#         ('pendiente', 'Pendiente'),
+#         ('confirmada', 'Confirmada'),
+#         ('cancelada', 'Cancelada'),
+#     )
+#     cliente = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+#     mesa = models.ForeignKey(Mesa, on_delete=models.SET_NULL, null=True)
+#     fecha = models.DateTimeField()
+#     personas = models.PositiveIntegerField()
+#     estado = models.CharField(max_length=10, choices=ESTADOS, default='pendiente')
+#     comentarios = models.TextField(blank=True)
+#     fecha_creacion = models.DateTimeField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return f"Reserva #{self.id} - {self.cliente.nombre}"

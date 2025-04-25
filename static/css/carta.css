@@ -7,8 +7,8 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Hero Section*/
-.hero-container {
+/* Sección de la carta */
+.seccion-carta {
     background-image: url("../img/fondo_carta.jpg");
     background-size: cover;
     background-position: center;
@@ -21,7 +21,7 @@ body {
     padding: 2rem 0;
 }
 
-.hero-container::before {
+.seccion-carta::before {
     content: "";
     position: absolute;
     top: 0;
@@ -32,7 +32,7 @@ body {
     z-index: 1;
 }
 
-.content-box {
+.caja-contenido {
     background: rgb(214, 34, 33);
     border: none;
     padding: 2.5rem 3rem;
@@ -48,7 +48,7 @@ body {
     animation: fadeIn 1s ease-out;
 }
 
-.comeycalla {
+.titulo-buffet {
     font-size: 3.2rem;
     color: black;
     margin-bottom: 0.2rem;
@@ -56,7 +56,7 @@ body {
     animation: slideIn 1.2s ease-out;
 }
 
-.buffet-text {
+.texto-buffet {
     font-size: 1.4rem;
     font-weight: 500;
     color: black;
@@ -65,15 +65,8 @@ body {
     animation: slideIn 1.8s ease-out;
 }
 
-.tagline {
-    font-style: italic;
-    font-size: 1.1rem;
-    color: black;
-    animation: slideIn 2.3s ease-out;
-}
-
-/* Carta */
-.menu-images {
+/* Imágenes del menú */
+.imagenes-menu {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -82,7 +75,7 @@ body {
     background-color: #f8f9fa;
 }
 
-.menu-images img {
+.imagenes-menu img {
     width: 100%;
     max-width: 600px;
     border-radius: 15px;
@@ -91,7 +84,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.menu-images img:hover {
+.imagenes-menu img:hover {
     transform: scale(1.03);
 }
 
@@ -114,13 +107,10 @@ body {
 
 /* Media Queries */
 @media (max-width: 768px) {
-    .comeycalla {
+    .titulo-buffet {
         font-size: 2.5rem;
     }
-    .españa {
-        font-size: 1.5rem;
-    }
-    .content-box {
+    .caja-contenido {
         padding: 2rem;
     }
 }
