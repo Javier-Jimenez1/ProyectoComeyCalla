@@ -39,3 +39,20 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class Plato(models.Model):
+    TIPO_PLATO = (
+        ('tapa', 'Tapa'),
+        ('principal', 'Plato principal'),
+        ('postre', 'Postre'),
+        ('bebida', 'Bebida'),
+    )
+
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(blank=True)
+    precio = models.DecimalField(max_digits=6, decimal_places=2)
+    tipo = models.CharField(max_length=20, choices=TIPO_PLATO)
+
+    def __str__(self):
+        return f"{self.nombre} ({self.get_tipo_display()}) - {self.precio}€"
