@@ -7,7 +7,7 @@ from restauranteapp.views import *
 urlpatterns = [
     #URL , METODO , NOMBRE_CORTO
     path('home/', go_home , name='home_page'),
-    path('aboutus/', go_about_us, name='aboutus_page'),
+    path('aboutus/', go_about_us, name='about_us_page'),
     path('carta/', go_carta, name='carta_page'),
     path('contacto/', go_contacto, name='contacto_page'),
     path('login/', go_login, name='login_page'),
