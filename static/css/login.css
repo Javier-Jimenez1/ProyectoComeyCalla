@@ -1,0 +1,118 @@
+/* Estilos principales del contenedor */
+.login-container {
+    display: flex;
+    min-height: calc(100vh - 120px);
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Formulario de login */
+.login-form {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #ff6b6b;
+    outline: none;
+}
+
+/* Botón de login */
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #ff5252;
+}
+
+/* Enlaces adicionales */
+.login-links {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.register-link,
+.forgot-password {
+    display: block;
+    color: #666;
+    text-decoration: none;
+    margin: 0.5rem 0;
+    transition: color 0.3s;
+}
+
+.register-link:hover,
+.forgot-password:hover {
+    color: #ff6b6b;
+}
+
+/* Imagen de fondo (solo desktop) */
+.login-image {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    display: none;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive */
+@media (min-width: 992px) {
+    .login-image {
+        display: block;
+    }
+}
+
+/* Mensajes de error */
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
