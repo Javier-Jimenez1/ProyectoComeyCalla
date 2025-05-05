@@ -68,7 +68,7 @@ body {
     height: 100%;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .mapa {
@@ -80,14 +80,14 @@ body {
 /* Tarjeta de información */
 .tarjeta-informacion {
     height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                url('../img/card_bg.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('../img/card_bg.jpg');
     background-size: cover;
     background-position: center;
     color: white;
     border-radius: 8px;
     padding: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -98,7 +98,7 @@ body {
     font-weight: bold;
     margin-bottom: 25px;
     color: rgb(214, 34, 33);
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .item-informacion {
@@ -118,7 +118,7 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
     color: rgb(214, 34, 33);
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .texto-informacion {
@@ -126,8 +126,12 @@ body {
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes slideIn {

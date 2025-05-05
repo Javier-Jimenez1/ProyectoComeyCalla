@@ -78,7 +78,7 @@ body {
     height: 325px;
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* SECCIÓN INFERIOR */
@@ -95,7 +95,7 @@ body {
     background-size: cover;
     background-position: center;
     color: white;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .superposicion {
