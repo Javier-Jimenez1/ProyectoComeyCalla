@@ -13,5 +13,5 @@ urlpatterns = [
     path('login/', go_login, name='login_page'),
     path('registro/', go_registro, name='register_page'),
     path('gestionar/', go_gestionar, name='gestionar_page'),
-
+    path('guardar_pedido/', guardar_pedido, name='guardar_pedido'),
 ]
