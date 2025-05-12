@@ -29,9 +29,16 @@
                 </li>
                 <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'contacto_page' %}">CONTACTO</a></li>
             </ul>
-            <div class="d-flex">
-                <a href="{% url 'login_page' %}" class="boton-login">Iniciar sesión</a>
-                <a href="{% url 'register_page' %}" class="boton-registro">Registrarse</a>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle menu-usuario" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    Menú
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{% url 'login_page' %}">Iniciar sesión</a></li>
+                    <li><a class="dropdown-item" href="{% url 'register_page' %}">Registrarse</a></li>
+                    <li><a class="dropdown-item" href="{% url 'gestionar_page' %}">Gestionar</a></li>
+                </ul>
             </div>
         </div>
     </div>

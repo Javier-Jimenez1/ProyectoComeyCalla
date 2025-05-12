@@ -18,6 +18,11 @@ body {
     transform: scale(1.05);
 }
 
+.menu-principal {
+    display: flex;
+    align-items: center;
+}
+
 .menu-principal .enlace-menu {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
@@ -51,85 +56,62 @@ body {
     width: 100%;
 }
 
-.boton-login,
-.boton-registro {
+/* Estilos para el menú desplegable */
+.menu-usuario {
     font-family: 'Montserrat', sans-serif;
-    padding: 0.5rem 1.5rem;
+    font-weight: 600;
     font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
     transition: all 0.3s ease;
     border-radius: 8px;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    display: inline-block;
     background-color: transparent;
     border: 2px solid #333;
     color: #333;
+    margin-left: 15px;
 }
 
-.boton-login {
-    margin-right: 12px;
-}
-
-.boton-login:hover,
-.boton-registro:hover {
+.menu-usuario:hover {
     background-color: rgb(214, 34, 33);
     color: white;
     border-color: rgb(214, 34, 33);
     transform: translateY(-3px);
 }
 
-.boton-login::after,
-.boton-registro::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    transition: width 0.3s ease;
-}
-
-.boton-login:hover::after,
-.boton-registro:hover::after {
-    width: 100%;
-}
-
-.boton-gestionar {
-    font-family: 'Montserrat', sans-serif;
-    padding: 0.5rem 1.5rem;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
+.dropdown-menu {
     border-radius: 8px;
-    font-weight: 600;
-    position: relative;
-    overflow: hidden;
-    text-decoration: none;
-    display: inline-block;
-    background-color: transparent;
     border: 2px solid #333;
+    margin-top: 10px;
+}
+
+.dropdown-item {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: rgb(242, 204, 33);
     color: #333;
-    margin-right: 12px;
 }
 
-.boton-gestionar:hover {
-    background-color: rgb(214, 34, 33);
-    color: white;
-    border-color: rgb(214, 34, 33);
-    transform: translateY(-3px);
+/* Ajustes para centrado */
+.navbar-collapse {
+    display: flex;
+    align-items: center;
 }
 
-.boton-gestionar::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    transition: width 0.3s ease;
-}
-
-.boton-gestionar:hover::after {
-    width: 100%;
+@media (max-width: 992px) {
+    .menu-principal {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .dropdown {
+        width: 100%;
+        text-align: center;
+    }
+    .menu-usuario {
+        margin-left: 0;
+        width: 100%;
+    }
 }
