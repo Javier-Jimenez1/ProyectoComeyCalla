@@ -1,5 +1,9 @@
 body {
-    background-color: #f8f9fa;
+    background-image: url('https://www.freepik.es/fotos-vectores-gratis/login'); /* Fondo atractivo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Arial', sans-serif;
 }
 
 .container {
@@ -7,9 +11,10 @@ body {
 }
 
 .login-container {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 .password-input {

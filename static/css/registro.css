@@ -1,24 +1,45 @@
 body {
-    background-color: #f8f9fa;
+    background-image: url('https://www.freepik.es/fotos-vectores-gratis/login'); /* Fondo atractivo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Arial', sans-serif;
 }
-.register-container {
+
+.container {
     max-width: 450px;
-    margin: 100px auto;
-    padding: 25px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
 .password-input {
     position: relative;
 }
+
 .toggle-password {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
     cursor: pointer;
     z-index: 5;
+    background: none;
+    border: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.btn-primary, .btn-success {
+    padding: 10px;
 }
