@@ -8,6 +8,10 @@ from .models import Usuario
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.contrib.auth import logout
+from restauranteapp.models import Usuario
+from django.http import HttpResponse
+from django import forms
+from django.contrib.auth.models import User
 
 
 # Create your views here.

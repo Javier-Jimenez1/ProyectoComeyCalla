@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from restauranteapp.views import *
+from restauranteapp import views
 
 urlpatterns = [
     # URL, VISTA, NOMBRE INTERNO
@@ -13,6 +14,7 @@ urlpatterns = [
     path('gestionar/', go_gestionar, name='gestionar_page'),
     path('guardar_pedido/', guardar_pedido, name='guardar_pedido'),
     path('login/', cerrar_sesion, name='logout'),
+
 
 
 ]
