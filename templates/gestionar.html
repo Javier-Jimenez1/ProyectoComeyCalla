@@ -17,15 +17,16 @@
         <h1>¿Bienvenido, cuál es tu rol?</h1>
 
         <div class="contenedor-botones">
-            <a href="#" class="boton-rol boton-camarero">
+            <a href="{% url 'login_rol' %}?rol=camarero" class="boton-rol boton-camarero">
                 <i class="fas fa-utensils"></i>
                 <span>Camarero</span>
             </a>
-            <a href="#" class="boton-rol boton-cocinero">
+            <a href="{% url 'login_rol' %}?rol=cocinero" class="boton-rol boton-cocinero">
                 <i class="fas fa-fire"></i>
                 <span>Cocinero</span>
             </a>
-            <a href="{% url 'login_page' %}?rol=ADMIN" class="boton-rol boton-admin">
+
+            <a href="{% url 'login_rol' %}?rol=admin" class="boton-rol boton-admin">
                 <i class="fas fa-user-cog"></i>
                 <span>Administrador</span>
             </a>

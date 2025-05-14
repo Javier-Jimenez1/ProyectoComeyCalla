@@ -114,19 +114,74 @@ def añadir_personal(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         email = request.POST.get('email')
-        rol = request.POST.get('rol')
+        rol = request.POST.get('rol').lower()
         password = request.POST.get('password')
 
         if Usuario.objects.filter(email=email).exists():
             messages.warning(request, 'El correo ya está registrado.')
         else:
-            Usuario.objects.create_user(
+            usuario = Usuario.objects.create_user(
                 nombre=nombre,
                 email=email,
                 rol=rol,
                 password=password
             )
+
+            # Asignar al grupo correspondiente
+            grupo, creado = Group.objects.get_or_create(name=rol)
+            usuario.groups.add(grupo)
+
             messages.success(request, f'{rol.capitalize()} creado correctamente.')
 
     return render(request, 'añadir_personal.html')
+
+
+def login_por_rol(request):
+    rol = request.GET.get('rol')  # 'camarero', 'cocinero', 'admin'
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        usuario = authenticate(request, email=email, password=password)
+
+        if usuario is not None:
+            if rol == 'admin':
+                if usuario.is_superuser:
+                    login(request, usuario)
+                    return redirect('añadir_personal')
+                else:
+                    messages.error(request, 'Solo los administradores pueden acceder aquí.')
+
+            elif rol == 'camarero':
+                if usuario.is_superuser or Group.objects.filter(user=usuario, name='camarero').exists():
+                    login(request, usuario)
+                    return redirect('camarero_panel')
+                else:
+                    messages.error(request, 'No tienes permisos de camarero.')
+
+            elif rol == 'cocinero':
+                if usuario.is_superuser or Group.objects.filter(user=usuario, name='cocinero').exists():
+                    login(request, usuario)
+                    return redirect('cocinero_panel')
+                else:
+                    messages.error(request, 'No tienes permisos de cocinero.')
+
+            else:
+                messages.error(request, 'Rol no reconocido.')
+
+        else:
+            messages.error(request, 'Credenciales inválidas.')
+
+    return render(request, 'login_rol.html', {'rol': rol})
+
+
+def cocinero_panel(request):
+    return render(request, 'cocinero_panel.html')
+
+def camarero_panel(request):
+    return render(request, 'camarero_panel.html')
+
+
+
 
