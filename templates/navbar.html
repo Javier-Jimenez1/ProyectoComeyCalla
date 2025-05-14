@@ -38,6 +38,9 @@
                     <li><a class="dropdown-item" href="{% url 'login_page' %}">Iniciar sesión</a></li>
                     <li><a class="dropdown-item" href="{% url 'register_page' %}">Registrarse</a></li>
                     <li><a class="dropdown-item" href="{% url 'gestionar_page' %}">Gestionar</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

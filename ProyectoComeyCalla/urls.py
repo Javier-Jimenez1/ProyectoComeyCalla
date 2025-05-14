@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('restaurante/', include('restauranteapp.urls')),
     path('', RedirectView.as_view(url='restaurante/home')),
-
 ]
+
