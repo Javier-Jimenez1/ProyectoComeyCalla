@@ -12,7 +12,8 @@ from restauranteapp.models import Usuario
 from django.http import HttpResponse
 from django import forms
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User, Group
 
 # Create your views here.
 
@@ -64,12 +65,17 @@ def go_login(request):
 
         if usuario is not None:
             login(request, usuario)
-            return redirect('home_page')
+            if usuario.is_superuser:
+                return redirect('añadir_personal')  # Redirige al panel admin si es superuser
+            else:
+                return redirect('home_page')  # Resto de usuarios van al home
         else:
             messages.error(request, "Correo o contraseña incorrectos.")
             return render(request, 'login.html')
 
     return render(request, 'login.html')
+
+
 
 
 def go_gestionar(request):
@@ -98,3 +104,29 @@ def guardar_pedido(request):
 def cerrar_sesion(request):
     logout(request)
     return redirect('login_page')
+
+def es_admin(user):
+    return user.is_authenticated and user.is_superuser
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def añadir_personal(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        rol = request.POST.get('rol')
+        password = request.POST.get('password')
+
+        if Usuario.objects.filter(email=email).exists():
+            messages.warning(request, 'El correo ya está registrado.')
+        else:
+            Usuario.objects.create_user(
+                nombre=nombre,
+                email=email,
+                rol=rol,
+                password=password
+            )
+            messages.success(request, f'{rol.capitalize()} creado correctamente.')
+
+    return render(request, 'añadir_personal.html')
+

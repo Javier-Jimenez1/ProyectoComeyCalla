@@ -1,20 +1,25 @@
 from django.contrib import admin
 from django.urls import path
-from restauranteapp.views import *
 from restauranteapp import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    # URL, VISTA, NOMBRE INTERNO
-    path('home/', go_home, name='home_page'),
-    path('aboutus/', go_about_us, name='about_us_page'),
-    path('carta/', go_carta, name='carta_page'),
-    path('contacto/', go_contacto, name='contacto_page'),
-    path('login/', go_login, name='login_page'),
-    path('registro/', go_registro, name='register_page'),
-    path('gestionar/', go_gestionar, name='gestionar_page'),
-    path('guardar_pedido/', guardar_pedido, name='guardar_pedido'),
-    path('login/', cerrar_sesion, name='logout'),
+    # Páginas principales
+    path('home/', views.go_home, name='home_page'),
+    path('aboutus/', views.go_about_us, name='about_us_page'),
+    path('carta/', views.go_carta, name='carta_page'),
+    path('contacto/', views.go_contacto, name='contacto_page'),
+    path('gestionar/', views.go_gestionar, name='gestionar_page'),
 
+    # Autenticación personalizada
+    path('login/', views.go_login, name='login_page'),
+    path('logout/', LogoutView.as_view(next_page='login_page'), name='logout'),
+    path('registro/', views.go_registro, name='register_page'),
 
+    # Funcionalidades adicionales
+    path('guardar_pedido/', views.guardar_pedido, name='guardar_pedido'),
+    path('admin-personal/', views.añadir_personal, name='añadir_personal'),
 
+    # Admin de Django si lo necesitas
+    path('admin/', admin.site.urls),
 ]

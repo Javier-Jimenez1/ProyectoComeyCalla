@@ -128,3 +128,8 @@ AUTH_USER_MODEL = 'restauranteapp.Usuario'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+LOGIN_URL = '/login/'  # Redirige aquí si alguien no está logueado
+LOGIN_REDIRECT_URL = '/admin-personal/'  # Redirige aquí tras iniciar sesión
+LOGOUT_REDIRECT_URL = '/login/'  # Tras cerrar sesión
+
