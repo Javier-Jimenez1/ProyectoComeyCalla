@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Plato
 from django.shortcuts import render, redirect
 from .models import Plato, Pedido
@@ -14,6 +14,9 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -76,8 +79,6 @@ def go_login(request):
     return render(request, 'login.html')
 
 
-
-
 def go_gestionar(request):
     return render(request, 'gestionar.html')
 
@@ -105,8 +106,10 @@ def cerrar_sesion(request):
     logout(request)
     return redirect('login_page')
 
+
 def es_admin(user):
     return user.is_authenticated and user.is_superuser
+
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -134,6 +137,29 @@ def añadir_personal(request):
             messages.success(request, f'{rol.capitalize()} creado correctamente.')
 
     return render(request, 'añadir_personal.html')
+
+
+@require_POST
+def editar_plato(request, plato_id):
+    try:
+        plato = Plato.objects.get(id=plato_id)
+        plato.nombre = request.POST.get('nombre')
+        plato.precio = request.POST.get('precio')
+        plato.tipo = request.POST.get('tipo')
+        plato.save()
+        return redirect('carta_page')
+    except Plato.DoesNotExist:
+        return redirect('carta_page')
+
+
+@require_POST
+def eliminar_plato(request, plato_id):
+    try:
+        plato = Plato.objects.get(id=plato_id)
+        plato.delete()
+        return JsonResponse({'status': 'success'})
+    except Plato.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Plato no encontrado'}, status=404)
 
 
 def login_por_rol(request):
@@ -179,9 +205,6 @@ def login_por_rol(request):
 def cocinero_panel(request):
     return render(request, 'cocinero_panel.html')
 
+
 def camarero_panel(request):
     return render(request, 'camarero_panel.html')
-
-
-
-
