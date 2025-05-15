@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from .models import Mesa
 
 
 # Create your views here.
@@ -206,5 +207,25 @@ def cocinero_panel(request):
     return render(request, 'cocinero_panel.html')
 
 
+@login_required
 def camarero_panel(request):
-    return render(request, 'camarero_panel.html')
+    mesas = Mesa.objects.all().order_by('numero')
+    return render(request, 'camarero_panel.html', {'mesas': mesas})
+
+@require_POST
+@login_required
+def cambiar_estado_mesa(request):
+    mesa_id = request.POST.get('mesa_id')
+    try:
+        mesa = Mesa.objects.get(id=mesa_id)
+        # Cambiar estado: si está Libre -> Ocupada, si está Ocupada -> Libre
+        if mesa.estado == 'Libre':
+            mesa.estado = 'Ocupada'
+            mesa.nombre_cliente = None  # Si quieres limpiar el cliente al cambiar estado
+        else:
+            mesa.estado = 'Libre'
+            mesa.nombre_cliente = None
+        mesa.save()
+        return JsonResponse({'success': True, 'nuevo_estado': mesa.estado})
+    except Mesa.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Mesa no encontrada'})

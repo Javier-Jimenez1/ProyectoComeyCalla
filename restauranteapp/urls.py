@@ -25,5 +25,6 @@ urlpatterns = [
     path('camarero/', views.camarero_panel, name='camarero_panel'),
     path('editar-plato/<int:plato_id>/', views.editar_plato, name='editar_plato'),
     path('eliminar-plato/<int:plato_id>/', views.eliminar_plato, name='eliminar_plato'),
+    path('cambiar-estado-mesa/', views.cambiar_estado_mesa, name='cambiar_estado_mesa'),
 
 ]

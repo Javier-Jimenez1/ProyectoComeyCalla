@@ -62,3 +62,17 @@ class Pedido(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     platos = models.ManyToManyField(Plato)
     total = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+
+
+class Mesa(models.Model):
+    ESTADOS = (
+        ('Libre', 'Libre'),
+        ('Ocupada', 'Ocupada'),
+    )
+
+    numero = models.PositiveIntegerField(unique=True)
+    capacidad = models.PositiveIntegerField()
+    estado = models.CharField(max_length=10, choices=ESTADOS, default='Libre')
+
+    def __str__(self):
+        return f"Mesa {self.numero} - {self.estado}"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="comeycalla_db" uuid="ce0f599e-6e85-4ccf-9bde-a2e9a1d843df">
+    <data-source source="LOCAL" name="base_de_datos" uuid="6ab2c709-9327-469d-b26f-0b4a05dbf83c">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
       <auto-commit>false</auto-commit>
