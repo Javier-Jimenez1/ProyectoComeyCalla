@@ -1,5 +1,6 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404
-from .models import Plato
+from .models import Plato, PedidoPlato
 from django.shortcuts import render, redirect
 from .models import Plato, Pedido
 from django.contrib.auth import authenticate, login
@@ -84,23 +85,37 @@ def go_gestionar(request):
     return render(request, 'gestionar.html')
 
 
+@login_required
 def guardar_pedido(request):
     if request.method == 'POST':
-        pedido = Pedido.objects.create(total=0)
+        # Crear el pedido asociado al usuario actual
+        pedido = Pedido.objects.create(
+            cliente=request.user,
+            total=0
+        )
 
         total_pedido = 0
+        items_pedido = []
 
         for plato in Plato.objects.all():
             cantidad = int(request.POST.get(f'cantidad_{plato.id}', 0))
             if cantidad > 0:
-                pedido.platos.add(plato)
-
+                # Añadir el plato al pedido con la cantidad
+                PedidoPlato.objects.create(
+                    pedido=pedido,
+                    plato=plato,
+                    cantidad=cantidad
+                )
                 total_pedido += plato.precio * cantidad
 
+        # Actualizar el total del pedido
         pedido.total = total_pedido
         pedido.save()
 
-        return redirect('carta_page')
+        messages.success(request, 'Pedido guardado correctamente.')
+        return redirect('detalle_pedido', pedido_id=pedido.id)
+
+    return redirect('carta_page')
 
 
 def cerrar_sesion(request):
@@ -212,6 +227,7 @@ def camarero_panel(request):
     mesas = Mesa.objects.all().order_by('numero')
     return render(request, 'camarero_panel.html', {'mesas': mesas})
 
+
 @require_POST
 @login_required
 def cambiar_estado_mesa(request):
@@ -229,3 +245,41 @@ def cambiar_estado_mesa(request):
         return JsonResponse({'success': True, 'nuevo_estado': mesa.estado})
     except Mesa.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Mesa no encontrada'})
+
+
+@login_required
+def detalle_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+
+    # Verificar que el usuario tiene permiso para ver este pedido
+    if not (request.user.is_staff or pedido.cliente == request.user):
+        raise PermissionDenied
+
+    return render(request, 'detalle_pedido.html', {'pedido': pedido})
+
+
+@login_required
+def listar_pedidos(request):
+    if request.user.is_staff:
+        # Staff puede ver todos los pedidos
+        pedidos = Pedido.objects.all().order_by('-fecha')
+    else:
+        # Usuarios normales solo ven sus pedidos
+        pedidos = Pedido.objects.filter(cliente=request.user).order_by('-fecha')
+
+    return render(request, 'lista_pedidos.html', {'pedidos': pedidos})
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff)
+def cambiar_estado_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+
+    if request.method == 'POST':
+        nuevo_estado = request.POST.get('estado')
+        if nuevo_estado in dict(Pedido.ESTADOS).keys():
+            pedido.estado = nuevo_estado
+            pedido.save()
+            messages.success(request, 'Estado del pedido actualizado.')
+
+    return redirect('detalle_pedido', pedido_id=pedido.id)

@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, nombre, rol, password=None):
@@ -58,12 +59,6 @@ class Plato(models.Model):
         return f"{self.nombre} ({self.get_tipo_display()}) - {self.precio}€"
 
 
-class Pedido(models.Model):
-    fecha = models.DateTimeField(auto_now_add=True)
-    platos = models.ManyToManyField(Plato)
-    total = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-
-
 class Mesa(models.Model):
     ESTADOS = (
         ('Libre', 'Libre'),
@@ -76,3 +71,31 @@ class Mesa(models.Model):
 
     def __str__(self):
         return f"Mesa {self.numero} - {self.estado}"
+
+
+class Pedido(models.Model):
+    ESTADOS = (
+        ('pendiente', 'Pendiente'),
+        ('en_preparacion', 'En preparación'),
+        ('listo', 'Listo para servir'),
+        ('entregado', 'Entregado'),
+    )
+
+    fecha = models.DateTimeField(auto_now_add=True)
+    platos = models.ManyToManyField(Plato, through='PedidoPlato')
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
+    mesa = models.ForeignKey(Mesa, on_delete=models.SET_NULL, null=True, blank=True)
+    cliente = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Pedido #{self.id} - {self.estado}"
+
+
+class PedidoPlato(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.cantidad}x {self.plato.nombre} (Pedido #{self.pedido.id})"
