@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, nombre, rol, password=None):
@@ -71,10 +72,17 @@ class Mesa(models.Model):
     def __str__(self):
         return f"Mesa {self.numero} - {self.estado}"
 
+
 class Pedido(models.Model):
+    ESTADOS = (
+        ('En preparación', 'En preparación'),
+        ('Entregado', 'Entregado'),
+    )
+
     usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=7, decimal_places=2, default=0)
     fecha = models.DateTimeField(auto_now_add=True)
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='En preparación')
     platos = models.ManyToManyField('Plato', through='PedidoPlato')
 
 
@@ -82,4 +90,3 @@ class PedidoPlato(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
-

@@ -1,12 +1,96 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Panel de Cocina - Come y Calla</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/cocinero_panel.css' %}"/>
 </head>
 <body>
 
-<h1>Hola cocinero</h1>
+{% include "navbar.html" %}
+
+<div class="container pedidos-container">
+    <h2 class="text-center text-primary mb-4">Pedidos en Cocina</h2>
+
+    <div class="row">
+        {% for pedido in pedidos %}
+            <div class="col-md-6 mb-4">
+                <div class="pedido-card pedido-{{ pedido.estado|lower|cut:' ' }}">
+                    <div class="pedido-header">
+                        <h5>Pedido #{{ pedido.id }}</h5>
+                        <span class="badge estado-badge estado-{{ pedido.estado|lower|cut:' ' }}">
+                        {{ pedido.estado }}
+                    </span>
+                    </div>
+                    <div class="pedido-body">
+                        <p><strong>Hora:</strong> {{ pedido.fecha|date:"H:i" }}</p>
+                        <p><strong>Total:</strong> {{ pedido.total }}€</p>
+
+                        <div class="productos-list">
+                            <h6>Productos:</h6>
+                            <ul>
+                                {% for item in pedido.pedidoplato_set.all %}
+                                    <li>{{ item.cantidad }}x {{ item.plato.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="pedido-actions">
+                            <button class="btn btn-success btn-cambiar {% if pedido.estado == 'Entregado' %}d-none{% endif %}"
+                                    data-id="{{ pedido.id }}" data-estado="Entregado">
+                                Marcar como Entregado
+                            </button>
+                            <button class="btn btn-warning btn-cambiar {% if pedido.estado == 'En preparación' %}d-none{% endif %}"
+                                    data-id="{{ pedido.id }}" data-estado="En preparación">
+                                Volver a Preparación
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No hay pedidos pendientes</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "footer.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.querySelectorAll('.btn-cambiar').forEach(button => {
+        button.addEventListener('click', () => {
+            const pedidoId = button.getAttribute('data-id');
+            const nuevoEstado = button.getAttribute('data-estado');
+
+            fetch("{% url 'cambiar_estado_pedido' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'pedido_id': pedidoId,
+                    'nuevo_estado': nuevoEstado
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload(); // Recargar para ver los cambios
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                });
+        });
+    });
+</script>
 
 </body>
 </html>

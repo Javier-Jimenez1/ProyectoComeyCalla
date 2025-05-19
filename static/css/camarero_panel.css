@@ -1,0 +1,68 @@
+body {
+    background-color: #f9f9f9;
+    padding-top: 60px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.mesa-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.mesa-card {
+    border: 2px solid #dee2e6;
+    border-left: 8px solid;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.mesa-card:hover {
+    background-color: #f1f1f1;
+}
+
+.mesa-libre {
+    border-left-color: #28a745;
+}
+
+.mesa-ocupada {
+    border-left-color: #dc3545;
+}
+
+.numero-mesa {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.capacidad {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.estado {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.estado-libre {
+    color: #28a745;
+}
+
+.estado-ocupada {
+    color: #dc3545;
+}
+
+.btn-cambiar {
+    font-size: 0.9rem;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}

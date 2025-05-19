@@ -21,24 +21,26 @@
 
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Plato</th>
-                        <th>Tipo</th>
-                        <th>Precio Unitario</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                    </tr>
+                <tr>
+                    <th>Plato</th>
+                    <th>Tipo</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for item in detalles %}
-                        <tr>
-                            <td>{{ item.plato.nombre }}</td>
-                            <td>{{ item.plato.get_tipo_display }}</td>
-                            <td>{{ item.plato.precio }} €</td>
-                            <td>{{ item.cantidad }}</td>
-                            <td>{{ item.plato.precio|floatformat:2|add:"0"|floatformat:2|floatformat:"2"|add:item.cantidad|floatformat:2 }} €</td>
-                        </tr>
-                    {% endfor %}
+                {% for item in detalles %}
+                    <tr>
+                        <td>{{ item.plato.nombre }}</td>
+                        <td>{{ item.plato.get_tipo_display }}</td>
+                        <td>{{ item.plato.precio }} €</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>{{ item.plato.precio|floatformat:2|add:"0"|floatformat:2|floatformat:"2"|add:item.cantidad|floatformat:2 }}
+                            €
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
 
@@ -50,6 +52,7 @@
         </div>
     </div>
 </div>
+<br>
 <br>
 
 {% include "footer.html" %}

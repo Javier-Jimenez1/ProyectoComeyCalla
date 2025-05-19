@@ -211,14 +211,36 @@ def login_por_rol(request):
     return render(request, 'login_rol.html', {'rol': rol})
 
 
+@login_required
 def cocinero_panel(request):
-    return render(request, 'cocinero_panel.html')
+    # Solo mostrar pedidos que no estén entregados (o todos si prefieres)
+    pedidos = Pedido.objects.all().order_by('-fecha').prefetch_related('pedidoplato_set__plato')
+    return render(request, 'cocinero_panel.html', {'pedidos': pedidos})
+
+
+@require_POST
+@login_required
+def cambiar_estado_pedido(request):
+    pedido_id = request.POST.get('pedido_id')
+    nuevo_estado = request.POST.get('nuevo_estado')
+
+    if nuevo_estado not in ['En preparación', 'Entregado']:
+        return JsonResponse({'success': False, 'error': 'Estado no válido'})
+
+    try:
+        pedido = Pedido.objects.get(id=pedido_id)
+        pedido.estado = nuevo_estado
+        pedido.save()
+        return JsonResponse({'success': True, 'nuevo_estado': pedido.estado})
+    except Pedido.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Pedido no encontrado'})
 
 
 @login_required
 def camarero_panel(request):
     mesas = Mesa.objects.all().order_by('numero')
     return render(request, 'camarero_panel.html', {'mesas': mesas})
+
 
 @require_POST
 @login_required
@@ -237,6 +259,7 @@ def cambiar_estado_mesa(request):
         return JsonResponse({'success': True, 'nuevo_estado': mesa.estado})
     except Mesa.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Mesa no encontrada'})
+
 
 @login_required
 def pagina_pago(request, pedido_id):
