@@ -17,6 +17,8 @@ from django.contrib.auth.models import User, Group
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from .models import Mesa
+from .models import Pedido, Plato, PedidoPlato
+from django.db import transaction
 
 
 # Create your views here.
@@ -84,23 +86,31 @@ def go_gestionar(request):
     return render(request, 'gestionar.html')
 
 
+@login_required
+@require_POST
 def guardar_pedido(request):
-    if request.method == 'POST':
-        pedido = Pedido.objects.create(total=0)
-
+    with transaction.atomic():
+        pedido = Pedido.objects.create(usuario=request.user)
         total_pedido = 0
 
-        for plato in Plato.objects.all():
-            cantidad = int(request.POST.get(f'cantidad_{plato.id}', 0))
-            if cantidad > 0:
-                pedido.platos.add(plato)
-
-                total_pedido += plato.precio * cantidad
+        for key, value in request.POST.items():
+            if key.startswith('cantidad_'):
+                try:
+                    cantidad = int(value)
+                    if cantidad > 0:
+                        plato_id = key.split('_')[1]
+                        plato = Plato.objects.get(pk=plato_id)
+                        PedidoPlato.objects.create(pedido=pedido, plato=plato, cantidad=cantidad)
+                        total_pedido += plato.precio * cantidad
+                except (ValueError, Plato.DoesNotExist):
+                    # Ignorar valores no válidos o platos inexistentes
+                    continue
 
         pedido.total = total_pedido
         pedido.save()
 
-        return redirect('carta_page')
+    messages.success(request, "Pedido guardado correctamente.")
+    return redirect('pagina_pago', pedido_id=pedido.id)
 
 
 def cerrar_sesion(request):
@@ -218,10 +228,10 @@ def cambiar_estado_mesa(request):
     mesa_id = request.POST.get('mesa_id')
     try:
         mesa = Mesa.objects.get(id=mesa_id)
-        # Cambiar estado: si está Libre -> Ocupada, si está Ocupada -> Libre
+
         if mesa.estado == 'Libre':
             mesa.estado = 'Ocupada'
-            mesa.nombre_cliente = None  # Si quieres limpiar el cliente al cambiar estado
+            mesa.nombre_cliente = None
         else:
             mesa.estado = 'Libre'
             mesa.nombre_cliente = None
@@ -229,3 +239,13 @@ def cambiar_estado_mesa(request):
         return JsonResponse({'success': True, 'nuevo_estado': mesa.estado})
     except Mesa.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Mesa no encontrada'})
+
+@login_required
+def pagina_pago(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id, usuario=request.user)
+    detalles = PedidoPlato.objects.filter(pedido=pedido)
+    contexto = {
+        'pedido': pedido,
+        'detalles': detalles,
+    }
+    return render(request, 'pago.html', contexto)

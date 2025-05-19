@@ -23,4 +23,3 @@ urlpatterns = [
     path('restaurante/', include('restauranteapp.urls')),
     path('', RedirectView.as_view(url='restaurante/home')),
 ]
-

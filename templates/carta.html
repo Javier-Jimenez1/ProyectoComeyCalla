@@ -139,12 +139,12 @@
                         'Content-Type': 'application/json'
                     },
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            document.getElementById(`plato-${platoId}`).remove();
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById(`plato-${platoId}`).remove();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
             }
         });
     });

@@ -58,12 +58,6 @@ class Plato(models.Model):
         return f"{self.nombre} ({self.get_tipo_display()}) - {self.precio}€"
 
 
-class Pedido(models.Model):
-    fecha = models.DateTimeField(auto_now_add=True)
-    platos = models.ManyToManyField(Plato)
-    total = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-
-
 class Mesa(models.Model):
     ESTADOS = (
         ('Libre', 'Libre'),
@@ -76,3 +70,16 @@ class Mesa(models.Model):
 
     def __str__(self):
         return f"Mesa {self.numero} - {self.estado}"
+
+class Pedido(models.Model):
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    total = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    fecha = models.DateTimeField(auto_now_add=True)
+    platos = models.ManyToManyField('Plato', through='PedidoPlato')
+
+
+class PedidoPlato(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+
