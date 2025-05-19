@@ -1,12 +1,12 @@
 body {
     background-color: #f9f9f9;
-    padding-top: 60px;
     font-family: 'Segoe UI', sans-serif;
+    margin: 0;
 }
 
 .pedidos-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto 40px auto;
     padding: 20px;
 }
 
@@ -24,11 +24,11 @@ body {
 }
 
 .pedido-enpreparación {
-    border-left: 6px solid #ffc107; /* Amarillo */
+    border-left: 6px solid #ffc107;
 }
 
 .pedido-entregado {
-    border-left: 6px solid #28a745; /* Verde */
+    border-left: 6px solid #28a745;
 }
 
 .estado-badge.estado-enpreparación {

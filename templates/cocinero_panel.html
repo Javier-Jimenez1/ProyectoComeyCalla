@@ -59,6 +59,7 @@
         {% endfor %}
     </div>
 </div>
+<br>
 
 {% include "footer.html" %}
 
@@ -83,7 +84,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        location.reload(); // Recargar para ver los cambios
+                        location.reload();
                     } else {
                         alert('Error: ' + data.error);
                     }

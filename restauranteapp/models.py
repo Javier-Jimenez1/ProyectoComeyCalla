@@ -82,7 +82,7 @@ class Pedido(models.Model):
     usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=7, decimal_places=2, default=0)
     fecha = models.DateTimeField(auto_now_add=True)
-    # estado = models.CharField(max_length=20, choices=ESTADOS, default='En preparación')
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='En preparación')
     platos = models.ManyToManyField('Plato', through='PedidoPlato')
 
 

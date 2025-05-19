@@ -70,9 +70,9 @@ def go_login(request):
         if usuario is not None:
             login(request, usuario)
             if usuario.is_superuser:
-                return redirect('añadir_personal')  # Redirige al panel admin si es superuser
+                return redirect('añadir_personal')
             else:
-                return redirect('home_page')  # Resto de usuarios van al home
+                return redirect('home_page')
         else:
             messages.error(request, "Correo o contraseña incorrectos.")
             return render(request, 'login.html')
