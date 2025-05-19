@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Plato
 from django.shortcuts import render, redirect
 from .models import Plato, Pedido
 from django.contrib.auth import authenticate, login
@@ -11,7 +10,6 @@ from django.contrib.auth import logout
 from restauranteapp.models import Usuario
 from django.http import HttpResponse
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from django.views.decorators.http import require_POST
