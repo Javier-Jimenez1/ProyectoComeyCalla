@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.urls import path
-from restauranteapp import views
-from django.contrib.auth.views import LogoutView
 from django.urls import path, include
+from django.contrib.auth.views import LogoutView
+from restauranteapp import views
 
 urlpatterns = [
     # Páginas principales
@@ -26,6 +25,7 @@ urlpatterns = [
     path('camarero/', views.camarero_panel, name='camarero_panel'),
     path('editar-plato/<int:plato_id>/', views.editar_plato, name='editar_plato'),
     path('eliminar-plato/<int:plato_id>/', views.eliminar_plato, name='eliminar_plato'),
+    path('añadir-plato/', views.añadir_plato, name='añadir_plato'),
     path('cambiar-estado-mesa/', views.cambiar_estado_mesa, name='cambiar_estado_mesa'),
     path('pago/<int:pedido_id>/', views.pagina_pago, name='pagina_pago'),
     path('cambiar-estado-pedido/', views.cambiar_estado_pedido, name='cambiar_estado_pedido'),

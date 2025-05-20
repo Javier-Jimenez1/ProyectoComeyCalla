@@ -120,7 +120,7 @@ platos_carta = [
         "tipo": "bebida"
     },
     {
-        "nombre": "Cruz Campo",
+        "nombre": "Cruzcampo",
         "descripcion": "Con y sin alcohol",
         "precio": 2.50,
         "tipo": "bebida"

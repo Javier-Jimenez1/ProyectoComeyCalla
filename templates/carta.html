@@ -28,7 +28,47 @@
     <img src="{% static 'img/CartaParteTrasera.jpg' %}" alt="Carta por detrás"/>
 </div>
 
-<!-- Modal para editar producto -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Añadir Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addForm" method="POST" action="{% url 'añadir_plato' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="addNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="addNombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addPrecio" class="form-label">Precio (€)</label>
+                        <input type="number" step="0.01" class="form-control" id="addPrecio" name="precio" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addTipo" class="form-label">Tipo</label>
+                        <select class="form-select" id="addTipo" name="tipo" required>
+                            <option value="tapa">Tapa</option>
+                            <option value="principal">Plato Principal</option>
+                            <option value="postre">Postre</option>
+                            <option value="bebida">Bebida</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="addDescripcion" class="form-label">Descripción (Opcional)</label>
+                        <textarea class="form-control" id="addDescripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Añadir Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -68,7 +108,12 @@
 </div>
 
 <div class="container my-5" style="padding-bottom: 100px;">
-    <h2 class="text-center mb-4">Realiza tu pedido</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-center mb-0">Realiza tu pedido</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            <i class="fas fa-plus"></i> Añadir Producto
+        </button>
+    </div>
     <form method="POST" action="{% url 'guardar_pedido' %}">
         {% csrf_token %}
         <div class="row" id="pedido-platos">
@@ -129,22 +174,41 @@
 
     // Eliminación de productos
     document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', function () {
+            const platoId = this.dataset.platoId;
+
             if (confirm('¿Estás seguro de eliminar este plato?')) {
-                const platoId = btn.dataset.platoId;
-                fetch(`/eliminar-plato/${platoId}/`, {
+                fetch(`{% url 'eliminar_plato' 0 %}`.replace('0', platoId), {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
+                    credentials: 'same-origin'
                 })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById(`plato-${platoId}`).remove();
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                    .then(async response => {
+                        const contentType = response.headers.get('content-type');
+
+                        if (!contentType || !contentType.includes('application/json')) {
+                            const text = await response.text();
+                            throw new Error(text || 'Respuesta no JSON');
+                        }
+
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById(`plato-${platoId}`).remove();
+                            alert('Plato eliminado correctamente');
+                        } else {
+                            throw new Error(data.message || 'Error al eliminar');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error completo:', error);
+                        alert('Error: ' + error.message);
+                    });
             }
         });
     });

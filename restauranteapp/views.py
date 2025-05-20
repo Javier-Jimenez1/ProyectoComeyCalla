@@ -1,22 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from django.shortcuts import render, redirect
-from .models import Plato, Pedido
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from .models import Usuario
-from django.db import IntegrityError
-from django.shortcuts import redirect
-from django.contrib.auth import logout
-from restauranteapp.models import Usuario
-from django.http import HttpResponse
 from django import forms
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
+from django.db import IntegrityError, transaction
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from django.http import JsonResponse
-from .models import Mesa
-from .models import Pedido, Plato, PedidoPlato
-from django.db import transaction
+from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato
 
 
 # Create your views here.
@@ -101,7 +92,6 @@ def guardar_pedido(request):
                         PedidoPlato.objects.create(pedido=pedido, plato=plato, cantidad=cantidad)
                         total_pedido += plato.precio * cantidad
                 except (ValueError, Plato.DoesNotExist):
-                    # Ignorar valores no válidos o platos inexistentes
                     continue
 
         pedido.total = total_pedido
@@ -139,13 +129,33 @@ def añadir_personal(request):
                 password=password
             )
 
-            # Asignar al grupo correspondiente
             grupo, creado = Group.objects.get_or_create(name=rol)
             usuario.groups.add(grupo)
 
             messages.success(request, f'{rol.capitalize()} creado correctamente.')
 
     return render(request, 'añadir_personal.html')
+
+
+@require_POST
+def añadir_plato(request):
+    nombre = request.POST.get('nombre')
+    precio = request.POST.get('precio')
+    tipo = request.POST.get('tipo')
+    descripcion = request.POST.get('descripcion', '')
+
+    try:
+        Plato.objects.create(
+            nombre=nombre,
+            precio=precio,
+            tipo=tipo,
+            descripcion=descripcion
+        )
+        messages.success(request, 'Plato añadido correctamente.')
+    except Exception as e:
+        messages.error(request, f'Error al añadir el plato: {str(e)}')
+
+    return redirect('carta_page')
 
 
 @require_POST
@@ -162,17 +172,26 @@ def editar_plato(request, plato_id):
 
 
 @require_POST
+@login_required
 def eliminar_plato(request, plato_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'message': 'Autenticación requerida'}, status=401)
+    print(f"Intentando eliminar plato ID: {plato_id}")
     try:
         plato = Plato.objects.get(id=plato_id)
         plato.delete()
-        return JsonResponse({'status': 'success'})
+        print("Plato eliminado exitosamente")
+        return JsonResponse({'success': True, 'message': 'Plato eliminado correctamente'})
     except Plato.DoesNotExist:
-        return JsonResponse({'status': 'error', 'message': 'Plato no encontrado'}, status=404)
+        print("Plato no encontrado")
+        return JsonResponse({'success': False, 'message': 'Plato no encontrado'}, status=404)
+    except Exception as e:
+        print(f"Error al eliminar: {str(e)}")
+        return JsonResponse({'success': False, 'message': str(e)}, status=500)
 
 
 def login_por_rol(request):
-    rol = request.GET.get('rol')  # 'camarero', 'cocinero', 'admin'
+    rol = request.GET.get('rol')
 
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -213,7 +232,6 @@ def login_por_rol(request):
 
 @login_required
 def cocinero_panel(request):
-    # Solo mostrar pedidos que no estén entregados (o todos si prefieres)
     pedidos = Pedido.objects.all().order_by('-fecha').prefetch_related('pedidoplato_set__plato')
     return render(request, 'cocinero_panel.html', {'pedidos': pedidos})
 
