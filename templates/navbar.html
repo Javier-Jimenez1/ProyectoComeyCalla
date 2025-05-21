@@ -30,17 +30,32 @@
                 <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'contacto_page' %}">CONTACTO</a></li>
             </ul>
             <div class="dropdown">
-                <button class="btn dropdown-toggle menu-usuario" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn dropdown-toggle btn-menu-principal" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown">
                     Menú
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{% url 'historial_pedidos' %}">Mis pedidos</a></li>
-                    <li><a class="dropdown-item" href="{% url 'login_page' %}">Iniciar sesión</a></li>
-                    <li><a class="dropdown-item" href="{% url 'register_page' %}">Registrarse</a></li>
-                    <li><a class="dropdown-item" href="{% url 'gestionar_page' %}">Gestionar</a></li>
+                <ul class="dropdown-menu dropdown-menu-end menu-comeycalla">
                     {% if user.is_authenticated %}
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                        <!-- Usuario autenticado -->
+                        <li><a class="dropdown-item btn-menu-item" href="{% url 'historial_pedidos' %}">Mis pedidos</a>
+                        </li>
+
+                        {% if user.is_staff %}
+                            <li><a class="dropdown-item btn-menu-item" href="{% url 'gestionar_page' %}">Gestionar</a>
+                            </li>
+                        {% endif %}
+
+                        <li>
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item btn-menu-item btn-logout">Cerrar sesión
+                                </button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <!-- Usuario NO autenticado -->
+                        <li><a class="dropdown-item btn-menu-item" href="{% url 'login_page' %}">Iniciar sesión</a></li>
+                        <li><a class="dropdown-item btn-menu-item" href="{% url 'register_page' %}">Registrarse</a></li>
                     {% endif %}
                 </ul>
             </div>

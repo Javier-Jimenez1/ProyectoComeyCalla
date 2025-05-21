@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from django.db import IntegrityError, transaction
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato
@@ -101,11 +101,6 @@ def guardar_pedido(request):
     return redirect('pagina_pago', pedido_id=pedido.id)
 
 
-def cerrar_sesion(request):
-    logout(request)
-    return redirect('login_page')
-
-
 def es_admin(user):
     return user.is_authenticated and user.is_superuser
 
@@ -139,6 +134,9 @@ def añadir_personal(request):
 
 @require_POST
 def añadir_plato(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("No tienes permisos para realizar esta acción.")
+
     nombre = request.POST.get('nombre')
     precio = request.POST.get('precio')
     tipo = request.POST.get('tipo')
@@ -160,6 +158,9 @@ def añadir_plato(request):
 
 @require_POST
 def editar_plato(request, plato_id):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("No tienes permisos para realizar esta acción.")
+
     try:
         plato = Plato.objects.get(id=plato_id)
         plato.nombre = request.POST.get('nombre')
@@ -174,6 +175,9 @@ def editar_plato(request, plato_id):
 @require_POST
 @login_required
 def eliminar_plato(request, plato_id):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("No tienes permisos para realizar esta acción.")
+
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'message': 'Autenticación requerida'}, status=401)
     print(f"Intentando eliminar plato ID: {plato_id}")

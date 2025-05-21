@@ -110,9 +110,12 @@
 <div class="container my-5" style="padding-bottom: 100px;">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-center mb-0">Realiza tu pedido</h2>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-            <i class="fas fa-plus"></i> Añadir Producto
-        </button>
+        {% if user.is_staff %}
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+                <i class="fas fa-plus"></i> Añadir Producto
+            </button>
+        {% endif %}
+
     </div>
     <form method="POST" action="{% url 'guardar_pedido' %}">
         {% csrf_token %}
@@ -123,19 +126,21 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h5 class="card-title">{{ plato.nombre }}</h5>
-                                <div>
-                                    <button type="button" class="btn btn-sm btn-light edit-btn"
-                                            data-plato-id="{{ plato.id }}"
-                                            data-plato-nombre="{{ plato.nombre }}"
-                                            data-plato-precio="{{ plato.precio }}"
-                                            data-plato-tipo="{{ plato.tipo }}">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-light delete-btn"
-                                            data-plato-id="{{ plato.id }}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                                {% if user.is_staff %}
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-light edit-btn"
+                                                data-plato-id="{{ plato.id }}"
+                                                data-plato-nombre="{{ plato.nombre }}"
+                                                data-plato-precio="{{ plato.precio }}"
+                                                data-plato-tipo="{{ plato.tipo }}">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-light delete-btn"
+                                                data-plato-id="{{ plato.id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                {% endif %}
                             </div>
                             <p class="card-text">Precio: {{ plato.precio }} €</p>
                             <p class="card-text">Tipo: {{ plato.get_tipo_display }}</p>

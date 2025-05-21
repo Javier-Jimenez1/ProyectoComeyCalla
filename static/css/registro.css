@@ -1,45 +1,98 @@
+/* registro.css - Estilo con énfasis en amarillos */
 body {
-    background-image: url('https://www.freepik.es/fotos-vectores-gratis/login'); /* Fondo atractivo */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: 'Arial', sans-serif;
-}
-
-.container {
-    max-width: 450px;
-}
-
-.login-container {
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-}
-
-.password-input {
-    position: relative;
-}
-
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    z-index: 5;
-    background: none;
-    border: none;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.min-vh-100 {
+    background: linear-gradient(to right, #fff3cd, #f8d7da);
+    font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.btn-primary, .btn-success {
-    padding: 10px;
+.register-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(255, 193, 7, 0.2);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    border-top: 5px solid #ffc107;
+    transition: transform 0.3s ease;
+}
+
+.register-container:hover {
+    transform: translateY(-5px);
+}
+
+.register-title {
+    color: #ffc107;
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    text-align: center;
+    font-size: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 2px solid #f8d7da;
+    margin-bottom: 1.2rem;
+}
+
+.form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+.btn-register {
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-register:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.register-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.register-link {
+    color: #ffc107;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.register-link:hover {
+    color: #d39e00;
+    text-decoration: underline;
+}
+
+.password-requirements {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.alert {
+    border-radius: 8px;
+    border-left: 5px solid #ffc107;
 }

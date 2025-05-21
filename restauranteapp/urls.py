@@ -13,7 +13,7 @@ urlpatterns = [
 
     # Autenticación personalizada
     path('login/', views.go_login, name='login_page'),
-    path('logout/', LogoutView.as_view(next_page='login_page'), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='home_page'), name='logout'),
     path('registro/', views.go_registro, name='register_page'),
 
     # Funcionalidades adicionales

@@ -2,6 +2,51 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.menu-comeycalla {
+    background-color: #FFF5E0;
+    border: 2px solid rgb(214, 34, 33);
+    border-radius: 0;
+    box-shadow: 0 4px 8px rgba(214, 45, 32, 0.2);
+    padding: 0;
+}
+
+.btn-menu-principal {
+    background-color: rgb(214, 34, 33) !important;
+    color: #FFF5E0 !important;
+    border: 2px solid rgb(214, 34, 33);
+    font-weight: 600;
+    padding: 8px 20px;
+    transition: all 0.3s;
+}
+
+.btn-menu-principal:hover {
+    background-color: #FFF5E0 !important;
+    color: rgb(214, 34, 33) !important;
+}
+
+.btn-menu-item {
+    color: rgb(214, 34, 33) !important;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgb(242, 204, 33);
+    transition: all 0.2s;
+}
+
+.btn-menu-item:hover {
+    background-color: rgb(242, 204, 33) !important;
+    color: rgb(214, 34, 33) !important;
+}
+
+.btn-logout {
+    font-weight: 600;
+    background-color: #FFF5E0;
+}
+
+.btn-logout:hover {
+    background-color: rgb(214, 34, 33) !important;
+    color: #FFF5E0 !important;
+}
+
 .barra-navegacion {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -106,10 +151,12 @@ body {
         width: 100%;
         margin-bottom: 1rem;
     }
+
     .dropdown {
         width: 100%;
         text-align: center;
     }
+
     .menu-usuario {
         margin-left: 0;
         width: 100%;
