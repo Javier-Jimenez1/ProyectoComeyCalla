@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 from restauranteapp import views
-#adsf
+
 urlpatterns = [
     # Páginas principales
     path('home/', views.go_home, name='home_page'),
