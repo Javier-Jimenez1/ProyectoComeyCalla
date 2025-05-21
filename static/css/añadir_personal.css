@@ -1,0 +1,43 @@
+body {
+    background-color: #fff8e1;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card-header {
+    background-color: #d10000;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-primary {
+    background-color: #d10000;
+    border-color: #d10000;
+}
+
+.btn-primary:hover {
+    background-color: #a80000;
+    border-color: #a80000;
+}
+
+.btn-warning {
+    background-color: #ffd900;
+    border-color: #ffd900;
+    color: #000;
+}
+
+.table th {
+    background-color: #d10000;
+    color: white;
+}
+
+.form-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}

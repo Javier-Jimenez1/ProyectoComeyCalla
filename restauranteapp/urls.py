@@ -18,7 +18,7 @@ urlpatterns = [
 
     # Funcionalidades adicionales
     path('guardar_pedido/', views.guardar_pedido, name='guardar_pedido'),
-    path('admin-personal/', views.añadir_personal, name='añadir_personal'),
+    path('añadir_personal/', views.añadir_personal, name='añadir_personal'),
     path('admin/', admin.site.urls),
     path('login-rol/', views.login_por_rol, name='login_rol'),
     path('cocinero/panel/', views.cocinero_panel, name='cocinero_panel'),

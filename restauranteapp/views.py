@@ -109,27 +109,58 @@ def es_admin(user):
 @user_passes_test(lambda u: u.is_superuser)
 def añadir_personal(request):
     if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        email = request.POST.get('email')
-        rol = request.POST.get('rol').lower()
-        password = request.POST.get('password')
+        # Si es una solicitud para eliminar un usuario
+        if 'eliminar_usuario' in request.POST:
+            usuario_id = request.POST.get('usuario_id')
+            try:
+                usuario = Usuario.objects.get(id=usuario_id)
+                if usuario != request.user:  # Prevenir que el admin se elimine a sí mismo
+                    usuario.delete()
+                    messages.success(request, 'Usuario eliminado correctamente.')
+                else:
+                    messages.error(request, 'No puedes eliminarte a ti mismo.')
+            except Usuario.DoesNotExist:
+                messages.error(request, 'Usuario no encontrado.')
 
-        if Usuario.objects.filter(email=email).exists():
-            messages.warning(request, 'El correo ya está registrado.')
+        # Si es una solicitud para editar un usuario
+        elif 'editar_usuario' in request.POST:
+            usuario_id = request.POST.get('usuario_id')
+            try:
+                usuario = Usuario.objects.get(id=usuario_id)
+                usuario.nombre = request.POST.get('nombre')
+                usuario.email = request.POST.get('email')
+                usuario.rol = request.POST.get('rol').lower()
+                if request.POST.get('password'):
+                    usuario.set_password(request.POST.get('password'))
+                usuario.save()
+                messages.success(request, 'Usuario actualizado correctamente.')
+            except Usuario.DoesNotExist:
+                messages.error(request, 'Usuario no encontrado.')
+
+        # Si es una solicitud para añadir un nuevo usuario
         else:
-            usuario = Usuario.objects.create_user(
-                nombre=nombre,
-                email=email,
-                rol=rol,
-                password=password
-            )
+            nombre = request.POST.get('nombre')
+            email = request.POST.get('email')
+            rol = request.POST.get('rol').lower()
+            password = request.POST.get('password')
 
-            grupo, creado = Group.objects.get_or_create(name=rol)
-            usuario.groups.add(grupo)
+            if Usuario.objects.filter(email=email).exists():
+                messages.warning(request, 'El correo ya está registrado.')
+            else:
+                usuario = Usuario.objects.create_user(
+                    nombre=nombre,
+                    email=email,
+                    rol=rol,
+                    password=password
+                )
 
-            messages.success(request, f'{rol.capitalize()} creado correctamente.')
+                grupo, creado = Group.objects.get_or_create(name=rol)
+                usuario.groups.add(grupo)
 
-    return render(request, 'añadir_personal.html')
+                messages.success(request, f'{rol.capitalize()} creado correctamente.')
+
+    usuarios = Usuario.objects.all().order_by('rol', 'nombre')
+    return render(request, 'añadir_personal.html', {'usuarios': usuarios})
 
 
 @require_POST
