@@ -288,3 +288,9 @@ def pagina_pago(request, pedido_id):
         'detalles': detalles,
     }
     return render(request, 'pago.html', contexto)
+
+
+@login_required
+def historial_pedidos(request):
+    pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha')
+    return render(request, 'historial_pedidos.html', {'pedidos': pedidos})

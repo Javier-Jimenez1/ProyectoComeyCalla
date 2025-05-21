@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Pedidos - Come y Calla</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+
+{% include "navbar.html" %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Mi Historial de Pedidos</h2>
+
+    {% if pedidos %}
+        <div class="list-group">
+            {% for pedido in pedidos %}
+                <div class="list-group-item list-group-item-action mb-3">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Pedido #{{ pedido.id }}</h5>
+                        <small>{{ pedido.fecha|date:"d/m/Y H:i" }}</small>
+                    </div>
+                    <p class="mb-1"><strong>Total:</strong> {{ pedido.total }} €</p>
+                    <p class="mb-1"><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>
+
+                    <button class="btn btn-sm btn-outline-primary mt-2" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#detalles-{{ pedido.id }}">
+                        Ver detalles
+                    </button>
+
+                    <div class="collapse mt-2" id="detalles-{{ pedido.id }}">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Plato</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in pedido.pedidoplato_set.all %}
+                                <tr>
+                                    <td>{{ item.plato.nombre }}</td>
+                                    <td>{{ item.cantidad }}</td>
+                                    <td>{{ item.plato.precio }} €</td>
+                                    <td>{{ item.plato.precio|floatformat:2 }} €</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No tienes pedidos registrados.
+        </div>
+    {% endif %}
+</div>
+<br>
+<br>
+
+{% include "footer.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

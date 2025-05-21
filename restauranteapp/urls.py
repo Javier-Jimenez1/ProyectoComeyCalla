@@ -29,5 +29,6 @@ urlpatterns = [
     path('cambiar-estado-mesa/', views.cambiar_estado_mesa, name='cambiar_estado_mesa'),
     path('pago/<int:pedido_id>/', views.pagina_pago, name='pagina_pago'),
     path('cambiar-estado-pedido/', views.cambiar_estado_pedido, name='cambiar_estado_pedido'),
+    path('historial-pedidos/', views.historial_pedidos, name='historial_pedidos'),
 
 ]
