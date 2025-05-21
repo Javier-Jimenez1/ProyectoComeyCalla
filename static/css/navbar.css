@@ -101,7 +101,6 @@ body {
     width: 100%;
 }
 
-/* Estilos para el menú desplegable */
 .menu-usuario {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
@@ -140,7 +139,6 @@ body {
     color: #333;
 }
 
-/* Ajustes para centrado */
 .navbar-collapse {
     display: flex;
     align-items: center;

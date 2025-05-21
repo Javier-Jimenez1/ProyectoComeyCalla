@@ -171,7 +171,7 @@ def editar_plato(request, plato_id):
     except Plato.DoesNotExist:
         return redirect('carta_page')
 
-
+#adsf
 @require_POST
 @login_required
 def eliminar_plato(request, plato_id):
