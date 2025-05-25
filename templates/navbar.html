@@ -38,11 +38,6 @@
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'historial_pedidos' %}">Mis pedidos</a>
                         </li>
 
-                        {% if user.is_staff %}
-                            <li><a class="dropdown-item btn-menu-item" href="{% url 'gestionar_page' %}">Gestionar</a>
-                            </li>
-                        {% endif %}
-
                         <li>
                             <form action="{% url 'logout' %}" method="post" class="d-inline">
                                 {% csrf_token %}
@@ -54,6 +49,8 @@
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'login_page' %}">Iniciar sesión</a></li>
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'register_page' %}">Registrarse</a></li>
                     {% endif %}
+                    <li><a class="dropdown-item btn-menu-item" href="{% url 'gestionar_page' %}">Gestionar</a>
+                    </li>
                 </ul>
             </div>
         </div>
