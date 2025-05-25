@@ -89,4 +89,8 @@ class Pedido(models.Model):
 class PedidoPlato(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     plato = models.ForeignKey(Plato, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField(default=1)
+    cantidad = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = ('pedido', 'plato')
+

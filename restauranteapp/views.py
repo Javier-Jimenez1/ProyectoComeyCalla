@@ -89,7 +89,15 @@ def guardar_pedido(request):
                     if cantidad > 0:
                         plato_id = key.split('_')[1]
                         plato = Plato.objects.get(pk=plato_id)
-                        PedidoPlato.objects.create(pedido=pedido, plato=plato, cantidad=cantidad)
+
+                        pedido_plato_qs = PedidoPlato.objects.filter(pedido=pedido, plato=plato)
+                        if pedido_plato_qs.exists():
+                            pedido_plato = pedido_plato_qs.first()
+                            pedido_plato.cantidad += cantidad
+                            pedido_plato.save()
+                        else:
+                            PedidoPlato.objects.create(pedido=pedido, plato=plato, cantidad=cantidad)
+
                         total_pedido += plato.precio * cantidad
                 except (ValueError, Plato.DoesNotExist):
                     continue
@@ -164,6 +172,7 @@ def añadir_personal(request):
 
 
 @require_POST
+@login_required
 def añadir_plato(request):
     if not request.user.is_staff:
         return HttpResponseForbidden("No tienes permisos para realizar esta acción.")
