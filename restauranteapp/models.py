@@ -6,6 +6,8 @@ class UsuarioManager(BaseUserManager):
     def create_user(self, email, nombre, rol, password=None):
         if not email:
             raise ValueError('El usuario debe tener un email')
+        if rol not in dict(Usuario.ROLES).keys():
+            raise ValueError(f'Rol inválido: {rol}')  # <-- Validación del rol válido
         email = self.normalize_email(email)
         usuario = self.model(email=email, nombre=nombre, rol=rol)
         usuario.set_password(password)

@@ -56,7 +56,7 @@ def go_login(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        usuario = authenticate(request, email=email, password=password)
+        usuario = authenticate(request, username=email, password=password)
 
         if usuario is not None:
             login(request, usuario)
