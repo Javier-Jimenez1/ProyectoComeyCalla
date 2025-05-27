@@ -1,62 +1,62 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
+{% load static %}  {# Carga el tag 'static' para poder usar archivos estáticos en la plantilla #}
+<!DOCTYPE html>  {# Define que este documento es HTML5 #}
+<html lang="es">  {# Comienzo del documento HTML con idioma español #}
 <head>
-    <meta charset="UTF-8">
-    <title>Pago - Come y Calla</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <meta charset="UTF-8">  {# Define la codificación de caracteres como UTF-8 para soportar caracteres especiales #}
+    <title>Pago - Come y Calla</title>  {# Título de la pestaña del navegador #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  {# Incluye el CSS de Bootstrap desde CDN para estilos responsivos y componentes predefinidos #}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">  {# Incluye la hoja de estilos personalizada del proyecto desde la carpeta static #}
 </head>
 <body>
 
-{% include "navbar.html" %}
+{% include "navbar.html" %}  {# Inserta la plantilla navbar.html para mostrar la barra de navegación #}
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Resumen del Pedido</h2>
+<div class="container mt-5">  {# Contenedor Bootstrap con margen superior para separar del navbar #}
+    <h2 class="text-center mb-4">Resumen del Pedido</h2>  {# Título centrado con margen inferior para el resumen #}
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Pedido #{{ pedido.id }}</h5>
-            <p class="card-text">Fecha: {{ pedido.fecha|date:"d/m/Y H:i" }}</p>
+    <div class="card">  {# Tarjeta Bootstrap para contenido destacado #}
+        <div class="card-body">  {# Cuerpo de la tarjeta que contiene la información principal #}
+            <h5 class="card-title">Pedido #{{ pedido.id }}</h5>  {# Muestra el ID del pedido usando variable del contexto #}
+            <p class="card-text">Fecha: {{ pedido.fecha|date:"d/m/Y H:i" }}</p>  {# Muestra la fecha del pedido con formato día/mes/año horas:minutos #}
 
-            <table class="table">
+            <table class="table">  {# Tabla Bootstrap para listar detalles del pedido #}
                 <thead>
                 <tr>
-                    <th>Plato</th>
-                    <th>Tipo</th>
-                    <th>Precio Unitario</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
+                    <th>Plato</th>  {# Columna para el nombre del plato #}
+                    <th>Tipo</th>  {# Columna para el tipo del plato, mostrado con su nombre legible #}
+                    <th>Precio Unitario</th>  {# Precio por unidad del plato #}
+                    <th>Cantidad</th>  {# Cantidad pedida del plato #}
+                    <th>Subtotal</th>  {# Precio total por esa línea (precio * cantidad) #}
                 </tr>
                 </thead>
                 <tbody>
-                {% for item in detalles %}
+                {% for item in detalles %}  {# Bucle que recorre cada detalle de plato en el pedido #}
                     <tr>
-                        <td>{{ item.plato.nombre }}</td>
-                        <td>{{ item.plato.get_tipo_display }}</td>
-                        <td>{{ item.plato.precio }} €</td>
-                        <td>{{ item.cantidad }}</td>
-                        <td>{{ item.plato.precio|floatformat:2|add:"0"|floatformat:2|floatformat:"2"|add:item.cantidad|floatformat:2 }}
-                            €
+                        <td>{{ item.plato.nombre }}</td>  {# Nombre del plato #}
+                        <td>{{ item.plato.get_tipo_display }}</td>  {# Nombre legible del tipo de plato (usando método Django get_FOO_display para campos Choice) #}
+                        <td>{{ item.plato.precio }} €</td>  {# Precio unitario del plato con símbolo euro #}
+                        <td>{{ item.cantidad }}</td>  {# Cantidad pedida #}
+                        <td>{{ item.plato.precio|floatformat:2|add:"0"|floatformat:2|floatformat:"2"|add:item.cantidad|floatformat:2 }} €
+                            {# Aquí hay un intento de calcular subtotal, aunque esta expresión es confusa y parece incorrecta, se busca formatear a 2 decimales #}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
-            <h4 class="text-end">Total: <strong>{{ pedido.total }} €</strong></h4>
+            <h4 class="text-end">Total: <strong>{{ pedido.total }} €</strong></h4>  {# Muestra el total del pedido alineado a la derecha en negrita #}
 
-            <div class="d-grid mt-4">
-                <a href="{% url 'home_page' %}" class="btn btn-success btn-lg">Confirmar Pago</a>
+            <div class="d-grid mt-4">  {# Botón de confirmación que ocupa todo el ancho del contenedor con margen superior #}
+                <a href="{% url 'home_page' %}" class="btn btn-success btn-lg">Confirmar Pago</a>  {# Botón verde grande que redirige a la página principal (home_page) #}
             </div>
         </div>
     </div>
 </div>
 <br>
-<br>
+<br>  {# Dos saltos de línea para dar espacio antes del footer #}
 
-{% include "footer.html" %}
+{% include "footer.html" %}  {# Inserta la plantilla footer.html para mostrar el pie de página #}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  {# Incluye el JS de Bootstrap para funcionalidades interactivas como modales o dropdowns #}
 </body>
 </html>

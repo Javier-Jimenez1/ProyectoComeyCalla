@@ -1,109 +1,114 @@
-/* Estilos generales */
+/* Estilos generales para todo el body */
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    position: relative;
-    font-family: 'Montserrat', sans-serif;
+    margin: 0;                    /* Sin margen */
+    padding: 0;                   /* Sin relleno */
+    min-height: 100vh;            /* Al menos 100% altura ventana */
+    position: relative;           /* Para posicionar elementos hijos */
+    font-family: 'Montserrat', sans-serif;  /* Fuente Montserrat */
 }
 
-/* Sección de la carta */
+/* Sección de la carta con fondo y centrado */
 .seccion-carta {
-    background-image: url("../img/fondo_carta.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 2rem 0;
+    background-image: url("../img/fondo_carta.jpg"); /* Imagen de fondo */
+    background-size: cover;           /* Cubrir todo el área */
+    background-position: center;      /* Centrado de la imagen */
+    height: 60vh;                     /* Altura 60% viewport */
+    display: flex;                    /* Flexbox para centrar contenido */
+    align-items: center;              /* Centrado vertical */
+    justify-content: center;          /* Centrado horizontal */
+    position: relative;               /* Para el overlay */
+    padding: 2rem 0;                  /* Espacio arriba y abajo */
 }
 
+/* Overlay oscuro semitransparente */
 .seccion-carta::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+    content: "";                     /* Elemento vacío */
+    position: absolute;              /* Posición absoluta */
+    top: 0; left: 0; right: 0; bottom: 0; /* Ocupa todo el contenedor */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo negro con transparencia */
+    z-index: 1;                     /* Debajo del contenido */
 }
 
+/* Caja con texto dentro de la sección */
 .caja-contenido {
-    background: rgb(214, 34, 33);
+    background: rgb(214, 34, 33);   /* Fondo rojo */
     border: none;
-    padding: 2.5rem 3rem;
-    max-width: 650px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    color: white;
+    padding: 2.5rem 3rem;           /* Relleno interno */
+    max-width: 650px;               /* Ancho máximo */
+    margin: 0 auto;                 /* Centrado horizontal */
+    text-align: center;             /* Texto centrado */
+    position: relative;             /* Para superponer sobre el overlay */
+    z-index: 2;                    /* Por encima del overlay */
+    color: white;                  /* Texto blanco */
     outline: none;
     box-shadow: none;
     border-radius: 0;
-    animation: fadeIn 1s ease-out;
+    animation: fadeIn 1s ease-out; /* Animación de aparición */
 }
 
+/* Título principal del buffet */
 .titulo-buffet {
-    font-size: 3.2rem;
-    color: black;
-    margin-bottom: 0.2rem;
+    font-size: 3.2rem;              /* Texto grande */
+    color: black;                   /* Color negro (sobresale sobre rojo) */
+    margin-bottom: 0.2rem;          /* Margen pequeño abajo */
     line-height: 1.1;
-    animation: slideIn 1.2s ease-out;
+    animation: slideIn 1.2s ease-out; /* Animación de deslizado */
 }
 
+/* Texto descriptivo */
 .texto-buffet {
-    font-size: 1.4rem;
+    font-size: 1.4rem;              /* Tamaño de fuente mediano */
     font-weight: 500;
     color: black;
     margin-bottom: 1.5rem;
     line-height: 1.4;
-    animation: slideIn 1.8s ease-out;
+    animation: slideIn 1.8s ease-out; /* Animación de deslizado más lenta */
 }
 
-/* Imágenes del menú */
+/* Contenedor de las imágenes del menú */
 .imagenes-menu {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    padding: 6rem 1rem 3rem;
-    background-color: #f8f9fa;
+    display: flex;                  /* Flexbox */
+    justify-content: center;        /* Centrado horizontal */
+    flex-wrap: wrap;                /* Permite que las imágenes pasen a otra fila */
+    gap: 2rem;                     /* Espacio entre imágenes */
+    padding: 6rem 1rem 3rem;       /* Espaciado interno (arriba, lados, abajo) */
+    background-color: #f8f9fa;     /* Fondo gris muy claro */
 }
 
+/* Estilo para las imágenes dentro del menú */
 .imagenes-menu img {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
+    width: 100%;                   /* Ancho máximo de su contenedor */
+    max-width: 600px;              /* Pero no mayor a 600px */
+    border-radius: 15px;           /* Bordes redondeados */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+    cursor: pointer;               /* Cursor tipo mano para indicar clic */
+    transition: transform 0.3s ease; /* Animación suave para transformaciones */
 }
 
+/* Efecto hover para hacer zoom leve */
 .imagenes-menu img:hover {
-    transform: scale(1.03);
+    transform: scale(1.03);        /* Zoom al 103% */
 }
 
-/* Estilos para los botones añadidos */
+/* Botones pequeños (probablemente Bootstrap) */
 .btn-sm {
     padding: 0.25rem 0.4rem;
     font-size: 0.75rem;
     margin-left: 0.2rem;
 }
 
+/* Iconos con clase .fas (Font Awesome) tamaño pequeño */
 .fas {
     font-size: 0.75rem;
 }
 
-/* Animaciones */
+/* Animación para aparecer con fade */
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
 
+/* Animación para deslizar y aparecer */
 @keyframes slideIn {
     0% {
         transform: translateY(25px);
@@ -115,12 +120,12 @@ body {
     }
 }
 
-/* Media Queries */
+/* Media query para pantallas pequeñas (menos de 768px) */
 @media (max-width: 768px) {
     .titulo-buffet {
-        font-size: 2.5rem;
+        font-size: 2.5rem;         /* Título más pequeño para móvil */
     }
     .caja-contenido {
-        padding: 2rem;
+        padding: 2rem;             /* Menos padding para móviles */
     }
 }

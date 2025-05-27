@@ -1,5 +1,8 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
+
+from ProyectoComeyCalla import settings
 
 
 class UsuarioManager(BaseUserManager):
@@ -94,3 +97,15 @@ class PedidoPlato(models.Model):
     class Meta:
         unique_together = ('pedido', 'plato')
 
+
+class Reserva(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    fecha_reserva = models.DateField()
+    hora_reserva = models.TimeField()
+    numero_personas = models.PositiveIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(20)]
+    )
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Reserva de {self.usuario.username} para {self.numero_personas} personas el {self.fecha_reserva} a las {self.hora_reserva}'

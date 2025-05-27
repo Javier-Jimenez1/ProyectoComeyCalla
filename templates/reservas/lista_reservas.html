@@ -1,0 +1,39 @@
+<!-- Título principal de la página -->
+<h1>Todas las reservas</h1>
+
+<!-- Tabla con borde donde se listarán las reservas -->
+<table border="1">
+  <!-- Fila de encabezado de la tabla con los nombres de cada columna -->
+  <tr>
+    <th>Usuario</th>
+    <th>Fecha</th>
+    <th>Hora</th>
+    <th>Personas</th>
+    <th>Fecha creación</th>
+  </tr>
+
+  <!-- Bucle for de Django: recorre la lista de reservas y muestra cada una en una fila -->
+  {% for r in reservas %}
+  <tr>
+    <!-- Nombre de usuario asociado a la reserva -->
+    <td>{{ r.usuario.username }}</td>
+    <!-- Fecha en la que se hizo la reserva -->
+    <td>{{ r.fecha_reserva }}</td>
+    <!-- Hora reservada -->
+    <td>{{ r.hora_reserva }}</td>
+    <!-- Número de personas para la reserva -->
+    <td>{{ r.numero_personas }}</td>
+    <!-- Fecha en que se creó la reserva en el sistema -->
+    <td>{{ r.fecha_creacion }}</td>
+  </tr>
+
+  <!-- Si no hay reservas, muestra una fila indicando que no existen -->
+  {% empty %}
+  <tr>
+    <td colspan="5">No hay reservas.</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Enlace para crear una nueva reserva -->
+<a href="{% url 'crear_reserva' %}">Crear nueva reser_

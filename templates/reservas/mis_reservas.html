@@ -1,0 +1,42 @@
+<!-- Título principal de la página -->
+<h1>Mis reservas</h1>
+
+<!-- Tabla con borde que lista las reservas del usuario -->
+<table border="1">
+  <!-- Fila de encabezado con los nombres de las columnas -->
+  <tr>
+    <th>Fecha</th>
+    <th>Hora</th>
+    <th>Personas</th>
+    <th>Acciones</th>
+  </tr>
+
+  <!-- Bucle que recorre las reservas del usuario actual -->
+  {% for r in reservas %}
+  <tr>
+    <!-- Muestra la fecha de la reserva -->
+    <td>{{ r.fecha_reserva }}</td>
+    <!-- Muestra la hora de la reserva -->
+    <td>{{ r.hora_reserva }}</td>
+    <!-- Muestra el número de personas de la reserva -->
+    <td>{{ r.numero_personas }}</td>
+    <!-- Opciones para editar o eliminar la reserva -->
+    <td>
+      <a href="{% url 'editar_reserva' r.id %}">Editar</a> |
+      <a href="{% url 'eliminar_reserva' r.id %}">Eliminar</a>
+    </td>
+  </tr>
+
+  <!-- Si el usuario no tiene reservas, se muestra este mensaje -->
+  {% empty %}
+  <tr>
+    <td colspan="4">No tienes reservas.</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Enlace para crear una nueva reserva -->
+<a href="{% url 'crear_reserva' %}">Crear nueva reserva</a>
+
+<!-- Enlace para ver todas las reservas (posiblemente como administrador) -->
+<a href="{% url 'lista_reservas' %}">Ver todas las reservas</a>

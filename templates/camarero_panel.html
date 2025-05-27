@@ -41,33 +41,55 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.querySelectorAll('.btn-cambiar').forEach(button => {
-        button.addEventListener('click', () => {
-            const mesaId = button.getAttribute('data-id');
-            fetch("{% url 'cambiar_estado_mesa' %}", {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    'mesa_id': mesaId
-                })
+    // Selecciona todos los botones con la clase 'btn-cambiar' dentro del documento
+document.querySelectorAll('.btn-cambiar').forEach(button => {
+    // A cada botón le añade un manejador para el evento 'click'
+    button.addEventListener('click', () => {
+        // Obtiene el valor del atributo data-id del botón clicado, que es el ID de la mesa
+        const mesaId = button.getAttribute('data-id');
+
+        // Hace una petición HTTP POST al endpoint definido en la URL 'cambiar_estado_mesa'
+        fetch("{% url 'cambiar_estado_mesa' %}", {
+            method: 'POST', // Método POST para enviar datos que modifican estado en el servidor
+            headers: {
+                // Cabecera que contiene el token CSRF para proteger la petición (Django lo requiere)
+                'X-CSRFToken': '{{ csrf_token }}',
+                // Indica que los datos se envían en formato application/x-www-form-urlencoded
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            // Cuerpo de la petición, en formato URL encoded, con el parámetro mesa_id
+            body: new URLSearchParams({
+                'mesa_id': mesaId
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const card = document.getElementById(`mesa-${mesaId}`);
-                        const estadoEl = card.querySelector('.estado');
-                        estadoEl.textContent = "Estado: " + data.nuevo_estado;
-                        estadoEl.className = 'estado ' + (data.nuevo_estado === 'Libre' ? 'estado-libre' : 'estado-ocupada');
-                        card.className = 'mesa-card ' + (data.nuevo_estado === 'Libre' ? 'mesa-libre' : 'mesa-ocupada');
-                    } else {
-                        alert('Error: ' + data.error);
-                    }
-                });
+        })
+        // Cuando la respuesta llegue, la convierte a JSON
+        .then(response => response.json())
+        // Procesa el JSON recibido
+        .then(data => {
+            // Si la respuesta indica éxito
+            if (data.success) {
+                // Selecciona el contenedor de la mesa con el ID mesa-{id}
+                const card = document.getElementById(`mesa-${mesaId}`);
+
+                // Busca dentro del contenedor el elemento que muestra el estado
+                const estadoEl = card.querySelector('.estado');
+
+                // Cambia el texto del estado por el nuevo recibido del servidor
+                estadoEl.textContent = "Estado: " + data.nuevo_estado;
+
+                // Actualiza la clase del estado para cambiar su estilo (libre u ocupado)
+                estadoEl.className = 'estado ' + (data.nuevo_estado === 'Libre' ? 'estado-libre' : 'estado-ocupada');
+
+                // Actualiza la clase del contenedor principal para cambiar su apariencia visual
+                card.className = 'mesa-card ' + (data.nuevo_estado === 'Libre' ? 'mesa-libre' : 'mesa-ocupada');
+            } else {
+                // Si hubo un error, muestra una alerta con el mensaje de error
+                alert('Error: ' + data.error);
+            }
         });
     });
+});
+
 </script>
 
 </body>

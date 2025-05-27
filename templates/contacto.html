@@ -1,31 +1,48 @@
 {% load static %}
+{# Carga la librería de archivos estáticos de Django para poder usar {% static %} y enlazar recursos como CSS o imágenes #}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8"/>
+    {# Define la codificación de caracteres del documento en UTF-8 #}
+    
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    {# Hace que la página sea responsive ajustando la escala en dispositivos móviles #}
+    
     <title>Contacto - Come y Calla</title>
+    {# Título que aparecerá en la pestaña del navegador #}
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    {# Enlace al CSS de Bootstrap desde CDN para estilos y diseño responsivo #}
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"/>
+    {# Enlace a los iconos de Bootstrap para poder usarlos en la página #}
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+    {# Enlace a la fuente tipográfica Poppins desde Google Fonts #}
 
     <style>
+        /* Estilos CSS internos para la página */
+
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             transition: background-color 0.3s ease, color 0.3s ease;
+            /* Fuente principal y transición suave para cambio de fondo y texto */
         }
 
         body.dark-mode {
             background-color: #111;
             color: #eee;
+            /* Estilos para modo oscuro: fondo oscuro y texto claro */
         }
 
         img, iframe {
             filter: none !important;
             mix-blend-mode: normal !important;
             background: transparent !important;
+            /* Se asegura que imágenes e iframes no se vean afectados por filtros o modos de mezcla */
         }
 
         .contenedor-cabecera {
@@ -35,6 +52,7 @@
             background-position: center;
             padding: 6rem 0 4rem;
             margin-bottom: 40px;
+            /* Contenedor con imagen de fondo, centrada y que cubre todo el área, con espacio arriba y abajo */
         }
 
         .superposicion-cabecera {
@@ -44,6 +62,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
+            /* Capa semitransparente negra sobre la cabecera para oscurecer la imagen de fondo */
         }
 
         .caja-contenido-cabecera {
@@ -56,12 +75,14 @@
             z-index: 2;
             color: black;
             animation: fadeIn 1s ease-out;
+            /* Caja con contenido destacado (texto) sobre la cabecera con fondo rojo, centrada y con animación de aparición */
         }
 
         .titulo-principal {
             font-size: 3.2rem;
             color: black;
             animation: slideIn 1.2s ease-out;
+            /* Título grande con animación de entrada desde abajo */
         }
 
         .subtitulo {
@@ -70,12 +91,14 @@
             color: black;
             margin-bottom: 1.5rem;
             animation: slideIn 1.8s ease-out;
+            /* Subtítulo con animación similar pero más lenta para efecto escalonado */
         }
 
         .contenedor-contacto {
             max-width: 1200px;
             margin: 0 auto 40px;
             padding: 0 15px;
+            /* Contenedor principal para la sección de contacto con ancho máximo y centrado */
         }
 
         .contenedor-mapa {
@@ -83,12 +106,14 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            /* Contenedor para el mapa con bordes redondeados y sombra suave */
         }
 
         .mapa {
             width: 100%;
             height: 500px;
             border: 0;
+            /* Estilos del iframe del mapa para ocupar todo el ancho y una altura fija, sin borde */
         }
 
         .tarjeta-informacion {
@@ -104,6 +129,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            /* Tarjeta con fondo con imagen y superposición oscura, texto blanco, redondeado y centrado verticalmente */
         }
 
         .titulo-informacion {
@@ -112,12 +138,14 @@
             margin-bottom: 25px;
             color: rgb(214, 34, 33);
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            /* Título de la tarjeta en rojo con sombra para resaltar */
         }
 
         .item-informacion {
             margin-bottom: 20px;
             display: flex;
             align-items: flex-start;
+            /* Cada fila de información con icono y texto, alineados horizontalmente */
         }
 
         .icono-informacion {
@@ -125,6 +153,7 @@
             font-size: 1.5rem;
             margin-right: 15px;
             margin-top: 3px;
+            /* Icono en rojo con tamaño y margen para separación del texto */
         }
 
         .etiqueta-informacion {
@@ -132,10 +161,12 @@
             margin-bottom: 5px;
             color: rgb(214, 34, 33);
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+            /* Etiqueta en negrita y rojo con sombra sutil para el texto de cada info */
         }
 
         .texto-informacion {
             margin: 0;
+            /* Texto normal sin margen adicional */
         }
 
         #toggle-mode {
@@ -152,10 +183,12 @@
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             transition: background-color 0.3s ease;
+            /* Botón fijo para cambiar entre modo oscuro y claro, con estilos visuales */
         }
 
         #toggle-mode:hover {
             background-color: #b72b28;
+            /* Cambio de color al pasar el cursor sobre el botón */
         }
 
         @keyframes fadeIn {
@@ -165,6 +198,7 @@
             100% {
                 opacity: 1;
             }
+            /* Animación para hacer que un elemento aparezca gradualmente */
         }
 
         @keyframes slideIn {
@@ -176,6 +210,7 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+            /* Animación para que un elemento entre desde abajo con transparencia inicial */
         }
 
         @media (max-width: 991px) {
@@ -191,19 +226,28 @@
                 padding: 1.5rem;
                 width: 90%;
             }
+            /* Adaptaciones para pantallas pequeñas: ajustar altura, márgenes y ancho del contenido */
         }
     </style>
 </head>
 <body>
 
 {% include "navbar.html" %}
+{# Inserta el contenido del archivo navbar.html, que normalmente contiene la barra de navegación #}
 
 <div class="contenedor-cabecera">
     <div class="superposicion-cabecera"></div>
+    {# Capa oscura semitransparente para la cabecera #}
+    
     <div class="caja-contenido-cabecera">
         <h1 class="titulo-principal">Come y Calla</h1>
+        {# Título principal de la página #}
+        
         <p class="subtitulo">Contacta con nosotros</p>
+        {# Subtítulo motivador para invitar al contacto #}
+        
         <p>¡Estamos aquí para atender todas tus preguntas y comentarios!</p>
+        {# Texto descriptivo adicional #}
     </div>
 </div>
 
@@ -216,6 +260,7 @@
                         allowfullscreen=""
                         loading="lazy">
                 </iframe>
+                {# Mapa embebido de Google Maps que muestra la ubicación de SAFA en Sevilla #}
             </div>
         </div>
 
@@ -225,25 +270,34 @@
 
                 <div class="item-informacion">
                     <i class="bi bi-geo-alt-fill icono-informacion"></i>
+                    {# Icono de ubicación #}
+                    
                     <div>
                         <div class="etiqueta-informacion">DIRECCIÓN</div>
                         <p class="texto-informacion">C. Trajano, 35, A,<br>Casco Antiguo,<br>41002 Sevilla</p>
+                        {# Dirección física del restaurante #}
                     </div>
                 </div>
 
                 <div class="item-informacion">
                     <i class="bi bi-envelope-fill icono-informacion"></i>
+                    {# Icono de correo electrónico #}
+                    
                     <div>
                         <div class="etiqueta-informacion">EMAIL</div>
                         <p class="texto-informacion">info@comecalla.com</p>
+                        {# Correo de contacto #}
                     </div>
                 </div>
 
                 <div class="item-informacion">
                     <i class="bi bi-telephone-fill icono-informacion"></i>
+                    {# Icono de teléfono #}
+                    
                     <div>
                         <div class="etiqueta-informacion">LLÁMANOS</div>
                         <p class="texto-informacion">+34 954 62 18 29</p>
+                        {# Número de teléfono de contacto #}
                     </div>
                 </div>
             </div>
@@ -254,15 +308,20 @@
 <br>
 
 {% include "footer.html" %}
+{# Inserta el pie de página común desde footer.html #}
 
 <button id="toggle-mode">Modo oscuro</button>
+{# Botón para activar/desactivar el modo oscuro #}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{# Script de Bootstrap para funcionalidades JS (modales, dropdowns, etc.) #}
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const btn = document.getElementById('toggle-mode');
         const body = document.body;
 
+        // Comprueba si en localStorage se guardó que el modo oscuro estaba activado
         if (localStorage.getItem('modoOscuro') === 'true') {
             body.classList.add('dark-mode');
             btn.textContent = 'Modo claro';
@@ -270,11 +329,13 @@
 
         btn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            const oscuro = body.classList.contains('dark-mode');
-            localStorage.setItem('modoOscuro', oscuro);
-            btn.textContent = oscuro ? 'Modo claro' : 'Modo oscuro';
+            const modoActivo = body.classList.contains('dark-mode');
+            btn.textContent = modoActivo ? 'Modo claro' : 'Modo oscuro';
+            localStorage.setItem('modoOscuro', modoActivo);
+            // Guarda la preferencia del usuario para mantenerla en futuras visitas
         });
     });
 </script>
+
 </body>
 </html>

@@ -1,43 +1,43 @@
 body {
-    background-color: #fff8e1;
-    font-family: 'Montserrat', sans-serif;
+    background-color: #fff8e1;               /* Fondo color crema claro */
+    font-family: 'Montserrat', sans-serif;  /* Fuente principal Montserrat */
 }
 
 .admin-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1200px;                       /* Ancho máximo del contenedor */
+    margin: 0 auto;                          /* Centrado horizontal automático */
 }
 
 .card-header {
-    background-color: #d10000;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
+    background-color: #d10000;               /* Fondo rojo intenso para encabezados */
+    color: white;                            /* Texto blanco */
+    font-family: 'Montserrat', sans-serif;  /* Fuente Montserrat */
 }
 
 .btn-primary {
-    background-color: #d10000;
-    border-color: #d10000;
+    background-color: #d10000;               /* Botón principal con fondo rojo intenso */
+    border-color: #d10000;                   /* Borde del botón igual al fondo */
 }
 
 .btn-primary:hover {
-    background-color: #a80000;
-    border-color: #a80000;
+    background-color: #a80000;               /* Al pasar el cursor, rojo más oscuro */
+    border-color: #a80000;                   /* Borde cambia al mismo rojo oscuro */
 }
 
 .btn-warning {
-    background-color: #ffd900;
-    border-color: #ffd900;
-    color: #000;
+    background-color: #ffd900;               /* Botón de advertencia con fondo amarillo */
+    border-color: #ffd900;                   /* Borde igual al fondo */
+    color: #000;                            /* Texto negro para buen contraste */
 }
 
 .table th {
-    background-color: #d10000;
-    color: white;
+    background-color: #d10000;               /* Fondo rojo intenso en las cabeceras de tabla */
+    color: white;                            /* Texto blanco en cabeceras */
 }
 
 .form-section {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
+    background-color: #f8f9fa;               /* Fondo gris claro para secciones de formulario */
+    border-radius: 8px;                      /* Bordes redondeados para suavizar */
+    padding: 20px;                           /* Espacio interior para separar contenido */
+    margin-bottom: 30px;                     /* Margen inferior para separar de otros elementos */
 }

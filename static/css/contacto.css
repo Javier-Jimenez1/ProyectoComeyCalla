@@ -1,10 +1,10 @@
-/* Estilos generales */
+/* Estilos generales para el body */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #ffffff;
 }
 
-/* Cabecera con imagen de fondo */
+/* Contenedor cabecera con imagen de fondo y padding */
 .contenedor-cabecera {
     position: relative;
     background-image: url('../img/container_bg.jpg');
@@ -14,6 +14,7 @@ body {
     margin-bottom: 40px;
 }
 
+/* Capa superpuesta semitransparente oscura para mejorar legibilidad */
 .superposicion-cabecera {
     position: absolute;
     top: 0;
@@ -23,6 +24,7 @@ body {
     background: rgba(0, 0, 0, 0.6);
 }
 
+/* Caja de contenido dentro de la cabecera */
 .caja-contenido-cabecera {
     background: rgb(214, 34, 33);
     border: none;
@@ -39,6 +41,7 @@ body {
     animation: fadeIn 1s ease-out;
 }
 
+/* Título principal con animación */
 .titulo-principal {
     font-size: 3.2rem;
     color: black;
@@ -47,6 +50,7 @@ body {
     animation: slideIn 1.2s ease-out;
 }
 
+/* Subtítulo con animación */
 .subtitulo {
     font-size: 1.4rem;
     font-weight: 500;
@@ -56,14 +60,14 @@ body {
     animation: slideIn 1.8s ease-out;
 }
 
-/* Contenedor principal */
+/* Contenedor principal para la sección de contacto */
 .contenedor-contacto {
     max-width: 1200px;
     margin: 0 auto 40px;
     padding: 0 15px;
 }
 
-/* Mapa */
+/* Contenedor del mapa con altura y sombras */
 .contenedor-mapa {
     height: 100%;
     border-radius: 8px;
@@ -71,17 +75,18 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Iframe o elemento mapa */
 .mapa {
     width: 100%;
     height: 500px;
     border: 0;
 }
 
-/* Tarjeta de información */
+/* Tarjeta de información con fondo degradado y sobreimagen */
 .tarjeta-informacion {
     height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url('../img/card_bg.jpg');
+                url('../img/card_bg.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -93,6 +98,7 @@ body {
     justify-content: center;
 }
 
+/* Título dentro de la tarjeta de información */
 .titulo-informacion {
     font-size: 1.8rem;
     font-weight: bold;
@@ -101,12 +107,14 @@ body {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+/* Cada ítem de información con icono y texto */
 .item-informacion {
     margin-bottom: 20px;
     display: flex;
     align-items: flex-start;
 }
 
+/* Icono decorativo para información */
 .icono-informacion {
     color: rgb(214, 34, 33);
     font-size: 1.5rem;
@@ -114,6 +122,7 @@ body {
     margin-top: 3px;
 }
 
+/* Etiqueta con estilo destacado */
 .etiqueta-informacion {
     font-weight: bold;
     margin-bottom: 5px;
@@ -121,17 +130,15 @@ body {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
+/* Texto descriptivo */
 .texto-informacion {
     margin: 0;
 }
 
+/* Animaciones para fadeIn y slideIn */
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 @keyframes slideIn {
@@ -145,7 +152,7 @@ body {
     }
 }
 
-/* Media Queries */
+/* Media queries para pantallas medianas y pequeñas */
 @media (max-width: 991px) {
     .mapa, .tarjeta-informacion {
         height: 400px;

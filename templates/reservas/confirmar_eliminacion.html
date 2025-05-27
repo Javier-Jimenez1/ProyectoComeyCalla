@@ -1,0 +1,22 @@
+<!-- Título principal de la página -->
+<h1>Eliminar reserva</h1>
+
+<!-- Mensaje de confirmación, muestra los datos de la reserva con las variables de Django -->
+<p>
+  ¿Seguro que quieres eliminar la reserva para 
+  {{ reserva.numero_personas }} personas el 
+  {{ reserva.fecha_reserva }} a las 
+  {{ reserva.hora_reserva }}?
+</p>
+
+<!-- Formulario HTML que se enviará mediante método POST -->
+<form method="post">
+  <!-- Token de seguridad que protege el formulario contra ataques CSRF -->
+  {% csrf_token %}
+  
+  <!-- Botón que envía el formulario para confirmar la eliminación -->
+  <button type="submit">Sí, eliminar</button>
+
+  <!-- Enlace para cancelar la acción y volver a la vista de "mis_reservas" -->
+  <a href="{% url 'mis_reservas' %}">Cancelar</a>
+</form>

@@ -1,44 +1,67 @@
+<!-- Carga la etiqueta 'static' para usar archivos estáticos en Django -->
 {% load static %}
 
+<!-- Declaración del documento HTML5 y configuración de idioma -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Codificación de caracteres UTF-8 -->
     <meta charset="UTF-8">
+    
+    <!-- Configuración para diseño responsivo en dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título de la página que aparece en la pestaña del navegador -->
     <title>Panel de Administración - Come y Calla</title>
+    
+    <!-- CSS de Bootstrap desde CDN para estilos prediseñados -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Fuentes Montserrat y Poppins desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap"
           rel="stylesheet">
+    
+    <!-- Hoja de estilos personalizada cargada desde la carpeta static -->
     <link rel="stylesheet" href="{% static 'css/añadir_personal.css' %}">
 </head>
 <body>
 
+<!-- Incluye el menú de navegación desde un archivo separado -->
 {% include "navbar.html" %}
 
+<!-- Contenedor principal para el panel de administración con padding vertical -->
 <div class="container admin-container py-4">
     <div class="card shadow">
+        <!-- Cabecera de la tarjeta con título y icono -->
         <div class="card-header">
             <h2 class="mb-0 text-center"><i class="fas fa-users-cog me-2"></i>Panel de Administración</h2>
         </div>
 
         <div class="card-body">
+            <!-- Sección para añadir nuevo personal -->
             <div class="form-section">
                 <h3 class="text-danger mb-4"><i class="fas fa-user-plus me-2"></i>Añadir Nuevo Personal</h3>
                 <form method="post">
+                    <!-- Token CSRF para seguridad en Django -->
                     {% csrf_token %}
+                    <!-- Campo oculto para identificar el tipo de formulario -->
                     <input type="hidden" name="form_type" value="add_user">
 
+                    <!-- Filas y columnas con separación para el formulario -->
                     <div class="row g-3">
+                        <!-- Campo para nombre completo -->
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre completo</label>
                             <input type="text" class="form-control" name="nombre" id="nombre" required>
                         </div>
 
+                        <!-- Campo para email -->
                         <div class="col-md-6">
                             <label for="email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" name="email" id="email" required>
                         </div>
 
+                        <!-- Select para elegir rol del usuario -->
                         <div class="col-md-6">
                             <label for="rol" class="form-label">Rol</label>
                             <select class="form-select" name="rol" id="rol" required>
@@ -49,11 +72,13 @@
                             </select>
                         </div>
 
+                        <!-- Campo para contraseña -->
                         <div class="col-md-6">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" name="password" id="password" required>
                         </div>
 
+                        <!-- Botón para enviar formulario -->
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save me-2"></i>Añadir Personal
@@ -63,9 +88,11 @@
                 </form>
             </div>
 
+            <!-- Sección para mostrar personal registrado -->
             <div class="form-section">
                 <h3 class="text-danger mb-4"><i class="fas fa-users me-2"></i>Personal Registrado</h3>
 
+                <!-- Tabla responsiva con lista de usuarios -->
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -77,18 +104,22 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <!-- Loop sobre la lista de usuarios -->
                         {% for usuario in usuarios %}
                             <tr>
                                 <td>{{ usuario.nombre }}</td>
                                 <td>{{ usuario.email }}</td>
+                                <!-- Método get_rol_display para mostrar el nombre legible del rol -->
                                 <td>{{ usuario.get_rol_display }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
+                                        <!-- Botón para abrir modal de edición con datos del usuario -->
                                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#editModal"
                                                 onclick="setEditData('{{ usuario.id }}', '{{ usuario.nombre }}', '{{ usuario.email }}', '{{ usuario.rol }}')">
                                             <i class="fas fa-edit"></i> Editar
                                         </button>
+                                        <!-- Formulario para eliminar usuario con confirmación -->
                                         <form method="post" class="d-inline">
                                             {% csrf_token %}
                                             <input type="hidden" name="usuario_id" value="{{ usuario.id }}">
@@ -107,12 +138,14 @@
                 </div>
             </div>
 
+            <!-- Botón para volver a la página principal -->
             <div class="text-center mt-4">
                 <a href="{% url 'home_page' %}" class="btn btn-warning">
                     <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
                 </a>
             </div>
 
+            <!-- Mostrar mensajes flash (éxito, error, info, etc.) -->
             {% if messages %}
                 <div class="mt-4">
                     {% for message in messages %}
@@ -127,30 +160,36 @@
     </div>
 </div>
 
+<!-- Modal para editar usuario -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <!-- Cabecera del modal con título y botón cerrar -->
             <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="editModalLabel"><i class="fas fa-user-edit me-2"></i>Editar Usuario</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
+            <!-- Formulario para editar datos del usuario -->
             <form method="post" id="editForm">
                 {% csrf_token %}
                 <input type="hidden" name="editar_usuario" value="true">
                 <input type="hidden" name="usuario_id" id="editUsuarioId">
 
                 <div class="modal-body">
+                    <!-- Campo nombre -->
                     <div class="mb-3">
                         <label for="editNombre" class="form-label">Nombre completo</label>
                         <input type="text" class="form-control" name="nombre" id="editNombre" required>
                     </div>
 
+                    <!-- Campo email -->
                     <div class="mb-3">
                         <label for="editEmail" class="form-label">Correo electrónico</label>
                         <input type="email" class="form-control" name="email" id="editEmail" required>
                     </div>
 
+                    <!-- Select rol -->
                     <div class="mb-3">
                         <label for="editRol" class="form-label">Rol</label>
                         <select class="form-select" name="rol" id="editRol" required>
@@ -161,6 +200,7 @@
                         </select>
                     </div>
 
+                    <!-- Campo para cambiar contraseña, opcional -->
                     <div class="mb-3">
                         <label for="editPassword" class="form-label">Nueva contraseña (dejar en blanco para no
                             cambiar)</label>
@@ -168,6 +208,7 @@
                     </div>
                 </div>
 
+                <!-- Pie del modal con botones cancelar y guardar -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
@@ -176,11 +217,16 @@
         </div>
     </div>
 </div>
+
 <br>
 
+<!-- Inclusión del pie de página -->
 {% include "footer.html" %}
 
+<!-- Scripts de Bootstrap y dependencias -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Script para llenar el modal de edición con datos del usuario -->
 <script>
     function setEditData(id, nombre, email, rol) {
         document.getElementById('editUsuarioId').value = id;
@@ -190,5 +236,6 @@
         document.getElementById('editPassword').value = '';
     }
 </script>
+
 </body>
 </html>

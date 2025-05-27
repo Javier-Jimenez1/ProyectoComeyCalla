@@ -1,68 +1,68 @@
 body {
-    background-color: #f9f9f9;
-    padding-top: 60px;
-    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;               /* Fondo muy claro gris */
+    padding-top: 60px;                      /* Espacio arriba para no pegarse al borde superior */
+    font-family: 'Segoe UI', sans-serif;   /* Fuente principal Segoe UI */
 }
 
 .mesa-container {
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1000px;                      /* Ancho máximo del contenedor */
+    margin: 0 auto;                        /* Centrado horizontal automático */
 }
 
 .mesa-card {
-    border: 2px solid #dee2e6;
-    border-left: 8px solid;
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    background-color: white;
-    transition: 0.3s;
+    border: 2px solid #dee2e6;             /* Borde gris claro de 2px */
+    border-left: 8px solid;                 /* Borde izquierdo más ancho para destacar */
+    border-radius: 8px;                    /* Bordes redondeados */
+    padding: 15px 20px;                    /* Espacio interno vertical y horizontal */
+    margin-bottom: 15px;                   /* Separación inferior entre tarjetas */
+    background-color: white;               /* Fondo blanco para la tarjeta */
+    transition: 0.3s;                      /* Transición suave para cambios visuales */
 }
 
 .mesa-card:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1;             /* Cambio de fondo a gris claro al pasar el cursor */
 }
 
 .mesa-libre {
-    border-left-color: #28a745;
+    border-left-color: #28a745;             /* Borde izquierdo verde para mesas libres */
 }
 
 .mesa-ocupada {
-    border-left-color: #dc3545;
+    border-left-color: #dc3545;             /* Borde izquierdo rojo para mesas ocupadas */
 }
 
 .numero-mesa {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #343a40;
+    font-size: 1.6rem;                     /* Tamaño grande para el número de mesa */
+    font-weight: bold;                     /* Negrita */
+    color: #343a40;                       /* Color gris oscuro */
 }
 
 .capacidad {
-    font-size: 1rem;
-    color: #6c757d;
+    font-size: 1rem;                      /* Tamaño normal para capacidad */
+    color: #6c757d;                      /* Gris medio para texto secundario */
 }
 
 .estado {
-    font-weight: bold;
-    font-size: 1rem;
-    margin-top: 5px;
+    font-weight: bold;                    /* Texto en negrita para estado */
+    font-size: 1rem;                     /* Tamaño normal */
+    margin-top: 5px;                     /* Pequeño margen superior */
 }
 
 .estado-libre {
-    color: #28a745;
+    color: #28a745;                      /* Texto verde para estado libre */
 }
 
 .estado-ocupada {
-    color: #dc3545;
+    color: #dc3545;                      /* Texto rojo para estado ocupada */
 }
 
 .btn-cambiar {
-    font-size: 0.9rem;
-    border-radius: 20px;
-    padding: 5px 15px;
+    font-size: 0.9rem;                   /* Tamaño pequeño para botones */
+    border-radius: 20px;                 /* Bordes muy redondeados (botón tipo píldora) */
+    padding: 5px 15px;                  /* Espaciado interno del botón */
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
+    margin: 0;                          /* Quita márgenes por defecto del navegador */
+    padding: 0;                         /* Quita relleno por defecto del navegador */
 }

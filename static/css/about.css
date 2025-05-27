@@ -1,165 +1,168 @@
 /* ESTILOS GENERALES */
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    line-height: 1.6;
+    font-family: 'Montserrat', sans-serif; /* Fuente principal Montserrat con fallback sans-serif */
+    background-color: #f8f9fa;             /* Color de fondo muy claro (gris claro) */
+    margin: 0;                            /* Sin margen exterior */
+    padding: 0;                           /* Sin padding interior */
+    color: #333;                         /* Color de texto gris oscuro */
+    line-height: 1.6;                    /* Altura de línea para mejorar legibilidad */
 }
 
 /* CONTENEDOR PRINCIPAL */
 .contenedor-principal {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 40px;
+    max-width: 1200px;                   /* Ancho máximo del contenedor */
+    margin: 60px auto;                   /* Márgenes verticales de 60px y centrado horizontal automático */
+    padding: 0 20px;                    /* Relleno horizontal de 20px */
+    display: flex;                      /* Usamos flexbox para distribuir elementos hijos en fila */
+    align-items: flex-start;            /* Alinea los items al inicio verticalmente */
+    gap: 40px;                         /* Espacio de 40px entre los elementos flexibles hijos */
 }
 
 /* COLUMNA DE TEXTO (izquierda) */
 .columna-texto {
-    flex: 1;
+    flex: 1;                           /* Ocupa todo el espacio posible en flex (crece proporcionalmente) */
 }
 
 .titulo-bienvenida {
-    font-size: 1.3rem;
-    letter-spacing: 4px;
-    color: rgb(214, 34, 33);
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    font-weight: 700;
+    font-size: 1.3rem;                 /* Tamaño de fuente pequeño-mediano */
+    letter-spacing: 4px;               /* Espaciado entre letras amplio para efecto visual */
+    color: rgb(214, 34, 33);           /* Color rojo vibrante */
+    margin-bottom: 15px;               /* Margen inferior para separar de siguiente elemento */
+    text-transform: uppercase;         /* Texto en mayúsculas */
+    font-weight: 700;                  /* Negrita fuerte */
 }
 
 .titulo-destacado {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 30px;
-    line-height: 1.3;
+    font-size: 2.5rem;                 /* Fuente grande para destacar */
+    font-weight: 700;                  /* Negrita */
+    color: #222;                      /* Color gris muy oscuro casi negro */
+    margin-bottom: 30px;              /* Espacio inferior amplio */
+    line-height: 1.3;                 /* Altura de línea ajustada para títulos */
 }
 
 .parrafos-contenido p {
-    margin-bottom: 25px;
-    line-height: 1.8;
-    font-size: 1.1rem;
+    margin-bottom: 25px;               /* Separación entre párrafos */
+    line-height: 1.8;                  /* Mejor legibilidad en párrafos */
+    font-size: 1.1rem;                 /* Tamaño de fuente ligeramente aumentado */
 }
 
 .boton-accion {
-    display: inline-block;
-    background-color: rgb(214, 34, 33);
-    color: white;
-    padding: 12px 35px;
-    font-weight: 700;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.3s;
-    font-size: 1.1rem;
-    margin-top: 10px;
+    display: inline-block;             /* Se comporta como bloque en línea para poder dimensionarlo */
+    background-color: rgb(214, 34, 33); /* Fondo rojo vibrante */
+    color: white;                     /* Texto blanco */
+    padding: 12px 35px;               /* Relleno interno para tamaño cómodo */
+    font-weight: 700;                 /* Texto en negrita */
+    border-radius: 4px;               /* Bordes ligeramente redondeados */
+    text-decoration: none;            /* Sin subrayado */
+    transition: all 0.3s;             /* Transición suave para todos los cambios visuales */
+    font-size: 1.1rem;                /* Fuente un poco más grande */
+    margin-top: 10px;                 /* Separación superior para que no quede pegado al texto anterior */
 }
 
 .boton-accion:hover {
-    background-color: rgb(242, 204, 33);
-    color: #222;
-    transform: translateY(-2px);
+    background-color: rgb(242, 204, 33); /* Cambia fondo a amarillo cuando se pasa el cursor */
+    color: #222;                      /* Cambia texto a gris oscuro */
+    transform: translateY(-2px);      /* Leve elevación visual al botón */
 }
 
 /* COLUMNA DE IMÁGENES (derecha) */
 .columna-imagenes {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    width: 40%;                      /* Ocupa 40% del ancho del contenedor principal */
+    display: flex;                   /* Usamos flexbox para colocar imágenes en columna */
+    flex-direction: column;          /* Direccion vertical para las imágenes */
+    gap: 20px;                      /* Espacio de 20px entre imágenes */
 }
 
 .imagen-comida {
-    width: 100%;
-    height: 325px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;                    /* Imagen ocupa todo el ancho de su contenedor */
+    height: 325px;                  /* Altura fija para las imágenes */
+    object-fit: cover;              /* La imagen se recorta para cubrir el área sin deformarse */
+    border-radius: 8px;             /* Bordes redondeados para suavizar la imagen */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar profundidad */
 }
 
 /* SECCIÓN INFERIOR */
 .seccion-completa {
-    margin: 80px 0;
-    padding: 80px 0;
-    width: 100vw;
-    position: relative;
-    left: 50%;
+    margin: 80px 0;                /* Margen vertical amplio */
+    padding: 80px 0;               /* Relleno vertical para dar espacio interno */
+    width: 100vw;                 /* Ancho completo de la ventana gráfica */
+    position: relative;            /* Para posicionar elementos hijos absolutos */
+    left: 50%;                    /* Ajusta posición para que la sección ocupe toda la pantalla centrada */
     right: 50%;
-    margin-left: -50vw;
+    margin-left: -50vw;           /* Centra la sección horizontalmente usando viewport */
     margin-right: -50vw;
-    background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Imagen de fondo */
+    background-size: cover;        /* La imagen cubre todo el área, recortándose si es necesario */
+    background-position: center;  /* Centra la imagen de fondo */
+    color: white;                 /* Texto en blanco para contraste */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra al texto para mejorar legibilidad */
 }
 
 .superposicion {
-    position: absolute;
+    position: absolute;            /* Posición absoluta para cubrir toda la sección */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(210, 35, 15, 0.7);
+    width: 100%;                  /* Ancho total */
+    height: 100%;                 /* Alto total */
+    background-color: rgba(210, 35, 15, 0.7); /* Capa semitransparente roja para oscurecer la imagen */
 }
 
 .contenido-seccion {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-    z-index: 1;
-    text-align: center;
+    position: relative;            /* Para estar encima de la superposición */
+    max-width: 1200px;            /* Ancho máximo del contenido */
+    margin: 0 auto;               /* Centra horizontalmente */
+    padding: 0 15px;              /* Relleno horizontal para respirar el texto */
+    z-index: 1;                  /* Asegura que el contenido esté por encima de la superposición */
+    text-align: center;          /* Centra texto */
 }
 
 .titulo-seccion {
-    font-weight: 700;
-    margin-bottom: 30px;
-    font-size: 2rem;
+    font-weight: 700;             /* Negrita */
+    margin-bottom: 30px;          /* Separación inferior */
+    font-size: 2rem;              /* Tamaño grande */
 }
 
 .texto-seccion {
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: 1.1rem;
-    line-height: 1.8;
+    max-width: 800px;            /* Ancho máximo para texto */
+    margin: 0 auto;              /* Centra el texto horizontalmente */
+    font-size: 1.1rem;           /* Fuente ligeramente aumentada */
+    line-height: 1.8;            /* Mejor legibilidad */
 }
 
 /* RESPONSIVE */
+
+/* Para pantallas menores o iguales a 992px */
 @media (max-width: 992px) {
     .contenedor-principal {
-        flex-direction: column;
+        flex-direction: column;  /* Cambia layout a columna (vertical) para pantallas más pequeñas */
     }
 
     .columna-imagenes {
-        width: 100%;
-        flex-direction: row;
+        width: 100%;             /* La columna de imágenes ahora ocupa todo el ancho */
+        flex-direction: row;     /* Muestra imágenes en fila */
     }
 
     .imagen-comida {
-        height: 200px;
+        height: 200px;           /* Reduce la altura de las imágenes para adaptarse mejor */
     }
 }
 
+/* Para pantallas menores o iguales a 768px */
 @media (max-width: 768px) {
     .columna-imagenes {
-        flex-direction: column;
+        flex-direction: column;  /* Vuelve a columna vertical para pantallas muy pequeñas */
     }
 
     .titulo-bienvenida {
-        font-size: 1.1rem;
+        font-size: 1.1rem;       /* Reduce tamaño del título de bienvenida */
     }
 
     .titulo-destacado {
-        font-size: 2rem;
+        font-size: 2rem;         /* Reduce tamaño del título destacado */
     }
 
     .seccion-completa {
-        padding: 60px 0;
-        background-attachment: scroll;
+        padding: 60px 0;          /* Reduce relleno vertical para mejor espacio en móvil */
+        background-attachment: scroll; /* Cambia el comportamiento del fondo para que no esté fijo (mejor para móviles) */
     }
 }

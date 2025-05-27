@@ -1,62 +1,58 @@
-{% load static %}
+{% load static %}  {# Carga la librería para poder usar archivos estáticos (CSS, imágenes, JS) #}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es">  {# Página en español #}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Come y Calla{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <meta charset="UTF-8">  {# Codificación UTF-8 para caracteres especiales #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  {# Responsive para móviles #}
+    <title>{% block title %}Come y Calla{% endblock %}</title>  {# Título que puede ser sobreescrito en plantillas hijas #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  {# CSS Bootstrap #}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">  {# Fuentes Google Fonts #}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">  {# CSS personalizado para la navbar #}
 </head>
 <body>
-<nav class="navbar navbar-expand-lg barra-navegacion">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'home_page' %}">
-            <img src="{% static 'img/logoComeyCalla.png' %}" alt="Buffet Logo" class="logo">
+
+<nav class="navbar navbar-expand-lg barra-navegacion">  {# Barra de navegación responsive expandible en lg #}
+    <div class="container">  {# Contenedor para alinear contenido dentro de un ancho máximo #}
+        <a class="navbar-brand" href="{% url 'home_page' %}">  {# Logo que enlaza a la página principal #}
+            <img src="{% static 'img/logoComeyCalla.png' %}" alt="Buffet Logo" class="logo">  {# Imagen del logo desde estáticos #}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>  {# Icono hamburguesa para menú en móvil #}
         </button>
-        <div class="collapse navbar-collapse" id="menuPrincipal">
-            <ul class="navbar-nav mx-auto menu-principal">
+        <div class="collapse navbar-collapse" id="menuPrincipal">  {# Menú que colapsa en móviles #}
+            <ul class="navbar-nav mx-auto menu-principal">  {# Lista de enlaces centrada horizontalmente #}
                 <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'home_page' %}">INICIO</a></li>
-                <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'about_us_page' %}">SOBRE NOSOTROS</a>
-                </li>
-                <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'carta_page' %}">NUESTRA CARTA</a>
-                </li>
+                <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'about_us_page' %}">SOBRE NOSOTROS</a></li>
+                <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'carta_page' %}">NUESTRA CARTA</a></li>
                 <li class="nav-item"><a class="nav-link enlace-menu" href="{% url 'contacto_page' %}">CONTACTO</a></li>
             </ul>
-            <div class="dropdown">
+            <div class="dropdown">  {# Dropdown menú a la derecha #}
                 <button class="btn dropdown-toggle btn-menu-principal" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown">
                     Menú
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end menu-comeycalla">
-                    {% if user.is_authenticated %}
-                        <li><a class="dropdown-item btn-menu-item" href="{% url 'historial_pedidos' %}">Mis pedidos</a>
-                        </li>
-
+                <ul class="dropdown-menu dropdown-menu-end menu-comeycalla">  {# Menú desplegable alineado a la derecha #}
+                    {% if user.is_authenticated %}  {# Si el usuario está autenticado #}
+                        <li><a class="dropdown-item btn-menu-item" href="{% url 'historial_pedidos' %}">Mis pedidos</a></li>
+                        <li><a class="dropdown-item btn-menu-item" href="{% url 'mis_reservas' %}">Reservas</a></li>
+                        <!-- Aquí el nuevo enlace -->
                         <li>
-                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">  {# Form para cerrar sesión con CSRF #}
                                 {% csrf_token %}
-                                <button type="submit" class="dropdown-item btn-menu-item btn-logout">Cerrar sesión
-                                </button>
+                                <button type="submit" class="dropdown-item btn-menu-item btn-logout">Cerrar sesión</button>
                             </form>
                         </li>
-                    {% else %}
+                    {% else %}  {# Si no está autenticado muestra opciones para login/registro #}
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'login_page' %}">Iniciar sesión</a></li>
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'register_page' %}">Registrarse</a></li>
                     {% endif %}
-                    <li><a class="dropdown-item btn-menu-item" href="{% url 'gestionar_page' %}">Gestionar</a>
-                    </li>
+                    <li><a class="dropdown-item btn-menu-item" href="{% url 'gestionar_page' %}">Gestionar</a></li>  {# Siempre visible #}
                 </ul>
             </div>
         </div>
     </div>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  {# JS de Bootstrap para la interactividad #}
 </body>
 </html>

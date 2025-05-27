@@ -1,60 +1,89 @@
-{% load static %}
+{% load static %} 
+{# Carga la librería de etiquetas 'static' de Django para poder usar archivos estáticos como CSS, JS o imágenes #}
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Panel de Cocina - Come y Calla</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <meta charset="UTF-8"/> 
+    {# Define la codificación de caracteres del documento como UTF-8 #}
+    <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+    {# Define que la vista sea responsiva para dispositivos móviles ajustando el ancho a la pantalla #}
+    <title>Panel de Cocina - Come y Calla</title> 
+    {# Título que aparecerá en la pestaña del navegador #}
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/> 
+    {# Enlace al CSS de Bootstrap 5.3 desde CDN para estilos rápidos y responsivos #}
+    
     <link rel="stylesheet" href="{% static 'css/cocinero_panel.css' %}"/>
+    {# Enlace a un archivo CSS propio ubicado en la carpeta estática, con ruta 'css/cocinero_panel.css' #}
 </head>
 <body>
 
 {% include "navbar.html" %}
+{# Inserta el contenido de 'navbar.html', normalmente la barra de navegación común en la web #}
 
 <div class="container pedidos-container">
+    {# Contenedor Bootstrap para centrar y dar márgenes, con clase personalizada 'pedidos-container' #}
     <h2 class="text-center text-primary mb-4">Pedidos en Cocina</h2>
+    {# Título centrado y en color primario con margen inferior #}
 
     <div class="row">
+        {# Fila Bootstrap para dividir columnas #}
         {% for pedido in pedidos %}
+            {# Bucle que recorre la lista de pedidos enviada desde la vista Django #}
             <div class="col-md-6 mb-4">
+                {# Columna de tamaño medio 6 (mitad de fila en pantallas md o mayores), con margen inferior #}
                 <div class="pedido-card pedido-{{ pedido.estado|lower|cut:' ' }}">
+                    {# Tarjeta con clases personalizadas. Clase dinámica según el estado del pedido,
+                       se convierte a minúsculas y se eliminan espacios para usar en CSS #}
                     <div class="pedido-header">
                         <h5>Pedido #{{ pedido.id }}</h5>
+                        {# Muestra el ID del pedido #}
                         <span class="badge estado-badge estado-{{ pedido.estado|lower|cut:' ' }}">
-                        {{ pedido.estado }}
-                    </span>
+                            {{ pedido.estado }}
+                        </span>
+                        {# Etiqueta con estilo de badge que muestra el estado actual del pedido, con clase dinámica #}
                     </div>
                     <div class="pedido-body">
                         <p><strong>Hora:</strong> {{ pedido.fecha|date:"H:i" }}</p>
+                        {# Muestra la hora del pedido formateada solo con horas y minutos #}
                         <p><strong>Total:</strong> {{ pedido.total }}€</p>
+                        {# Muestra el total del pedido con símbolo de euro #}
 
                         <div class="productos-list">
                             <h6>Productos:</h6>
                             <ul>
                                 {% for item in pedido.pedidoplato_set.all %}
+                                    {# Bucle que recorre todos los platos (items) asociados al pedido actual #}
                                     <li>{{ item.cantidad }}x {{ item.plato.nombre }}</li>
+                                    {# Muestra cantidad y nombre del plato #}
                                 {% endfor %}
                             </ul>
                         </div>
 
                         <div class="pedido-actions">
+                            {# Contenedor para los botones de acción sobre el pedido #}
                             <button class="btn btn-success btn-cambiar {% if pedido.estado == 'Entregado' %}d-none{% endif %}"
                                     data-id="{{ pedido.id }}" data-estado="Entregado">
                                 Marcar como Entregado
                             </button>
+                            {# Botón para marcar pedido como "Entregado".
+                               Se oculta (clase d-none) si ya está entregado #}
                             <button class="btn btn-warning btn-cambiar {% if pedido.estado == 'En preparación' %}d-none{% endif %}"
                                     data-id="{{ pedido.id }}" data-estado="En preparación">
                                 Volver a Preparación
                             </button>
+                            {# Botón para volver el pedido a estado "En preparación".
+                               Se oculta si ya está en preparación #}
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
+            {# En caso de que no haya pedidos en la lista #}
             <div class="col-12">
                 <div class="alert alert-info">No hay pedidos pendientes</div>
+                {# Mensaje informativo mostrando que no hay pedidos #}
             </div>
         {% endfor %}
     </div>
@@ -62,13 +91,18 @@
 <br>
 
 {% include "footer.html" %}
+{# Inserta el contenido del archivo 'footer.html', pie de página común #}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{# Incluye el script JavaScript de Bootstrap para funcionalidades interactivas (modals, dropdowns, etc.) #}
+
 <script>
     document.querySelectorAll('.btn-cambiar').forEach(button => {
         button.addEventListener('click', () => {
             const pedidoId = button.getAttribute('data-id');
             const nuevoEstado = button.getAttribute('data-estado');
+            // Al hacer click en cualquiera de los botones con clase .btn-cambiar,
+            // se obtienen el ID del pedido y el nuevo estado que se quiere poner.
 
             fetch("{% url 'cambiar_estado_pedido' %}", {
                 method: 'POST',
@@ -81,12 +115,17 @@
                     'nuevo_estado': nuevoEstado
                 })
             })
+            // Se hace una petición POST al endpoint 'cambiar_estado_pedido' (URL generada con Django)
+            // enviando los datos del pedido y el nuevo estado para actualizarlo en el servidor.
+            // Se incluye el token CSRF para seguridad.
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         location.reload();
+                        // Si la respuesta es exitosa, recarga la página para mostrar los cambios
                     } else {
                         alert('Error: ' + data.error);
+                        // Si hay error, muestra alerta con el mensaje
                     }
                 });
         });

@@ -1,38 +1,38 @@
-{% load static %}
+{% load static %}  {# Carga la librería static para usar archivos estáticos (CSS, JS, imágenes) #}
 
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html>  {# Define que el documento es HTML5 #}
+<html lang="es">  {# Idioma del documento: español #}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Come y Calla - Restaurante Español</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <meta charset="UTF-8">  {# Codificación UTF-8 para caracteres especiales #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  {# Hace la página responsive, ajusta el ancho al dispositivo #}
+    <title>Come y Calla - Restaurante Español</title>  {# Título que aparece en la pestaña del navegador #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  {# Importa Bootstrap para estilos CSS y diseño responsive #}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">  {# Importa la fuente Poppins desde Google Fonts #}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">  {# Importa el archivo CSS personalizado home.css desde la carpeta estática #}
 </head>
 <body>
 
-{% include "navbar.html" %}
+{% include "navbar.html" %}  {# Inserta la barra de navegación común del sitio, que suele estar en navbar.html #}
 
-<section class="seccion-video">
-    <video autoplay muted loop id="video-fondo">
-        <source src="{% static 'vid/video_restaurante.mp4' %}" type="video/mp4">
+<section class="seccion-video">  {# Sección principal con video de fondo #}
+    <video autoplay muted loop id="video-fondo">  {# Video que se reproduce automáticamente, sin sonido y en bucle #}
+        <source src="{% static 'vid/video_restaurante.mp4' %}" type="video/mp4">  {# Fuente del video, usando archivo estático mp4 #}
     </video>
-    <div class="superposicion-video"></div>
-    <div class="contenido-principal">
-        <h1>Come y Calla<br> Buffet</h1>
-        <p class="subtitulo">Sabores tradicionales de España en cada bocado</p>
-        <div class="botones-principales">
-            <a href="{% url 'contacto_page' %}" class="btn btn-primary boton-rojo">Llámanos</a>
-            <a href="{% url 'carta_page' %}" class="btn btn-outline boton-transparente">Ver Menú</a>
+    <div class="superposicion-video"></div>  {# Capa encima del video para aplicar un filtro o sombreado (normalmente semitransparente) #}
+    <div class="contenido-principal">  {# Contenido que se muestra encima del video, texto y botones #}
+        <h1>Come y Calla<br> Buffet</h1>  {# Título principal, con salto de línea <br> para separar palabras #}
+        <p class="subtitulo">Sabores tradicionales de España en cada bocado</p>  {# Subtítulo o lema del restaurante #}
+        <div class="botones-principales">  {# Contenedor para los botones principales de llamada a la acción #}
+            <a href="{% url 'contacto_page' %}" class="btn btn-primary boton-rojo">Llámanos</a>  {# Botón rojo principal que enlaza a la página de contacto (url resuelta con nombre 'contacto_page') #}
+            <a href="{% url 'carta_page' %}" class="btn btn-outline boton-transparente">Ver Menú</a>  {# Botón con estilo outline que enlaza a la carta/menu del restaurante (url 'carta_page') #}
         </div>
     </div>
 </section>
 <br>
 <br>
 
-{% include "footer.html" %}
+{% include "footer.html" %}  {# Inserta el pie de página común de la web #}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  {# Incluye el JavaScript necesario para que funcionen los componentes interactivos de Bootstrap #}
 </body>
 </html>

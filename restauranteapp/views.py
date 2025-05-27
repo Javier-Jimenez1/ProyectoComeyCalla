@@ -7,7 +7,7 @@ from django.db import IntegrityError, transaction
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato
+from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva
 
 
 # Create your views here.
@@ -90,13 +90,14 @@ def guardar_pedido(request):
                         plato_id = key.split('_')[1]
                         plato = Plato.objects.get(pk=plato_id)
 
-                        pedido_plato_qs = PedidoPlato.objects.filter(pedido=pedido, plato=plato)
-                        if pedido_plato_qs.exists():
-                            pedido_plato = pedido_plato_qs.first()
+                        pedido_plato, created = PedidoPlato.objects.get_or_create(
+                            pedido=pedido,
+                            plato=plato,
+                            defaults={'cantidad': cantidad}
+                        )
+                        if not created:
                             pedido_plato.cantidad += cantidad
                             pedido_plato.save()
-                        else:
-                            PedidoPlato.objects.create(pedido=pedido, plato=plato, cantidad=cantidad)
 
                         total_pedido += plato.precio * cantidad
                 except (ValueError, Plato.DoesNotExist):
@@ -338,3 +339,56 @@ def pagina_pago(request, pedido_id):
 def historial_pedidos(request):
     pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha')
     return render(request, 'historial_pedidos.html', {'pedidos': pedidos})
+
+
+class ReservaForm(forms.ModelForm):
+    class Meta:
+        model = Reserva
+        fields = ['fecha_reserva', 'hora_reserva', 'numero_personas']
+        widgets = {
+            'fecha_reserva': forms.DateInput(attrs={'type': 'date'}),
+            'hora_reserva': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
+@login_required
+def lista_reservas(request):
+    reservas = Reserva.objects.all().order_by('fecha_reserva', 'hora_reserva')
+    return render(request, 'reservas/lista_reservas.html', {'reservas': reservas})
+
+@login_required
+def mis_reservas(request):
+    reservas = Reserva.objects.filter(usuario=request.user).order_by('fecha_reserva', 'hora_reserva')
+    return render(request, 'reservas/mis_reservas.html', {'reservas': reservas})
+
+@login_required
+def crear_reserva(request):
+    if request.method == 'POST':
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.usuario = request.user
+            reserva.save()
+            return redirect('mis_reservas')
+    else:
+        form = ReservaForm()
+    return render(request, 'reservas/crear_editar_reserva.html', {'form': form})
+
+@login_required
+def editar_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, pk=reserva_id, usuario=request.user)
+    if request.method == 'POST':
+        form = ReservaForm(request.POST, instance=reserva)
+        if form.is_valid():
+            form.save()
+            return redirect('mis_reservas')
+    else:
+        form = ReservaForm(instance=reserva)
+    return render(request, 'reservas/crear_editar_reserva.html', {'form': form})
+
+@login_required
+def eliminar_reserva(request, reserva_id):
+    reserva = get_object_or_404(Reserva, pk=reserva_id, usuario=request.user)
+    if request.method == 'POST':
+        reserva.delete()
+        return redirect('mis_reservas')
+    return render(request, 'reservas/confirmar_eliminacion.html', {'reserva': reserva})

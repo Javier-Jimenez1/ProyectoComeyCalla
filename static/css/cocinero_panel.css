@@ -1,15 +1,18 @@
+/* Estilos generales para el body */
 body {
     background-color: #f9f9f9;
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
 }
 
+/* Contenedor principal de los pedidos */
 .pedidos-container {
     max-width: 1200px;
-    margin: 20px auto 40px auto;
+    margin: 20px auto 40px auto; /* margen arriba y abajo, centrado horizontal */
     padding: 20px;
 }
 
+/* Tarjeta individual del pedido */
 .pedido-card {
     border-radius: 8px;
     padding: 20px;
@@ -19,28 +22,34 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Efecto hover para resaltar la tarjeta */
 .pedido-card:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Borde izquierdo amarillo para pedidos en preparación */
 .pedido-enpreparación {
     border-left: 6px solid #ffc107;
 }
 
+/* Borde izquierdo verde para pedidos entregados */
 .pedido-entregado {
     border-left: 6px solid #28a745;
 }
 
+/* Badge para estado en preparación (fondo amarillo, texto negro) */
 .estado-badge.estado-enpreparación {
     background-color: #ffc107;
     color: #000;
 }
 
+/* Badge para estado entregado (fondo verde, texto blanco) */
 .estado-badge.estado-entregado {
     background-color: #28a745;
     color: #fff;
 }
 
+/* Header de la tarjeta con título y acciones alineados */
 .pedido-header {
     display: flex;
     justify-content: space-between;
@@ -50,44 +59,53 @@ body {
     border-bottom: 1px solid #eee;
 }
 
+/* Título del pedido */
 .pedido-header h5 {
     margin: 0;
     color: #343a40;
 }
 
+/* Cuerpo del pedido (detalle, texto) */
 .pedido-body {
     color: #495057;
 }
 
+/* Párrafos dentro del cuerpo del pedido */
 .pedido-body p {
     margin-bottom: 8px;
 }
 
+/* Lista de productos dentro del pedido */
 .productos-list {
     margin: 15px 0;
 }
 
+/* Lista no ordenada para productos */
 .productos-list ul {
     padding-left: 20px;
     margin-bottom: 0;
 }
 
+/* Cada producto listado */
 .productos-list li {
     margin-bottom: 5px;
 }
 
+/* Contenedor de botones de acción */
 .pedido-actions {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
+/* Botón para cambiar estado o acciones */
 .btn-cambiar {
     font-size: 0.85rem;
     padding: 5px 12px;
     border-radius: 4px;
 }
 
+/* Responsive: en pantallas pequeñas, apilar botones y hacerlos ancho completo */
 @media (max-width: 768px) {
     .pedido-actions {
         flex-direction: column;

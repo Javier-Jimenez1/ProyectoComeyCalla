@@ -5,15 +5,21 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nuestra carta - Come y Calla</title>
+    <!-- Bootstrap CSS desde CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fuente Poppins desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Iconos Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CSS propio desde carpeta static -->
     <link rel="stylesheet" href="{% static 'css/carta.css' %}">
 </head>
 <body>
 
+<!-- Incluye la barra de navegación común -->
 {% include "navbar.html" %}
 
+<!-- Sección introductoria con título y texto -->
 <div class="seccion-carta">
     <div class="caja-contenido">
         <h1 class="titulo-buffet">Buffet</h1>
@@ -23,29 +29,37 @@
     </div>
 </div>
 
+<!-- Imágenes estáticas de la carta, desde la carpeta static -->
 <div class="imagenes-menu">
     <img src="{% static 'img/CartaParteDelantera.jpg' %}" alt="Carta por delante"/>
     <img src="{% static 'img/CartaParteTrasera.jpg' %}" alt="Carta por detrás"/>
 </div>
 
+<!-- Modal para añadir un nuevo producto (solo para usuarios con permisos) -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <!-- Título modal -->
                 <h5 class="modal-title" id="addModalLabel">Añadir Nuevo Producto</h5>
+                <!-- Botón cerrar modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- Formulario para añadir producto, envía datos vía POST a la URL 'añadir_plato' -->
             <form id="addForm" method="POST" action="{% url 'añadir_plato' %}">
                 {% csrf_token %}
                 <div class="modal-body">
+                    <!-- Campo nombre obligatorio -->
                     <div class="mb-3">
                         <label for="addNombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="addNombre" name="nombre" required>
                     </div>
+                    <!-- Campo precio obligatorio con decimales -->
                     <div class="mb-3">
                         <label for="addPrecio" class="form-label">Precio (€)</label>
                         <input type="number" step="0.01" class="form-control" id="addPrecio" name="precio" required>
                     </div>
+                    <!-- Selección de tipo (tapa, principal, postre, bebida) -->
                     <div class="mb-3">
                         <label for="addTipo" class="form-label">Tipo</label>
                         <select class="form-select" id="addTipo" name="tipo" required>
@@ -55,11 +69,13 @@
                             <option value="bebida">Bebida</option>
                         </select>
                     </div>
+                    <!-- Campo opcional para descripción -->
                     <div class="mb-3">
                         <label for="addDescripcion" class="form-label">Descripción (Opcional)</label>
                         <textarea class="form-control" id="addDescripcion" name="descripcion" rows="3"></textarea>
                     </div>
                 </div>
+                <!-- Botones cancelar y añadir producto -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Añadir Producto</button>
@@ -69,25 +85,33 @@
     </div>
 </div>
 
+<!-- Modal para editar un producto existente -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <!-- Título modal editar -->
                 <h5 class="modal-title" id="editModalLabel">Editar Producto</h5>
+                <!-- Botón cerrar modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <!-- Formulario para editar producto; la acción se asigna dinámicamente -->
             <form id="editForm" method="POST" action="">
                 {% csrf_token %}
                 <div class="modal-body">
+                    <!-- Campo oculto para almacenar ID del plato -->
                     <input type="hidden" id="plato_id" name="plato_id">
+                    <!-- Nombre del producto -->
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
+                    <!-- Precio -->
                     <div class="mb-3">
                         <label for="precio" class="form-label">Precio (€)</label>
                         <input type="number" step="0.01" class="form-control" id="precio" name="precio" required>
                     </div>
+                    <!-- Tipo de producto -->
                     <div class="mb-3">
                         <label for="tipo" class="form-label">Tipo</label>
                         <select class="form-select" id="tipo" name="tipo" required>
@@ -98,6 +122,7 @@
                         </select>
                     </div>
                 </div>
+                <!-- Botones cancelar y guardar -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
@@ -107,27 +132,34 @@
     </div>
 </div>
 
+<!-- Contenedor principal para mostrar los platos y el formulario de pedido -->
 <div class="container my-5" style="padding-bottom: 75px;">
     <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Título del área de pedido -->
         <h2 class="text-center mb-0">Realiza tu pedido</h2>
+        <!-- Solo si el usuario es staff (administrador o similar) se muestra el botón para añadir productos -->
         {% if user.is_staff %}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
                 <i class="fas fa-plus"></i> Añadir Producto
             </button>
         {% endif %}
-
     </div>
+    <!-- Formulario que envía el pedido al servidor con método POST a la URL 'guardar_pedido' -->
     <form method="POST" action="{% url 'guardar_pedido' %}">
         {% csrf_token %}
+        <!-- Contenedor donde se listan todos los platos disponibles -->
         <div class="row" id="pedido-platos">
             {% for plato in platos %}
                 <div class="col-md-4 mb-4" id="plato-{{ plato.id }}">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
+                                <!-- Nombre del plato -->
                                 <h5 class="card-title">{{ plato.nombre }}</h5>
+                                <!-- Si es staff, muestra botones para editar o eliminar plato -->
                                 {% if user.is_staff %}
                                     <div>
+                                        <!-- Botón editar con atributos data para llenar el formulario de edición -->
                                         <button type="button" class="btn btn-sm btn-light edit-btn"
                                                 data-plato-id="{{ plato.id }}"
                                                 data-plato-nombre="{{ plato.nombre }}"
@@ -135,6 +167,7 @@
                                                 data-plato-tipo="{{ plato.tipo }}">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
+                                        <!-- Botón eliminar con data-id para identificar el plato -->
                                         <button type="button" class="btn btn-sm btn-light delete-btn"
                                                 data-plato-id="{{ plato.id }}">
                                             <i class="fas fa-trash"></i>
@@ -142,8 +175,11 @@
                                     </div>
                                 {% endif %}
                             </div>
+                            <!-- Precio del plato -->
                             <p class="card-text">Precio: {{ plato.precio }} €</p>
+                            <!-- Tipo (nombre legible) -->
                             <p class="card-text">Tipo: {{ plato.get_tipo_display }}</p>
+                            <!-- Input para seleccionar cantidad a pedir -->
                             <label for="cantidad{{ plato.id }}" class="form-label">Cantidad:</label>
                             <input type="number" id="cantidad{{ plato.id }}" name="cantidad_{{ plato.id }}"
                                    class="form-control" min="0" value="0">
@@ -152,71 +188,51 @@
                 </div>
             {% endfor %}
         </div>
+        <!-- Botón para enviar el pedido -->
         <div class="text-center">
             <button type="submit" class="btn btn-success btn-lg mt-4">Guardar Pedido</button>
         </div>
     </form>
 </div>
 
+<!-- Incluye el footer común -->
 {% include "footer.html" %}
 
+<!-- Scripts de Bootstrap para funcionalidades como modales -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-    // Edición de productos
+    // Script para manejar la edición de productos
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', () => {
+            // Cambia la acción del formulario de edición para que apunte al URL con el ID del plato
             const form = document.getElementById('editForm');
             form.action = "{% url 'editar_plato' 0 %}".replace('0', btn.dataset.platoId);
 
+            // Rellena los campos del formulario con los datos del plato seleccionados
             document.getElementById('plato_id').value = btn.dataset.platoId;
             document.getElementById('nombre').value = btn.dataset.platoNombre;
             document.getElementById('precio').value = btn.dataset.platoPrecio;
             document.getElementById('tipo').value = btn.dataset.platoTipo;
 
-            new bootstrap.Modal(document.getElementById('editModal')).show();
+            // Muestra el modal de edición
+            var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+            editModal.show();
         });
     });
 
-    // Eliminación de productos
+    // Script para manejar la eliminación de productos
     document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const platoId = this.dataset.platoId;
-
-            if (confirm('¿Estás seguro de eliminar este plato?')) {
-                fetch(`{% url 'eliminar_plato' 0 %}`.replace('0', platoId), {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    credentials: 'same-origin'
-                })
-                    .then(async response => {
-                        const contentType = response.headers.get('content-type');
-
-                        if (!contentType || !contentType.includes('application/json')) {
-                            const text = await response.text();
-                            throw new Error(text || 'Respuesta no JSON');
-                        }
-
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            document.getElementById(`plato-${platoId}`).remove();
-                            alert('Plato eliminado correctamente');
-                        } else {
-                            throw new Error(data.message || 'Error al eliminar');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error completo:', error);
-                        alert('Error: ' + error.message);
-                    });
+        btn.addEventListener('click', () => {
+            if (confirm("¿Estás seguro de que quieres eliminar este producto?")) {
+                const platoId = btn.dataset.platoId;
+                // Aquí podrías enviar una petición fetch/ajax para eliminar el plato
+                // O redirigir a una vista que maneje la eliminación
+                window.location.href = "{% url 'eliminar_plato' 0 %}".replace('0', platoId);
             }
         });
     });
 </script>
+
 </body>
 </html>
