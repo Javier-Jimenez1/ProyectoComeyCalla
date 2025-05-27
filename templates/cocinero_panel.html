@@ -20,12 +20,9 @@
 <body>
 
 {% include "navbar.html" %}
-{# Inserta el contenido de 'navbar.html', normalmente la barra de navegación común en la web #}
 
 <div class="container pedidos-container">
-    {# Contenedor Bootstrap para centrar y dar márgenes, con clase personalizada 'pedidos-container' #}
     <h2 class="text-center text-primary mb-4">Pedidos en Cocina</h2>
-    {# Título centrado y en color primario con margen inferior #}
 
     <div class="row">
         {# Fila Bootstrap para dividir columnas #}
@@ -34,8 +31,6 @@
             <div class="col-md-6 mb-4">
                 {# Columna de tamaño medio 6 (mitad de fila en pantallas md o mayores), con margen inferior #}
                 <div class="pedido-card pedido-{{ pedido.estado|lower|cut:' ' }}">
-                    {# Tarjeta con clases personalizadas. Clase dinámica según el estado del pedido,
-                       se convierte a minúsculas y se eliminan espacios para usar en CSS #}
                     <div class="pedido-header">
                         <h5>Pedido #{{ pedido.id }}</h5>
                         {# Muestra el ID del pedido #}
@@ -67,14 +62,10 @@
                                     data-id="{{ pedido.id }}" data-estado="Entregado">
                                 Marcar como Entregado
                             </button>
-                            {# Botón para marcar pedido como "Entregado".
-                               Se oculta (clase d-none) si ya está entregado #}
                             <button class="btn btn-warning btn-cambiar {% if pedido.estado == 'En preparación' %}d-none{% endif %}"
                                     data-id="{{ pedido.id }}" data-estado="En preparación">
                                 Volver a Preparación
                             </button>
-                            {# Botón para volver el pedido a estado "En preparación".
-                               Se oculta si ya está en preparación #}
                         </div>
                     </div>
                 </div>

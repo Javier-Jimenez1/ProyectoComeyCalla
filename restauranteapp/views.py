@@ -392,3 +392,23 @@ def eliminar_reserva(request, reserva_id):
         reserva.delete()
         return redirect('mis_reservas')
     return render(request, 'reservas/confirmar_eliminacion.html', {'reserva': reserva})
+
+def recuperar_contraseña(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        nueva_contraseña = request.POST.get('nueva_contraseña')
+        confirmar_contraseña = request.POST.get('confirmar_contraseña')
+
+        if nueva_contraseña != confirmar_contraseña:
+            messages.error(request, 'Las contraseñas no coinciden.')
+        else:
+            try:
+                usuario = Usuario.objects.get(nombre=nombre)
+                usuario.set_password(nueva_contraseña)
+                usuario.save()
+                messages.success(request, 'Contraseña actualizada correctamente.')
+                return redirect('login_page')
+            except Usuario.DoesNotExist:
+                messages.error(request, 'No se encontró un usuario con ese nombre.')
+
+    return render(request, 'recuperar_contraseña.html')

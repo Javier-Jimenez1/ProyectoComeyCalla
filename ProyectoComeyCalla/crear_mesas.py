@@ -1,13 +1,17 @@
-from django.core.management.base import BaseCommand
+import os
+import sys
+
+# Añadir la ruta raíz del proyecto al path de Python
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ProyectoComeyCalla.settings')
+
+import django
+django.setup()
+
 from restauranteapp.models import Mesa
 
-class Command(BaseCommand):
-    help = 'Crear 10 mesas predeterminadas'
-
-    def handle(self, *args, **kwargs):
-        for i in range(1, 11):
-            mesa, created = Mesa.objects.get_or_create(numero=i, defaults={'capacidad': 4, 'estado': 'Libre'})
-            if created:
-                self.stdout.write(self.style.SUCCESS(f'Mesa {i} creada'))
-            else:
-                self.stdout.write(f'Mesa {i} ya existía')
+# Crear 10 mesas con capacidad 4 y estado 'Libre'
+for i in range(1, 11):
+    Mesa.objects.create(numero=i, capacidad=4, estado='Libre')
+    print(f"Mesa creada: número {i}, capacidad 4, estado Libre")
