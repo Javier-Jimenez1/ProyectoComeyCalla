@@ -1,0 +1,20 @@
+
+{% block title %}Reseñas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Reseñas de Clientes</h2>
+    {% for resena in resenas %}
+        <div class="card my-3">
+            <div class="card-body">
+                <strong>{{ resena.usuario.email }}</strong>
+                <span class="badge bg-info">Puntuación: {{ resena.puntuacion }}</span>
+                <p>{{ resena.comentario }}</p>
+                <small>{{ resena.fecha|date:"d/m/Y H:i" }}</small>
+            </div>
+        </div>
+    {% empty %}
+        <p>No hay reseñas aún.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,6 +1,9 @@
+from datetime import timezone
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
+from django.utils import timezone
 
 from ProyectoComeyCalla import settings
 
@@ -111,4 +114,11 @@ class Reserva(models.Model):
         return f'Reserva de {self.usuario.username} para {self.numero_personas} personas el {self.fecha_reserva} a las {self.hora_reserva}'
 
 
+class Resena(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    puntuacion = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comentario = models.TextField()
+    fecha = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return f"Reseña de {self.usuario.email} - {self.puntuacion} estrellas"

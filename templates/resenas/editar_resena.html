@@ -1,0 +1,21 @@
+
+{% block title %}Editar Reseña{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Editar reseña</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Puntuación:</label>
+            <input type="number" name="puntuacion" class="form-control" min="1" max="5" value="{{ resena.puntuacion }}" required>
+        </div>
+        <div class="mb-3">
+            <label>Comentario:</label>
+            <textarea name="comentario" class="form-control" rows="4" required>{{ resena.comentario }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="{% url 'mis_resenas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -35,6 +35,8 @@
                     {% if user.is_authenticated %}  {# Si el usuario está autenticado #}
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'historial_pedidos' %}">Mis pedidos</a></li>
                         <li><a class="dropdown-item btn-menu-item" href="{% url 'mis_reservas' %}">Reservas</a></li>
+                        <li><a class="dropdown-item btn-menu-item" href="{% url 'crear_resena' %}">Mis reseñas</a></li>
+
                         <!-- Aquí el nuevo enlace -->
                         <li>
                             <form action="{% url 'logout' %}" method="post" class="d-inline">  {# Form para cerrar sesión con CSRF #}

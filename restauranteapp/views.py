@@ -1,3 +1,5 @@
+from datetime import timezone
+
 from django import forms
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -7,7 +9,8 @@ from django.db import IntegrityError, transaction
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva
+from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva, Resena
+from django.utils import timezone
 
 
 # Create your views here.
@@ -412,3 +415,73 @@ def recuperar_contraseña(request):
                 messages.error(request, 'No se encontró un usuario con ese nombre.')
 
     return render(request, 'recuperar_contraseña.html')
+
+
+@login_required
+def listar_resenas(request):
+    resenas = Resena.objects.all().order_by('-fecha')
+    return render(request, 'resenas/listar_resenas.html', {'resenas': resenas})
+
+@login_required
+def crear_resena(request):
+    if request.method == 'POST':
+        puntuacion = request.POST.get('puntuacion')
+        comentario = request.POST.get('comentario')
+        if puntuacion and comentario:
+            try:
+                puntuacion = int(puntuacion)
+                if 1 <= puntuacion <= 5:
+                    Resena.objects.create(
+                        usuario=request.user,
+                        puntuacion=puntuacion,
+                        comentario=comentario,
+                        fecha=timezone.now()
+                    )
+                    return redirect('listar_resenas')
+            except ValueError:
+                pass  # Puedes agregar validación adicional o mensajes
+    return render(request, 'resenas/crear_resena.html')
+
+@login_required
+def editar_resena(request, pk):
+    resena = get_object_or_404(Resena, pk=pk)
+
+    if resena.usuario != request.user:
+        return HttpResponseForbidden("No puedes editar esta reseña.")
+
+    if request.method == 'POST':
+        puntuacion = request.POST.get('puntuacion')
+        comentario = request.POST.get('comentario')
+        if puntuacion and comentario:
+            try:
+                puntuacion = int(puntuacion)
+                if 1 <= puntuacion <= 5:
+                    resena.puntuacion = puntuacion
+                    resena.comentario = comentario
+                    resena.fecha = timezone.now()
+                    resena.save()
+                    return redirect('mis_resenas')
+            except ValueError:
+                pass
+    return render(request, 'resenas/editar_resena.html', {'resena': resena})
+
+@login_required
+def eliminar_resena(request, pk):
+    resena = get_object_or_404(Resena, pk=pk)
+    if resena.usuario != request.user:
+        return HttpResponseForbidden("No puedes eliminar esta reseña.")
+
+    if request.method == 'POST':
+        resena.delete()
+        return redirect('mis_resenas')
+    return render(request, 'resenas/eliminar_resena.html', {'resena': resena})
+
+@login_required
+def mis_resenas(request):
+    resenas = Resena.objects.filter(usuario=request.user).order_by('-fecha')
+    return render(request, 'resenas/../templates/mis_resenas.html', {'resenas': resenas})
+
+@login_required
+def mis_resenas(request):
+    resenas = Resena.objects.filter(usuario=request.user).order_by('-fecha')  # Ordena por fecha descendente
+    return render(request, 'mis_resenas.html', {'resenas': resenas})

@@ -1,0 +1,26 @@
+{% block title %}Mis Reseñas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Mis reseñas</h2>
+
+    {% if resenas %}
+        {% for resena in resenas %}
+            <div class="card my-3">
+                <div class="card-body">
+                    <span class="badge bg-info">Puntuación: {{ resena.puntuacion }}</span>
+                    <p>{{ resena.comentario }}</p>
+                    <small>{{ resena.fecha|date:"d/m/Y H:i" }}</small>
+
+                    <div class="mt-2">
+                        <a href="{% url 'editar_resena' resena.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{% url 'eliminar_resena' resena.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No tienes reseñas todavía.</p>
+    {% endif %}
+</div>
+{% endblock %}

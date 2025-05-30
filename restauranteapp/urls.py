@@ -36,5 +36,10 @@ urlpatterns = [
     path('reservas/editar/<int:reserva_id>/', views.editar_reserva, name='editar_reserva'),
     path('reservas/eliminar/<int:reserva_id>/', views.eliminar_reserva, name='eliminar_reserva'),
     path('recuperar-contraseña/', views.recuperar_contraseña, name='recuperar_contraseña'),
+    path('resenas/', views.listar_resenas, name='listar_resenas'),
+    path('resenas/crear/', views.crear_resena, name='crear_resena'),
+    path('resenas/mis/', views.mis_resenas, name='mis_resenas'),
+    path('resenas/editar/<int:pk>/', views.editar_resena, name='editar_resena'),
+    path('resenas/eliminar/<int:pk>/', views.eliminar_resena, name='eliminar_resena'),
 
 ]
