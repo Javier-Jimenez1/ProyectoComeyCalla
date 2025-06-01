@@ -485,3 +485,18 @@ def mis_resenas(request):
 def mis_resenas(request):
     resenas = Resena.objects.filter(usuario=request.user).order_by('-fecha')  # Ordena por fecha descendente
     return render(request, 'mis_resenas.html', {'resenas': resenas})
+
+
+@login_required
+def repetir_pedido(request, pedido_id):
+    pedido_original = get_object_or_404(Pedido, id=pedido_id, usuario=request.user)
+
+    # Crear nuevo pedido para el usuario actual
+    nuevo_pedido = Pedido.objects.create(usuario=request.user, total=pedido_original.total)
+
+    # Copiar los platos del pedido original
+    platos_originales = PedidoPlato.objects.filter(pedido=pedido_original)
+    for pp in platos_originales:
+        PedidoPlato.objects.create(pedido=nuevo_pedido, plato=pp.plato, cantidad=pp.cantidad)
+
+    return redirect('historial_pedidos')  # o donde quieras redirigir tras repetir

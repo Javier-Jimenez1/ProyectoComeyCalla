@@ -2,52 +2,73 @@
 <!DOCTYPE html>  {# Declaración del tipo de documento HTML5 #}
 <html lang="es">  {# Inicio del documento HTML, idioma español #}
 <head>
-    <meta charset="UTF-8">  {# Codificación de caracteres UTF-8 para soportar caracteres especiales #}
-    <title>Historial de Pedidos - Come y Calla</title>  {# Título de la pestaña del navegador #}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  {# Incluye CSS de Bootstrap desde CDN para estilos responsivos y componentes #}
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">  {# Incluye el archivo CSS propio 'estilos.css' desde la carpeta estática usando la etiqueta static #}
+    <meta charset="UTF-8">
+    {# Codificación de caracteres UTF-8 para soportar caracteres especiales #}
+    <title>Historial de Pedidos - Come y Calla</title> {# Título de la pestaña del navegador #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {# Incluye CSS de Bootstrap desde CDN para estilos responsivos y componentes #}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    {# Incluye el archivo CSS propio 'estilos.css' desde la carpeta estática usando la etiqueta static #}
 </head>
 <body>
 
-{% include "navbar.html" %}  {# Inserta el contenido del archivo 'navbar.html', normalmente la barra de navegación común #}
+{% include "navbar.html" %}
+{# Inserta el contenido del archivo 'navbar.html', normalmente la barra de navegación común #}
 
 <div class="container mt-5">  {# Contenedor Bootstrap con margen superior (mt-5) para separar del navbar #}
-    <h2 class="text-center mb-4">Mi Historial de Pedidos</h2>  {# Título centrado con margen inferior #}
+    <h2 class="text-center mb-4">Mi Historial de Pedidos</h2> {# Título centrado con margen inferior #}
 
     {% if pedidos %}  {# Si la variable 'pedidos' existe y no está vacía, muestra la lista de pedidos #}
         <div class="list-group">  {# Contenedor Bootstrap para listas con estilos agrupados #}
             {% for pedido in pedidos %}  {# Itera sobre cada pedido en la lista 'pedidos' #}
-                <div class="list-group-item list-group-item-action mb-3">  {# Elemento de la lista con interactividad y margen inferior #}
-                    <div class="d-flex w-100 justify-content-between">  {# Contenedor flex para alinear elementos a los lados opuestos #}
-                        <h5 class="mb-1">Pedido #{{ pedido.id }}</h5>  {# Muestra el ID del pedido con pequeño margen inferior #}
-                        <small>{{ pedido.fecha|date:"d/m/Y H:i" }}</small>  {# Muestra la fecha del pedido formateada (día/mes/año horas:minutos) #}
+                <div class="list-group-item list-group-item-action mb-3">
+                    {# Elemento de la lista con interactividad y margen inferior #}
+                    <div class="d-flex w-100 justify-content-between">
+                        {# Contenedor flex para alinear elementos a los lados opuestos #}
+                        <h5 class="mb-1">Pedido #{{ pedido.id }}</h5>
+                        {# Muestra el ID del pedido con pequeño margen inferior #}
+                        <small>{{ pedido.fecha|date:"d/m/Y H:i" }}</small>
+                        {# Muestra la fecha del pedido formateada (día/mes/año horas:minutos) #}
                     </div>
-                    <p class="mb-1"><strong>Total:</strong> {{ pedido.total }} €</p>  {# Muestra el total del pedido con símbolo de euro #}
-                    <p class="mb-1"><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>  {# Muestra el estado del pedido en formato legible usando método Django para mostrar la descripción #}
+                    <p class="mb-1"><strong>Total:</strong> {{ pedido.total }} €</p>
+                    {# Muestra el total del pedido con símbolo de euro #}
+                    <p class="mb-1"><strong>Estado:</strong> {{ pedido.get_estado_display }}</p>
+                    {# Muestra el estado del pedido en formato legible usando método Django para mostrar la descripción #}
 
                     <button class="btn btn-sm btn-outline-primary mt-2" type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#detalles-{{ pedido.id }}">
                         Ver detalles
-                    </button>  {# Botón Bootstrap pequeño y estilizado que al pulsarlo muestra/oculta los detalles del pedido usando collapse de Bootstrap #}
+                    </button>
+                    {# Botón Bootstrap pequeño y estilizado que al pulsarlo muestra/oculta los detalles del pedido usando collapse de Bootstrap #}
 
-                    <div class="collapse mt-2" id="detalles-{{ pedido.id }}">  {# Contenedor colapsable que se abre y cierra al pulsar el botón anterior, con identificador único por pedido #}
+                    <div class="collapse mt-2" id="detalles-{{ pedido.id }}">
+                        {# Contenedor colapsable que se abre y cierra al pulsar el botón anterior, con identificador único por pedido #}
                         <table class="table">  {# Tabla Bootstrap para mostrar los detalles del pedido (los platos) #}
                             <thead>
                             <tr>
-                                <th>Plato</th>  {# Encabezado columna nombre del plato #}
-                                <th>Cantidad</th>  {# Encabezado columna cantidad de ese plato #}
-                                <th>Precio Unitario</th>  {# Encabezado columna precio unitario del plato #}
-                                <th>Subtotal</th>  {# Encabezado columna subtotal (precio x cantidad) #}
+                                <th>Plato</th>
+                                {# Encabezado columna nombre del plato #}
+                                <th>Cantidad</th>
+                                {# Encabezado columna cantidad de ese plato #}
+                                <th>Precio Unitario</th>
+                                {# Encabezado columna precio unitario del plato #}
+                                <th>Subtotal</th>
+                                {# Encabezado columna subtotal (precio x cantidad) #}
                             </tr>
                             </thead>
                             <tbody>
-                            {% for item in pedido.pedidoplato_set.all %}  {# Itera sobre los platos asociados al pedido usando relación inversa Django #}
+                            {% for item in pedido.pedidoplato_set.all %}
+                                {# Itera sobre los platos asociados al pedido usando relación inversa Django #}
                                 <tr>
-                                    <td>{{ item.plato.nombre }}</td>  {# Muestra el nombre del plato #}
-                                    <td>{{ item.cantidad }}</td>  {# Muestra la cantidad pedida de ese plato #}
-                                    <td>{{ item.plato.precio }} €</td>  {# Muestra el precio unitario del plato #}
-                                    <td>{{ item.plato.precio|floatformat:2 }} €</td>  {# Muestra el precio con formato de 2 decimales (aunque sería mejor multiplicar por cantidad para subtotal) #}
+                                    <td>{{ item.plato.nombre }}</td>
+                                    {# Muestra el nombre del plato #}
+                                    <td>{{ item.cantidad }}</td>
+                                    {# Muestra la cantidad pedida de ese plato #}
+                                    <td>{{ item.plato.precio }} €</td>
+                                    {# Muestra el precio unitario del plato #}
+                                    <td>{{ item.plato.precio|floatformat:2 }} €</td>
+                                    {# Muestra el precio con formato de 2 decimales (aunque sería mejor multiplicar por cantidad para subtotal) #}
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -58,15 +79,32 @@
         </div>
     {% else %}  {# Si no hay pedidos en la variable 'pedidos' #}
         <div class="alert alert-info">
-            No tienes pedidos registrados.  {# Mensaje informativo mostrando que no hay pedidos #}
+            No tienes pedidos registrados. {# Mensaje informativo mostrando que no hay pedidos #}
         </div>
     {% endif %}
 </div>
+{% for pedido in pedidos %}
+  <tr>
+    <td>{{ pedido.fecha }}</td>
+    <td>{{ pedido.total }}€</td>
+    <td>{{ pedido.estado }}</td>
+    <td>
+      {% if pedido.id %}
+        <a href="{% url 'repetir_pedido' pedido.id %}" class="btn btn-sm btn-primary">Repetir pedido</a>
+      {% else %}
+        <span class="text-muted">No disponible</span>
+      {% endif %}
+    </td>
+  </tr>
+{% endfor %}
+<br>
+
 <br>
 <br>
 
-{% include "footer.html" %}  {# Inserta el contenido del archivo 'footer.html', normalmente el pie de página común #}
+{% include "footer.html" %} {# Inserta el contenido del archivo 'footer.html', normalmente el pie de página común #}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  {# Incluye JavaScript de Bootstrap necesario para el colapsable y otros componentes #}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{# Incluye JavaScript de Bootstrap necesario para el colapsable y otros componentes #}
 </body>
 </html>
