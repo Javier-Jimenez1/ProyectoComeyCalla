@@ -1,0 +1,6 @@
+<h2>Menú del Día ({{ menu.fecha }})</h2>
+<ul>
+  {% for plato in menu.platos.all %}
+    <li><strong>{{ plato.nombre }}</strong>: {{ plato.descripcion }}</li>
+  {% endfor %}
+</ul>

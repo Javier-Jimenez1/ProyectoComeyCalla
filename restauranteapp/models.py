@@ -122,3 +122,12 @@ class Resena(models.Model):
 
     def __str__(self):
         return f"Reseña de {self.usuario.email} - {self.puntuacion} estrellas"
+
+
+class MenuDelDia(models.Model):
+    fecha = models.DateField(auto_now_add=True, unique=True)
+    platos = models.ManyToManyField(Plato)
+
+    def __str__(self):
+        return f"Menú del {self.fecha}"
+

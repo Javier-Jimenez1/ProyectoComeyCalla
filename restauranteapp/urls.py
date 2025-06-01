@@ -43,5 +43,6 @@ urlpatterns = [
     path('resenas/eliminar/<int:pk>/', views.eliminar_resena, name='eliminar_resena'),
     path('repetir_pedido/<int:pedido_id>/', views.repetir_pedido, name='repetir_pedido'),
     path('platos-favoritos/', views.platos_favoritos, name='platos_favoritos'),
+    path('menu-del-dia/', views.generar_menu_del_dia, name='menu_del_dia')
 
 ]

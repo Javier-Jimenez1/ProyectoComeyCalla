@@ -1,4 +1,5 @@
-from datetime import timezone
+from datetime import timezone, date
+from random import random
 
 from django import forms
 from django.contrib import messages
@@ -9,9 +10,13 @@ from django.db import IntegrityError, transaction
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
-from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva, Resena
+from . import admin
+from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva, Resena, MenuDelDia
 from django.utils import timezone
 from django.db.models import Sum
+from django.utils.timezone import now
+import random
+
 
 
 # Create your views here.
@@ -517,3 +522,36 @@ def platos_favoritos(request):
     )
 
     return render(request, 'platos_favoritos.html', {'platos': platos_mas_pedidos})
+
+@login_required
+def ver_menu_del_dia(request):
+    menu = MenuDelDia.objects.order_by('-fecha').first()
+    return render(request, 'menu_del_dia.html', {'menu': menu})
+
+@login_required
+def generar_menu_del_dia(request):
+    # Verifica si ya existe menú para hoy
+    hoy = date.today()
+    if MenuDelDia.objects.filter(fecha=hoy).exists():
+        menu = MenuDelDia.objects.get(fecha=hoy)
+    else:
+        todos_platos = list(Plato.objects.all())
+        seleccionados = random.sample(todos_platos, min(5, len(todos_platos)))  # elige hasta 5 platos aleatorios
+
+        menu = MenuDelDia.objects.create(fecha=hoy)
+        menu.platos.set(seleccionados)
+        menu.save()
+
+    return render(request, 'menu_del_dia.html', {'menu': menu})
+
+@login_required
+def historial_pedidos(request):
+    pedidos = Pedido.objects.filter(usuario=request.user)
+
+    # Sumar el campo total de todos los pedidos de ese usuario
+    total_gastado = pedidos.aggregate(total=Sum('total'))['total'] or 0
+
+    return render(request, 'historial_pedidos.html', {
+        'pedidos': pedidos,
+        'total_gastado': total_gastado,
+    })

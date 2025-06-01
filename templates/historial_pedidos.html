@@ -97,6 +97,15 @@
     </td>
   </tr>
 {% endfor %}
+
+<h3>Total gastado: {{ total_gastado }} €</h3>
+
+<ul>
+{% for pedido in pedidos %}
+    <li>Pedido {{ pedido.id }} - Fecha: {{ pedido.fecha }} - Total: {{ pedido.total }} €</li>
+{% endfor %}
+</ul>
+
 <br>
 
 <br>
