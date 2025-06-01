@@ -42,5 +42,6 @@ urlpatterns = [
     path('resenas/editar/<int:pk>/', views.editar_resena, name='editar_resena'),
     path('resenas/eliminar/<int:pk>/', views.eliminar_resena, name='eliminar_resena'),
     path('repetir_pedido/<int:pedido_id>/', views.repetir_pedido, name='repetir_pedido'),
+    path('platos-favoritos/', views.platos_favoritos, name='platos_favoritos'),
 
 ]

@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva, Resena
 from django.utils import timezone
+from django.db.models import Sum
 
 
 # Create your views here.
@@ -500,3 +501,19 @@ def repetir_pedido(request, pedido_id):
         PedidoPlato.objects.create(pedido=nuevo_pedido, plato=pp.plato, cantidad=pp.cantidad)
 
     return redirect('historial_pedidos')  # o donde quieras redirigir tras repetir
+
+@login_required
+def historial_pedidos(request):
+    pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha')
+    return render(request, 'historial_pedidos.html', {'pedidos': pedidos})
+
+@login_required
+def platos_favoritos(request):
+    platos_mas_pedidos = (
+        PedidoPlato.objects
+        .values('plato__id', 'plato__nombre', 'plato__precio', 'plato__tipo')
+        .annotate(total_pedidos=Sum('cantidad'))
+        .order_by('-total_pedidos')[:5]  # Top 5 más pedidos
+    )
+
+    return render(request, 'platos_favoritos.html', {'platos': platos_mas_pedidos})
