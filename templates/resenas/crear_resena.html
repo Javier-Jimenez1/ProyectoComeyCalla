@@ -1,24 +1,20 @@
-{% block title %}Crear Reseña{% endblock %}
+
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Escribe tu reseña</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label>Puntuación (1-5):</label>
-            <input type="number" name="puntuacion" class="form-control" min="1" max="5" required>
-        </div>
-        <div class="mb-3">
-            <label>Comentario:</label>
-            <textarea name="comentario" class="form-control" rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-success">Publicar</button>
-        <a href="{% url 'mis_resenas' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+  <h2>Crear Reseña</h2>
 
-    <hr>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
 
-    <a href="{% url 'mis_resenas' %}" class="btn btn-info mt-3">Ver mis reseñas</a>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Enviar</button>
+    <a href="{% url 'listar_resenas' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
 </div>
 {% endblock %}

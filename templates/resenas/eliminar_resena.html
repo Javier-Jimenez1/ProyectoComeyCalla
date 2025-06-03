@@ -1,16 +1,18 @@
- 
-{% block title %}Eliminar Reseña{% endblock %}
+
 
 {% block content %}
 <div class="container mt-4">
-    <h2>¿Estás seguro de eliminar esta reseña?</h2>
-    <p><strong>Puntuación:</strong> {{ resena.puntuacion }}</p>
-    <p><strong>Comentario:</strong> {{ resena.comentario }}</p>
+  <h2>Eliminar Reseña</h2>
+  <p>¿Estás seguro de que deseas eliminar esta reseña?</p>
+  <blockquote class="blockquote">
+    <p>{{ resena.comentario }}</p>
+    <footer class="blockquote-footer">Puntuación: {{ resena.puntuacion }}</footer>
+  </blockquote>
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-        <a href="{% url 'mis_resenas' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'mis_resenas' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
 </div>
 {% endblock %}

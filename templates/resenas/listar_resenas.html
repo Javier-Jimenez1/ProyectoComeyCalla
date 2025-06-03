@@ -1,20 +1,28 @@
 
-{% block title %}Reseñas{% endblock %}
-
 {% block content %}
 <div class="container mt-4">
-    <h2>Reseñas de Clientes</h2>
-    {% for resena in resenas %}
-        <div class="card my-3">
-            <div class="card-body">
-                <strong>{{ resena.usuario.email }}</strong>
-                <span class="badge bg-info">Puntuación: {{ resena.puntuacion }}</span>
-                <p>{{ resena.comentario }}</p>
-                <small>{{ resena.fecha|date:"d/m/Y H:i" }}</small>
-            </div>
-        </div>
-    {% empty %}
-        <p>No hay reseñas aún.</p>
+  <h2>Mis Reseñas</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
+  {% endif %}
+
+  {% if resenas %}
+    <ul class="list-group">
+      {% for resena in resenas %}
+        <li class="list-group-item">
+          <strong>Puntuación:</strong> {{ resena.puntuacion }}<br>
+          <strong>Comentario:</strong> {{ resena.comentario }}<br>
+          <small class="text-muted">{{ resena.fecha }}</small><br>
+          <a href="{% url 'editar_resena' resena.pk %}" class="btn btn-sm btn-primary mt-2">Editar</a>
+          <a href="{% url 'eliminar_resena' resena.pk %}" class="btn btn-sm btn-danger mt-2">Eliminar</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No has escrito ninguna reseña aún.</p>
+  {% endif %}
 </div>
 {% endblock %}

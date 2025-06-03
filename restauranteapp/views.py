@@ -1,6 +1,5 @@
 from datetime import timezone, date  # Importa funciones para manejo de fechas y zonas horarias
 from random import random  # Importa función para generar números aleatorios
-
 from django import forms  # Importa el módulo de formularios de Django
 from django.contrib import messages  # Importa el sistema de mensajes de Django
 from django.contrib.auth import authenticate, login, logout  # Importa funciones para autenticación
@@ -12,11 +11,13 @@ from django.http import HttpResponse, JsonResponse, HttpResponseForbidden  # Imp
 from django.shortcuts import render, redirect, get_object_or_404  # Importa funciones para manejo de vistas
 from django.views.decorators.http import require_POST  # Importa decorador para requerir método POST
 from . import admin  # Importa el módulo admin de la aplicación actual
+from .form import ReservaForm, ResenaForm
 from .models import Usuario, Plato, Pedido, Mesa, PedidoPlato, Reserva, Resena, MenuDelDia  # Importa modelos locales
 from django.utils import timezone  # Importa utilidades de zona horaria
 from django.db.models import Sum  # Importa función para sumar valores
 from django.utils.timezone import now  # Importa función para obtener fecha/hora actual
 import random  # Importa módulo random para generación aleatoria
+
 
 
 # Vista para la página de inicio
@@ -377,16 +378,6 @@ def historial_pedidos(request):
     return render(request, 'historial_pedidos.html', {'pedidos': pedidos})
 
 
-# Formulario para reservas
-class ReservaForm(forms.ModelForm):
-    class Meta:
-        model = Reserva  # Usa el modelo Reserva
-        fields = ['fecha_reserva', 'hora_reserva', 'numero_personas']  # Campos a incluir
-        widgets = {
-            'fecha_reserva': forms.DateInput(attrs={'type': 'date'}),  # Input de tipo fecha
-            'hora_reserva': forms.TimeInput(attrs={'type': 'time'}),  # Input de tipo hora
-        }
-
 
 # Lista de todas las reservas (requiere autenticación)
 @login_required
@@ -475,75 +466,75 @@ def listar_resenas(request):
     return render(request, 'resenas/listar_resenas.html', {'resenas': resenas})
 
 
-# Crear reseña (requiere autenticación)
+# Ver todas las reseñas
+@login_required
+def listar_resenas(request):
+    resenas = Resena.objects.all().order_by('-fecha')
+    return render(request, 'resenas/listar_resenas.html', {'resenas': resenas})
+
+
+# Crear reseña
 @login_required
 def crear_resena(request):
-    if request.method == 'POST':  # Si es POST (envío de formulario)
-        puntuacion = request.POST.get('puntuacion')  # Obtiene puntuación
-        comentario = request.POST.get('comentario')  # Obtiene comentario
-        if puntuacion and comentario:  # Si hay datos
-            try:
-                puntuacion = int(puntuacion)  # Convierte a entero
-                if 1 <= puntuacion <= 5:  # Valida rango (1-5)
-                    # Crea nueva reseña
-                    Resena.objects.create(
-                        usuario=request.user,
-                        puntuacion=puntuacion,
-                        comentario=comentario,
-                        fecha=timezone.now()
-                    )
-                    return redirect('listar_resenas')  # Redirige a listado
-            except ValueError:  # Si la puntuación no es número
-                pass  # Podría agregarse manejo de error
-    return render(request, 'resenas/crear_resena.html')  # Renderiza formulario
+    if request.method == 'POST':
+        form = ResenaForm(request.POST)
+        if form.is_valid():
+            resena = form.save(commit=False)
+            resena.usuario = request.user
+            resena.fecha = timezone.now()
+            resena.save()
+            messages.success(request, "Reseña creada correctamente.")
+            return redirect('listar_resenas')
+        else:
+            messages.error(request, "Por favor corrige los errores del formulario.")
+    else:
+        form = ResenaForm()
+    return render(request, 'resenas/crear_resena.html', {'form': form})
 
 
-# Editar reseña (requiere autenticación)
+# Editar reseña
 @login_required
 def editar_resena(request, pk):
-    # Obtiene la reseña o muestra error 404
     resena = get_object_or_404(Resena, pk=pk)
 
-    if resena.usuario != request.user:  # Verifica que el usuario sea el dueño
+    if resena.usuario != request.user:
         return HttpResponseForbidden("No puedes editar esta reseña.")
 
-    if request.method == 'POST':  # Si es POST (envío de formulario)
-        puntuacion = request.POST.get('puntuacion')  # Obtiene nueva puntuación
-        comentario = request.POST.get('comentario')  # Obtiene nuevo comentario
-        if puntuacion and comentario:  # Si hay datos
-            try:
-                puntuacion = int(puntuacion)  # Convierte a entero
-                if 1 <= puntuacion <= 5:  # Valida rango
-                    resena.puntuacion = puntuacion  # Actualiza puntuación
-                    resena.comentario = comentario  # Actualiza comentario
-                    resena.fecha = timezone.now()  # Actualiza fecha
-                    resena.save()  # Guarda cambios
-                    return redirect('mis_resenas')  # Redirige a "mis reseñas"
-            except ValueError:  # Si la puntuación no es número
-                pass
-    return render(request, 'resenas/editar_resena.html', {'resena': resena})  # Renderiza formulario con datos
+    if request.method == 'POST':
+        form = ResenaForm(request.POST, instance=resena)
+        if form.is_valid():
+            resena = form.save(commit=False)
+            resena.fecha = timezone.now()
+            resena.save()
+            messages.success(request, "Reseña actualizada correctamente.")
+            return redirect('mis_resenas')
+        else:
+            messages.error(request, "Por favor corrige los errores del formulario.")
+    else:
+        form = ResenaForm(instance=resena)
+    return render(request, 'resenas/editar_resena.html', {'form': form, 'resena': resena})
 
 
-# Eliminar reseña (requiere autenticación)
+# Eliminar reseña
 @login_required
 def eliminar_resena(request, pk):
-    # Obtiene la reseña o muestra error 404
     resena = get_object_or_404(Resena, pk=pk)
-    if resena.usuario != request.user:  # Verifica que el usuario sea el dueño
+
+    if resena.usuario != request.user:
         return HttpResponseForbidden("No puedes eliminar esta reseña.")
 
-    if request.method == 'POST':  # Si es POST (confirmación)
-        resena.delete()  # Elimina la reseña
-        return redirect('mis_resenas')  # Redirige a "mis reseñas"
-    return render(request, 'resenas/eliminar_resena.html', {'resena': resena})  # Renderiza confirmación
+    if request.method == 'POST':
+        resena.delete()
+        messages.success(request, "Reseña eliminada correctamente.")
+        return redirect('mis_resenas')
+    return render(request, 'resenas/eliminar_resena.html', {'resena': resena})
 
 
-# Mis reseñas (requiere autenticación)
+# Listar reseñas del usuario
 @login_required
 def mis_resenas(request):
-    # Obtiene las reseñas del usuario ordenadas por fecha descendente
     resenas = Resena.objects.filter(usuario=request.user).order_by('-fecha')
-    return render(request, 'mis_resenas.html', {'resenas': resenas})
+    return render(request, 'resenas/mis_resenas.html', {'resenas': resenas})
 
 
 # Repetir pedido (requiere autenticación)
