@@ -458,83 +458,114 @@ def recuperar_contraseña(request):
     return render(request, 'recuperar_contraseña.html')  # Renderiza formulario de recuperación
 
 
-# Listar reseñas (requiere autenticación)
+# Importación de decorador para requerir que el usuario esté autenticado
 @login_required
+# Vista para listar todas las reseñas (requiere autenticación)
 def listar_resenas(request):
-    # Obtiene todas las reseñas ordenadas por fecha descendente
+    # Obtiene todas las reseñas de la base de datos y las ordena por fecha descendente (más reciente primero)
     resenas = Resena.objects.all().order_by('-fecha')
+    # Renderiza la plantilla con la lista de reseñas y las pasa al contexto
     return render(request, 'resenas/listar_resenas.html', {'resenas': resenas})
 
-
-# Ver todas las reseñas
-@login_required
-def listar_resenas(request):
-    resenas = Resena.objects.all().order_by('-fecha')
-    return render(request, 'resenas/listar_resenas.html', {'resenas': resenas})
-
-
-# Crear reseña
+# Vista para crear una reseña nueva (requiere autenticación)
 @login_required
 def crear_resena(request):
+    # Si la petición es POST (formulario enviado)
     if request.method == 'POST':
+        # Se instancia el formulario con los datos recibidos
         form = ResenaForm(request.POST)
+        # Si el formulario es válido
         if form.is_valid():
+            # Se crea un objeto reseña sin guardar aún en la base de datos
             resena = form.save(commit=False)
+            # Se asigna el usuario actual a la reseña
             resena.usuario = request.user
+            # Se asigna la fecha y hora actuales
             resena.fecha = timezone.now()
+            # Se guarda la reseña en la base de datos
             resena.save()
+            # Se muestra un mensaje de éxito al usuario
             messages.success(request, "Reseña creada correctamente.")
+            # Se redirige a la vista de listar reseñas
             return redirect('listar_resenas')
         else:
+            # Si el formulario no es válido, se muestra un mensaje de error
             messages.error(request, "Por favor corrige los errores del formulario.")
     else:
+        # Si no es POST, se instancia un formulario vacío
         form = ResenaForm()
+    # Se renderiza la plantilla del formulario y se le pasa el formulario como contexto
     return render(request, 'resenas/crear_resena.html', {'form': form})
 
 
-# Editar reseña
+# Vista para editar una reseña (requiere autenticación)
 @login_required
 def editar_resena(request, pk):
+    # Se obtiene la reseña por su clave primaria (pk) o lanza error 404 si no existe
     resena = get_object_or_404(Resena, pk=pk)
 
+    # Si el usuario que intenta editar no es el creador de la reseña
     if resena.usuario != request.user:
+        # Se devuelve un error 403 (prohibido)
         return HttpResponseForbidden("No puedes editar esta reseña.")
 
+    # Si la petición es POST (formulario enviado)
     if request.method == 'POST':
+        # Se instancia el formulario con los nuevos datos y la instancia existente
         form = ResenaForm(request.POST, instance=resena)
+        # Si el formulario es válido
         if form.is_valid():
+            # Se actualiza la instancia sin guardar aún
             resena = form.save(commit=False)
+            # Se actualiza la fecha a la actual
             resena.fecha = timezone.now()
+            # Se guarda la reseña actualizada
             resena.save()
+            # Se muestra un mensaje de éxito
             messages.success(request, "Reseña actualizada correctamente.")
+            # Se redirige a la vista de "mis reseñas"
             return redirect('mis_resenas')
         else:
+            # Si el formulario es inválido, se muestra un mensaje de error
             messages.error(request, "Por favor corrige los errores del formulario.")
     else:
+        # Si no es POST, se carga el formulario con los datos existentes de la reseña
         form = ResenaForm(instance=resena)
+    # Se renderiza la plantilla con el formulario y la reseña en contexto
     return render(request, 'resenas/editar_resena.html', {'form': form, 'resena': resena})
 
 
-# Eliminar reseña
+# Vista para eliminar una reseña (requiere autenticación)
 @login_required
 def eliminar_resena(request, pk):
+    # Se obtiene la reseña por su clave primaria o lanza error 404 si no existe
     resena = get_object_or_404(Resena, pk=pk)
 
+    # Verifica si el usuario actual es el creador de la reseña
     if resena.usuario != request.user:
+        # Si no lo es, retorna un error 403 (prohibido)
         return HttpResponseForbidden("No puedes eliminar esta reseña.")
 
+    # Si la petición es POST (confirmación de eliminación)
     if request.method == 'POST':
+        # Se elimina la reseña
         resena.delete()
+        # Se muestra un mensaje de éxito
         messages.success(request, "Reseña eliminada correctamente.")
+        # Se redirige a la vista de "mis reseñas"
         return redirect('mis_resenas')
+    # Si no es POST, se muestra la plantilla de confirmación
     return render(request, 'resenas/eliminar_resena.html', {'resena': resena})
 
 
-# Listar reseñas del usuario
+# Vista para listar las reseñas del usuario actual (requiere autenticación)
 @login_required
 def mis_resenas(request):
+    # Se obtienen solo las reseñas creadas por el usuario actual, ordenadas por fecha descendente
     resenas = Resena.objects.filter(usuario=request.user).order_by('-fecha')
-    return render(request, 'resenas/mis_resenas.html', {'resenas': resenas})
+    # Se renderiza la misma plantilla de listar reseñas, pero solo con las del usuario
+    return render(request, 'resenas/listar_resenas.html', {'resenas': resenas})
+
 
 
 # Repetir pedido (requiere autenticación)
